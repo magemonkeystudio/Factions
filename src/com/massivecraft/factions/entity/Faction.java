@@ -1,5 +1,6 @@
 package com.massivecraft.factions.entity;
 
+
 import com.massivecraft.factions.Factions;
 import com.massivecraft.factions.FactionsIndex;
 import com.massivecraft.factions.FactionsParticipator;
@@ -36,7 +37,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Set;
 
 public class Faction extends Entity<Faction> implements FactionsParticipator
@@ -577,11 +577,11 @@ public class Faction extends Entity<Faction> implements FactionsParticipator
 		}
 		
 		// ... and if anything is explicitly set we use that info ...
-		Iterator<Entry<String, Boolean>> iter = this.flags.entrySet().iterator();
+		Iterator<Map.Entry<String, Boolean>> iter = this.flags.entrySet().iterator();
 		while (iter.hasNext())
 		{
 			// ... for each entry ...
-			Entry<String, Boolean> entry = iter.next();
+			Map.Entry<String, Boolean> entry = iter.next();
 			
 			// ... extract id and remove null values ...
 			String id = entry.getKey();					
@@ -605,7 +605,7 @@ public class Faction extends Entity<Faction> implements FactionsParticipator
 	public void setFlags(Map<MFlag, Boolean> flags)
 	{
 		Map<String, Boolean> flagIds = new MassiveMap<>();
-		for (Entry<MFlag, Boolean> entry : flags.entrySet())
+		for (Map.Entry<MFlag, Boolean> entry : flags.entrySet())
 		{
 			flagIds.put(entry.getKey().getId(), entry.getValue());
 		}
@@ -616,7 +616,7 @@ public class Faction extends Entity<Faction> implements FactionsParticipator
 	{
 		// Clean input
 		MassiveMapDef<String, Boolean> target = new MassiveMapDef<>();
-		for (Entry<String, Boolean> entry : flagIds.entrySet())
+		for (Map.Entry<String, Boolean> entry : flagIds.entrySet())
 		{
 			String key = entry.getKey();
 			if (key == null) continue;
@@ -703,11 +703,11 @@ public class Faction extends Entity<Faction> implements FactionsParticipator
 		}
 		
 		// ... and if anything is explicitly set we use that info ...
-		Iterator<Entry<String, Set<Rel>>> iter = this.perms.entrySet().iterator();
+		Iterator<Map.Entry<String, Set<Rel>>> iter = this.perms.entrySet().iterator();
 		while (iter.hasNext())
 		{
 			// ... for each entry ...
-			Entry<String, Set<Rel>> entry = iter.next();
+			Map.Entry<String, Set<Rel>> entry = iter.next();
 			
 			// ... extract id and remove null values ...
 			String id = entry.getKey();					
@@ -730,7 +730,7 @@ public class Faction extends Entity<Faction> implements FactionsParticipator
 	public void setPerms(Map<MPerm, Set<Rel>> perms)
 	{
 		Map<String, Set<Rel>> permIds = new MassiveMap<>();
-		for (Entry<MPerm, Set<Rel>> entry : perms.entrySet())
+		for (Map.Entry<MPerm, Set<Rel>> entry : perms.entrySet())
 		{
 			permIds.put(entry.getKey().getId(), entry.getValue());
 		}
@@ -741,7 +741,7 @@ public class Faction extends Entity<Faction> implements FactionsParticipator
 	{
 		// Clean input
 		MassiveMapDef<String, Set<Rel>> target = new MassiveMapDef<>();
-		for (Entry<String, Set<Rel>> entry : perms.entrySet())
+		for (Map.Entry<String, Set<Rel>> entry : perms.entrySet())
 		{
 			String key = entry.getKey();
 			if (key == null) continue;

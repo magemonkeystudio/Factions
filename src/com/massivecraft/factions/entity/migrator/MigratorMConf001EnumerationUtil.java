@@ -1,12 +1,12 @@
 package com.massivecraft.factions.entity.migrator;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
 import com.massivecraft.factions.entity.MConf;
 import com.massivecraft.factions.util.EnumerationUtil;
 import com.massivecraft.massivecore.store.migrator.MigratorRoot;
-import com.massivecraft.massivecore.xlib.gson.JsonArray;
-import com.massivecraft.massivecore.xlib.gson.JsonElement;
-import com.massivecraft.massivecore.xlib.gson.JsonObject;
-import com.massivecraft.massivecore.xlib.gson.JsonPrimitive;
 
 import java.util.Collection;
 import java.util.Iterator;

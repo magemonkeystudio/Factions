@@ -1,12 +1,12 @@
 package com.massivecraft.factions.entity;
 
+import com.google.gson.reflect.TypeToken;
 import com.massivecraft.factions.Factions;
 import com.massivecraft.factions.TerritoryAccess;
 import com.massivecraft.massivecore.collections.MassiveMap;
 import com.massivecraft.massivecore.collections.MassiveSet;
 import com.massivecraft.massivecore.ps.PS;
 import com.massivecraft.massivecore.store.Entity;
-import com.massivecraft.massivecore.xlib.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.Collections;

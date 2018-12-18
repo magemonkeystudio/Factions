@@ -19,6 +19,13 @@
     <description>${massiveColorInfo}${project.name} allows the players to team up and claim land as their own and start wars with other factions. This way we hope to inspire politics, intrigue, and team spirit. ${massiveDescriptionSuffix}</description>
     <url>${massiveBaseUrl}/factions</url>
 
+    <repositories>
+      <repository>
+        <id>sk89q-repo</id>
+        <url>http://maven.sk89q.com/repo/</url>
+      </repository>
+    </repositories>
+
     <!-- Dependencies -->
     <dependencies>
         <!-- Spigot -->
@@ -77,5 +84,5 @@
             </resource>
         </resources>
     </build>
-    
+
 </project>

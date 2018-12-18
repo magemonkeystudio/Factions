@@ -1,5 +1,6 @@
 package com.massivecraft.factions;
 
+import com.google.gson.GsonBuilder;
 import com.massivecraft.factions.adapter.BoardAdapter;
 import com.massivecraft.factions.adapter.BoardMapAdapter;
 import com.massivecraft.factions.adapter.RelAdapter;
@@ -22,7 +23,6 @@ import com.massivecraft.massivecore.collections.MassiveList;
 import com.massivecraft.massivecore.command.type.RegistryType;
 import com.massivecraft.massivecore.store.migrator.MigratorUtil;
 import com.massivecraft.massivecore.util.MUtil;
-import com.massivecraft.massivecore.xlib.gson.GsonBuilder;
 import org.bukkit.ChatColor;
 
 import java.util.List;
