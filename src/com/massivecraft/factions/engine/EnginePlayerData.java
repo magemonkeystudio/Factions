@@ -1,6 +1,5 @@
 package com.massivecraft.factions.engine;
 
-import com.massivecraft.factions.Rel;
 import com.massivecraft.factions.entity.MConf;
 import com.massivecraft.factions.entity.MPlayer;
 import com.massivecraft.factions.entity.MPlayerColl;
@@ -40,7 +39,7 @@ public class EnginePlayerData extends Engine
 		MPlayer mplayer = MPlayerColl.get().get(player, false);
 		if (mplayer == null) return;
 
-		if (mplayer.getRole() == Rel.LEADER)
+		if (mplayer.getRank().isLeader())
 		{
 			mplayer.getFaction().promoteNewLeader();
 		}

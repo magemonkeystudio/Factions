@@ -24,7 +24,7 @@ public class ChatTagRoleprefixforce extends ChatTag
 		// Get entities
 		MPlayer usender = MPlayer.get(sender);
 		
-		return usender.getRole().getPrefix();
+		return usender.getRank().getPrefix();
 	}
 
 }

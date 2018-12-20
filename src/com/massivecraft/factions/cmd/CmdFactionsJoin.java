@@ -116,6 +116,7 @@ public class CmdFactionsJoin extends FactionsCommand
 		// Apply
 		mplayer.resetFactionData();
 		mplayer.setFaction(faction);
+		mplayer.setRank(faction.getLowestRank());
 		
 		faction.uninvite(mplayer);
 

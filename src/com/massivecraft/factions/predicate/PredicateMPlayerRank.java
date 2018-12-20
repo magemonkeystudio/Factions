@@ -1,26 +1,27 @@
 package com.massivecraft.factions.predicate;
 
-import com.massivecraft.factions.Rel;
+import com.massivecraft.factions.entity.Faction;
 import com.massivecraft.factions.entity.MPlayer;
+import com.massivecraft.factions.entity.Rank;
 import com.massivecraft.massivecore.predicate.Predicate;
 
-public class PredicateMPlayerRole implements Predicate<MPlayer>
+public class PredicateMPlayerRank implements Predicate<MPlayer>
 {
 	// -------------------------------------------- //
 	// FIELDS
 	// -------------------------------------------- //
 	
-	private final Rel role;
-	public Rel getRole() { return this.role; }
+	private final Rank rank;
+	public Rank getRank() { return this.rank; }
 	
 	// -------------------------------------------- //
 	// INSTANCE AND CONTRUCT
 	// -------------------------------------------- //
 	
-	public static PredicateMPlayerRole get(Rel role) { return new PredicateMPlayerRole(role); }
-	public PredicateMPlayerRole(Rel role)
+	public static PredicateMPlayerRank get(Rank rank) { return new PredicateMPlayerRank(rank); }
+	public PredicateMPlayerRank(Rank rank)
 	{
-		this.role = role;
+		this.rank = rank;
 	}
 	
 	// -------------------------------------------- //
@@ -31,6 +32,8 @@ public class PredicateMPlayerRole implements Predicate<MPlayer>
 	public boolean apply(MPlayer mplayer)
 	{
 		if (mplayer == null) return false;
-		return mplayer.getRole() == this.role;
+		Faction faction = mplayer.getFaction();
+		if (!faction.hasRank(this.getRank())) throw new IllegalStateException("rank: " + rank.getId() + " player:" + mplayer.getId());
+		return mplayer.getRank() == this.rank;
 	}
 }

@@ -20,8 +20,6 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventPriority;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -61,7 +59,7 @@ public class MConf extends Entity<MConf>
 	// VERSION
 	// -------------------------------------------- //
 	
-	public int version = 3;
+	public int version = 4;
 	
 	// -------------------------------------------- //
 	// COMMAND ALIASES
@@ -134,10 +132,6 @@ public class MConf extends Entity<MConf>
 	// Which faction should new players be followers of?
 	// "none" means Wilderness. Remember to specify the id, like "3defeec7-b3b1-48d9-82bb-2a8903df24e3" and not the name.
 	public String defaultPlayerFactionId = Factions.ID_NONE;
-	
-	// What rank should new players joining a faction get?
-	// If not RECRUIT then MEMBER might make sense.
-	public Rel defaultPlayerRole = Rel.RECRUIT;
 	
 	// What power should the player start with?
 	public double defaultPlayerPower = 0.0;
@@ -281,7 +275,20 @@ public class MConf extends Entity<MConf>
 	// This value can be used to tweak compatibility with other plugins altering the respawn location.
 	// Choose between: LOWEST, LOW, NORMAL, HIGH, HIGHEST and MONITOR.
 	public EventPriority homesTeleportToOnDeathPriority = EventPriority.NORMAL;
-	
+
+	// -------------------------------------------- //
+	// PERMS
+	// -------------------------------------------- //
+
+	public List<String> defaultPermsEnemy = MUtil.list(MPerm.ID_DEPOSIT);
+	public List<String> defaultPermsNeutral = MUtil.list(MPerm.ID_DEPOSIT);
+	public List<String> defaultPermsTruce = MUtil.list(MPerm.ID_DEPOSIT);
+	public List<String> defaultPermsAlly = MUtil.list(MPerm.ID_DOOR, MPerm.ID_BUTTON, MPerm.ID_LEVER, MPerm.ID_HOME, MPerm.ID_CLAIMNEAR);
+	public List<String> defaultPermsRecruit = MUtil.list(MPerm.ID_DOOR, MPerm.ID_BUTTON, MPerm.ID_LEVER, MPerm.ID_LEVER, MPerm.ID_HOME, MPerm.ID_CLAIMNEAR);
+	public List<String> defaultPermsMember = MUtil.list(MPerm.ID_BUILD, MPerm.ID_DOOR, MPerm.ID_BUTTON, MPerm.ID_LEVER, MPerm.ID_LEVER, MPerm.ID_CONTAINER, MPerm.ID_HOME, MPerm.ID_CLAIMNEAR);
+	public List<String> defaultPermsOfficer = MUtil.list(MPerm.ID_BUILD, MPerm.ID_DOOR, MPerm.ID_BUTTON, MPerm.ID_LEVER, MPerm.ID_LEVER, MPerm.ID_CONTAINER, MPerm.ID_DESC, MPerm.ID_MOTD, MPerm.ID_INVITE, MPerm.ID_KICK, MPerm.ID_RANK, MPerm.ID_TITLE, MPerm.ID_HOME, MPerm.ID_SETHOME, MPerm.ID_TERRITORY, MPerm.ID_ACCESS, MPerm.ID_CLAIMNEAR, MPerm.ID_REL);
+	public List<String> defaultPermsLeader = MUtil.list(MPerm.ID_BUILD, MPerm.ID_DOOR, MPerm.ID_BUTTON, MPerm.ID_LEVER, MPerm.ID_LEVER, MPerm.ID_CONTAINER, MPerm.ID_NAME, MPerm.ID_DESC, MPerm.ID_MOTD, MPerm.ID_INVITE, MPerm.ID_KICK, MPerm.ID_RANK, MPerm.ID_TITLE, MPerm.ID_HOME, MPerm.ID_SETHOME, MPerm.ID_WITHDRAW, MPerm.ID_TERRITORY, MPerm.ID_ACCESS, MPerm.ID_CLAIMNEAR, MPerm.ID_REL, MPerm.ID_DISBAND, MPerm.ID_FLAGS, MPerm.ID_FLAGS);
+
 	// -------------------------------------------- //
 	// TERRITORY INFO
 	// -------------------------------------------- //
@@ -397,7 +404,7 @@ public class MConf extends Entity<MConf>
 		Rel.NEUTRAL, new ArrayList<String>(),
 		Rel.TRUCE, new ArrayList<String>(),
 		Rel.ALLY, new ArrayList<String>(),
-		Rel.MEMBER, new ArrayList<String>()
+		Rel.FACTION, new ArrayList<String>()
 	);
 	
 	// The distance for denying the following commands. Set to -1 to disable.
@@ -411,12 +418,12 @@ public class MConf extends Entity<MConf>
 		Rel.NEUTRAL, new ArrayList<String>(),
 		Rel.TRUCE, new ArrayList<String>(),
 		Rel.ALLY, new ArrayList<String>(),
-		Rel.MEMBER, new ArrayList<String>()
+		Rel.FACTION, new ArrayList<String>()
 	);
 	
 	// Allow bypassing the above setting when in these territories.
 	public List<Rel> denyCommandsDistanceBypassIn = MUtil.list(
-		Rel.MEMBER,
+		Rel.FACTION,
 		Rel.ALLY
 	);
 	
@@ -560,40 +567,7 @@ public class MConf extends Entity<MConf>
 	
 	// List of entities considered to be animals.
 	public BackstringSet<EntityType> entityTypesAnimals = new BackstringSet<>(EntityType.class);
-	
-	// -------------------------------------------- //
-	// INTEGRATION: HeroChat
-	// -------------------------------------------- //
-	
-	// I you are using the chat plugin HeroChat Factions ship with built in integration.
-	// The two channels Faction and Allies will be created.
-	// Their data is actually stored right here in the factions config.
-	// NOTE: HeroChat will create it's own database files for these two channels.
-	// You should ignore those and edit the channel settings from here.
-	// Those HeroChat channel database files aren't read for the Faction and Allies channels.
-	
-	// The Faction Channel
-	public String herochatFactionName = "Faction";
-	public String herochatFactionNick = "F";
-	public String herochatFactionFormat = "{color}[&l{nick}&r{color} &l{factions_roleprefix}&r{color}{factions_title|rp}{sender}{color}] &f{msg}";
-	public ChatColor herochatFactionColor = ChatColor.GREEN;
-	public int herochatFactionDistance = 0;
-	public boolean herochatFactionIsShortcutAllowed = false;
-	public boolean herochatFactionCrossWorld = true;
-	public boolean herochatFactionMuted = false;
-	public Set<String> herochatFactionWorlds = new HashSet<>();
-	
-	// The Allies Channel
-	public String herochatAlliesName = "Allies";
-	public String herochatAlliesNick = "A";
-	public String herochatAlliesFormat = "{color}[&l{nick}&r&f {factions_relcolor}&l{factions_roleprefix}&r{factions_relcolor}{factions_name|rp}{sender}{color}] &f{msg}";
-	public ChatColor herochatAlliesColor = ChatColor.DARK_PURPLE;
-	public int herochatAlliesDistance = 0;
-	public boolean herochatAlliesIsShortcutAllowed = false;
-	public boolean herochatAlliesCrossWorld = true;
-	public boolean herochatAlliesMuted = false;
-	public Set<String> herochatAlliesWorlds = new HashSet<>();
-	
+
 	// -------------------------------------------- //
 	// INTEGRATION: LWC
 	// -------------------------------------------- //

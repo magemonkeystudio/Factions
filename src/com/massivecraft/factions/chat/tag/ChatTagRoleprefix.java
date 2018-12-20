@@ -29,7 +29,7 @@ public class ChatTagRoleprefix extends ChatTag
 		Faction faction = usender.getFaction();
 		if (faction.isNone()) return "";
 		
-		return usender.getRole().getPrefix();
+		return usender.getRank().getPrefix();
 	}
 
 }

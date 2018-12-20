@@ -99,8 +99,7 @@ public class RelationUtil
 		
 		if (myFaction.equals(thatFaction))
 		{
-			if (that instanceof MPlayer) return ((MPlayer) that).getRole();
-			return Rel.MEMBER;
+			return Rel.FACTION;
 		}
 		
 		MFlag flagPeaceful = MFlag.getFlagPeaceful();

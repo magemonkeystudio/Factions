@@ -10,7 +10,6 @@ import com.massivecraft.massivecore.util.Txt;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -46,6 +45,8 @@ public class FactionColl extends Coll<Faction>
 		if (!active) return;
 		
 		this.createSpecialFactions();
+
+		Factions.get().log("Activated FactionColl");
 	}
 	
 	// -------------------------------------------- //
@@ -84,13 +85,13 @@ public class FactionColl extends Coll<Faction>
 		faction.setFlag(MFlag.getFlagFirespread(), true);
 		faction.setFlag(MFlag.getFlagEndergrief(), true);
 		faction.setFlag(MFlag.getFlagZombiegrief(), true);
-		
-		faction.setPermittedRelations(MPerm.getPermBuild(), Rel.LEADER, Rel.OFFICER, Rel.MEMBER, Rel.RECRUIT, Rel.ALLY, Rel.TRUCE, Rel.NEUTRAL, Rel.ENEMY);
-		faction.setPermittedRelations(MPerm.getPermDoor(), Rel.LEADER, Rel.OFFICER, Rel.MEMBER, Rel.RECRUIT, Rel.ALLY, Rel.TRUCE, Rel.NEUTRAL, Rel.ENEMY);
-		faction.setPermittedRelations(MPerm.getPermContainer(), Rel.LEADER, Rel.OFFICER, Rel.MEMBER, Rel.RECRUIT, Rel.ALLY, Rel.TRUCE, Rel.NEUTRAL, Rel.ENEMY);
-		faction.setPermittedRelations(MPerm.getPermButton(), Rel.LEADER, Rel.OFFICER, Rel.MEMBER, Rel.RECRUIT, Rel.ALLY, Rel.TRUCE, Rel.NEUTRAL, Rel.ENEMY);
-		faction.setPermittedRelations(MPerm.getPermLever(), Rel.LEADER, Rel.OFFICER, Rel.MEMBER, Rel.RECRUIT, Rel.ALLY, Rel.TRUCE, Rel.NEUTRAL, Rel.ENEMY);
-		faction.setPermittedRelations(MPerm.getPermDeposit(), Rel.LEADER, Rel.OFFICER); // Wilderness deposit should be limited as an anti spam meassure.
+
+		faction.setPermittedRelations(MPerm.getPermBuild(), MPerm.getPermables(faction));
+		faction.setPermittedRelations(MPerm.getPermDoor(), MPerm.getPermables(faction));
+		faction.setPermittedRelations(MPerm.getPermContainer(), MPerm.getPermables(faction));
+		faction.setPermittedRelations(MPerm.getPermButton(), MPerm.getPermables(faction));
+		faction.setPermittedRelations(MPerm.getPermLever(), MPerm.getPermables(faction));;
+		faction.setPermittedRelations(MPerm.getPermDeposit(), Collections.singleton(faction.getLeaderRank())); // Wilderness deposit should be limited as an anti spam meassure.
 		
 		return faction;
 	}
@@ -120,12 +121,11 @@ public class FactionColl extends Coll<Faction>
 		faction.setFlag(MFlag.getFlagFirespread(), false);
 		faction.setFlag(MFlag.getFlagEndergrief(), false);
 		faction.setFlag(MFlag.getFlagZombiegrief(), false);
-		
-		faction.setPermittedRelations(MPerm.getPermDoor(), Rel.LEADER, Rel.OFFICER, Rel.MEMBER, Rel.RECRUIT, Rel.ALLY, Rel.TRUCE, Rel.NEUTRAL, Rel.ENEMY);
-		faction.setPermittedRelations(MPerm.getPermContainer(), Rel.LEADER, Rel.OFFICER, Rel.MEMBER, Rel.RECRUIT, Rel.ALLY, Rel.TRUCE, Rel.NEUTRAL, Rel.ENEMY);
-		faction.setPermittedRelations(MPerm.getPermButton(), Rel.LEADER, Rel.OFFICER, Rel.MEMBER, Rel.RECRUIT, Rel.ALLY, Rel.TRUCE, Rel.NEUTRAL, Rel.ENEMY);
-		faction.setPermittedRelations(MPerm.getPermLever(), Rel.LEADER, Rel.OFFICER, Rel.MEMBER, Rel.RECRUIT, Rel.ALLY, Rel.TRUCE, Rel.NEUTRAL, Rel.ENEMY);
-		faction.setPermittedRelations(MPerm.getPermTerritory(), Rel.LEADER, Rel.OFFICER, Rel.MEMBER);
+
+		faction.setPermittedRelations(MPerm.getPermDoor(), MPerm.getPermables(faction));
+		faction.setPermittedRelations(MPerm.getPermContainer(), MPerm.getPermables(faction));
+		faction.setPermittedRelations(MPerm.getPermButton(), MPerm.getPermables(faction));
+		faction.setPermittedRelations(MPerm.getPermLever(), MPerm.getPermables(faction));
 		
 		return faction;
 	}
@@ -156,11 +156,10 @@ public class FactionColl extends Coll<Faction>
 		faction.setFlag(MFlag.getFlagEndergrief(), true);
 		faction.setFlag(MFlag.getFlagZombiegrief(), true);
 		
-		faction.setPermittedRelations(MPerm.getPermDoor(), Rel.LEADER, Rel.OFFICER, Rel.MEMBER, Rel.RECRUIT, Rel.ALLY, Rel.TRUCE, Rel.NEUTRAL, Rel.ENEMY);
-		faction.setPermittedRelations(MPerm.getPermContainer(), Rel.LEADER, Rel.OFFICER, Rel.MEMBER, Rel.RECRUIT, Rel.ALLY, Rel.TRUCE, Rel.NEUTRAL, Rel.ENEMY);
-		faction.setPermittedRelations(MPerm.getPermButton(), Rel.LEADER, Rel.OFFICER, Rel.MEMBER, Rel.RECRUIT, Rel.ALLY, Rel.TRUCE, Rel.NEUTRAL, Rel.ENEMY);
-		faction.setPermittedRelations(MPerm.getPermLever(), Rel.LEADER, Rel.OFFICER, Rel.MEMBER, Rel.RECRUIT, Rel.ALLY, Rel.TRUCE, Rel.NEUTRAL, Rel.ENEMY);
-		faction.setPermittedRelations(MPerm.getPermTerritory(), Rel.LEADER, Rel.OFFICER, Rel.MEMBER);
+		faction.setPermittedRelations(MPerm.getPermDoor(), MPerm.getPermables(faction));
+		faction.setPermittedRelations(MPerm.getPermContainer(), MPerm.getPermables(faction));
+		faction.setPermittedRelations(MPerm.getPermButton(), MPerm.getPermables(faction));
+		faction.setPermittedRelations(MPerm.getPermLever(), MPerm.getPermables(faction));
 		
 		return faction;
 	}

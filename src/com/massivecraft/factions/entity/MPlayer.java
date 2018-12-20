@@ -51,6 +51,12 @@ public class MPlayer extends SenderEntity<MPlayer> implements FactionsParticipat
 	}
 
 	// -------------------------------------------- //
+	// VERSION
+	// -------------------------------------------- //
+
+	public int version = 1;
+
+	// -------------------------------------------- //
 	// LOAD
 	// -------------------------------------------- //
 
@@ -59,7 +65,7 @@ public class MPlayer extends SenderEntity<MPlayer> implements FactionsParticipat
 	{
 		this.setLastActivityMillis(that.lastActivityMillis);
 		this.setFactionId(that.factionId);
-		this.setRole(that.role);
+		this.rankId = that.rankId;
 		this.setTitle(that.title);
 		this.setPowerBoost(that.powerBoost);
 		this.setPower(that.power);
@@ -109,7 +115,7 @@ public class MPlayer extends SenderEntity<MPlayer> implements FactionsParticipat
 	@Override
 	public void preClean()
 	{
-		if (this.getRole() == Rel.LEADER)
+		if (this.getRank().isLeader())
 		{
 			this.getFaction().promoteNewLeader();
 		}
@@ -140,7 +146,7 @@ public class MPlayer extends SenderEntity<MPlayer> implements FactionsParticipat
 
 	// What role does the player have in the faction?
 	// Null means default.
-	private Rel role = null;
+	private String rankId = null;
 
 	// What title does the player have in the faction?
 	// The title is just for fun. It's not connected to any game mechanic.
@@ -206,7 +212,7 @@ public class MPlayer extends SenderEntity<MPlayer> implements FactionsParticipat
 	{
 		// The default neutral faction
 		this.setFactionId(null);
-		this.setRole(null);
+		this.setRank(null);
 		this.setTitle(null);
 		this.setAutoClaimFaction(null);
 	}
@@ -310,24 +316,24 @@ public class MPlayer extends SenderEntity<MPlayer> implements FactionsParticipat
 	// FIELD: role
 	// -------------------------------------------- //
 
-	public Rel getRole()
+	public Rank getRank()
 	{
-		if (this.isFactionOrphan()) return Rel.RECRUIT;
+		if (this.isFactionOrphan()) return FactionColl.get().getNone().getLowestRank();
 		
-		if (this.role == null) return MConf.get().defaultPlayerRole;
-		return this.role;
+		if (this.rankId == null) return this.getFaction().getLowestRank();
+		return this.getFaction().getRank(this.rankId);
 	}
 
-	public void setRole(Rel role)
+	public void setRank(Rank rank)
 	{
 		// Clean input
-		Rel target = role;
+		String rankId = rank == null ? null : rank.getId();
 
 		// Detect Nochange
-		if (MUtil.equals(this.role, target)) return;
+		if (MUtil.equals(this.rankId, rankId)) return;
 
 		// Apply
-		this.role = target;
+		this.rankId = rankId;
 
 		// Mark as changed
 		this.changed();
@@ -601,7 +607,7 @@ public class MPlayer extends SenderEntity<MPlayer> implements FactionsParticipat
 	{
 		String ret = "";
 		ret += color;
-		ret += this.getRole().getPrefix();
+		ret += this.getRank().getPrefix();
 		if (something != null && something.length() > 0)
 		{
 			ret += something;
@@ -720,7 +726,7 @@ public class MPlayer extends SenderEntity<MPlayer> implements FactionsParticipat
 
 		if (myFaction.getMPlayers().size() > 1)
 		{
-			if (!permanent && this.getRole() == Rel.LEADER)
+			if (!permanent && this.getRank().isLeader())
 			{
 				msg("<b>You must give the leader role to someone else first.");
 				return;

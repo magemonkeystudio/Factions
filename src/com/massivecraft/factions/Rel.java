@@ -1,6 +1,7 @@
 package com.massivecraft.factions;
 
 import com.massivecraft.factions.entity.MConf;
+import com.massivecraft.factions.entity.MPerm;
 import com.massivecraft.massivecore.Colorized;
 import com.massivecraft.massivecore.Named;
 import com.massivecraft.massivecore.collections.MassiveSet;
@@ -9,7 +10,7 @@ import org.bukkit.ChatColor;
 import java.util.Collections;
 import java.util.Set;
 
-public enum Rel implements Colorized, Named
+public enum Rel implements Colorized, Named, MPerm.MPermable
 {
 	// -------------------------------------------- //
 	// ENUM
@@ -34,8 +35,13 @@ public enum Rel implements Colorized, Named
 		"an ally", "allies", "an allied faction", "allied factions",
 		"Ally"
 	) { @Override public ChatColor getColor() { return MConf.get().colorAlly; } },
+
+	FACTION(
+			"your faction", "your faction", "your faction", "your faction",
+			"Faction"
+	) { @Override public ChatColor getColor() { return MConf.get().colorMember; } },
 	
-	RECRUIT(
+	/*RECRUIT(
 		"a recruit in your faction", "recruits in your faction", "", "",
 		"Recruit"
 	) { @Override public String getPrefix() { return MConf.get().prefixRecruit; } },
@@ -53,7 +59,7 @@ public enum Rel implements Colorized, Named
 	LEADER(
 		"your faction leader", "your faction leader", "", "",
 		"Leader", "Admin", "Owner"
-	) { @Override public String getPrefix() { return MConf.get().prefixLeader; } },
+	) { @Override public String getPrefix() { return MConf.get().prefixLeader; } },*/
 	
 	// END OF LIST
 	;
@@ -102,6 +108,12 @@ public enum Rel implements Colorized, Named
 	{
 		return MConf.get().colorMember;
 	}
+
+	@Override
+	public String getId()
+	{
+		return name();
+	}
 	
 	// -------------------------------------------- //
 	// UTIL
@@ -126,12 +138,7 @@ public enum Rel implements Colorized, Named
 	{
 		return this.getValue() > rel.getValue();
 	}
-	
-	public boolean isRank()
-	{
-		return this.isAtLeast(Rel.RECRUIT);
-	}
-	
+
 	// Used for friendly fire.
 	public boolean isFriend()
 	{

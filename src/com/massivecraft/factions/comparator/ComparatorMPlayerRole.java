@@ -1,7 +1,7 @@
 package com.massivecraft.factions.comparator;
 
-import com.massivecraft.factions.Rel;
 import com.massivecraft.factions.entity.MPlayer;
+import com.massivecraft.factions.entity.Rank;
 import com.massivecraft.massivecore.Named;
 import com.massivecraft.massivecore.comparator.ComparatorAbstract;
 
@@ -28,9 +28,10 @@ public class ComparatorMPlayerRole extends ComparatorAbstract<MPlayer> implement
 	public int compareInner(MPlayer m1, MPlayer m2)
 	{
 		// Rank
-		Rel r1 = m1.getRole();
-		Rel r2 = m2.getRole();
-		return r2.getValue() - r1.getValue();
+		if (m1.getFaction() != m2.getFaction()) throw new IllegalArgumentException("Noncomparable players");
+		Rank r1 = m1.getRank();
+		Rank r2 = m2.getRank();
+		return r2.getPriority() - r1.getPriority()	;
 	}
 
 }

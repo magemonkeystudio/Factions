@@ -35,6 +35,11 @@ public class RelAdapter implements JsonDeserializer<Rel>
 		{
 			return null;
 		}
+		catch (Exception ex)
+		{
+			System.out.println(json);
+			throw ex;
+		}
 	}
 	
 }

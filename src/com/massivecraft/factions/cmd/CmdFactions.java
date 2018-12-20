@@ -39,8 +39,6 @@ public class CmdFactions extends FactionsCommand
 	public CmdFactionsKick cmdFactionsKick = new CmdFactionsKick();
 	public CmdFactionsTitle cmdFactionsTitle = new CmdFactionsTitle();
 	public CmdFactionsRank cmdFactionsRank = new CmdFactionsRank();
-	public CmdFactionsRankOld cmdFactionsRankOldPromote = new CmdFactionsRankOld("promote");
-	public CmdFactionsRankOld cmdFactionsRankOldDemote = new CmdFactionsRankOld("demote");
 	public CmdFactionsMoney cmdFactionsMoney = new CmdFactionsMoney();
 	public CmdFactionsSeeChunk cmdFactionsSeeChunk = new CmdFactionsSeeChunk();
 	public CmdFactionsSeeChunkOld cmdFactionsSeeChunkOld = new CmdFactionsSeeChunkOld();
@@ -77,7 +75,7 @@ public class CmdFactions extends FactionsCommand
 		this.addChild(new MassiveCommandDeprecated(this.cmdFactionsUnclaim.cmdFactionsUnclaimAll, "unclaimall"));
 		this.addChild(new MassiveCommandDeprecated(this.cmdFactionsFlag, "open"));
 		this.addChild(new MassiveCommandDeprecated(this.cmdFactionsFaction, "show", "who"));
-		this.addChild(new MassiveCommandDeprecated(this.cmdFactionsRank, "leader", "owner", "officer", "moderator"));
+		this.addChild(new MassiveCommandDeprecated(this.cmdFactionsRank, "leader", "owner", "officer", "moderator", "demote", "promote"));
 	}
 	
 	// -------------------------------------------- //

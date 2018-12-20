@@ -1,10 +1,10 @@
 package com.massivecraft.factions.cmd;
 
-import com.massivecraft.factions.Rel;
 import com.massivecraft.factions.cmd.type.TypeFaction;
 import com.massivecraft.factions.cmd.type.TypeMPerm;
-import com.massivecraft.factions.cmd.type.TypeRel;
+import com.massivecraft.factions.cmd.type.TypeMPermable;
 import com.massivecraft.factions.entity.Faction;
+import com.massivecraft.factions.entity.MConf;
 import com.massivecraft.factions.entity.MPerm;
 import com.massivecraft.factions.entity.MPlayer;
 import com.massivecraft.factions.event.EventFactionsPermChange;
@@ -25,7 +25,7 @@ public class CmdFactionsPermSet extends FactionsCommand
 	{
 		// Parameters
 		this.addParameter(TypeMPerm.get(), "perm");
-		this.addParameter(TypeRel.get(), "relation");
+		this.addParameter(TypeMPermable.get(), "relation");
 		this.addParameter(TypeBooleanYes.get(), "yes/no");
 		this.addParameter(TypeFaction.get(), "faction", "you");
 	}
@@ -38,10 +38,12 @@ public class CmdFactionsPermSet extends FactionsCommand
 	public void perform() throws MassiveException
 	{
 		// Args
-		MPerm perm = this.readArg();
-		Rel rel = this.readArg();
-		Boolean value = this.readArg();
-		Faction faction = this.readArg(msenderFaction);
+		MPerm perm = this.readArgAt(0);
+		Boolean value = this.readArgAt(2);
+		Faction faction = this.readArgAt(3, msenderFaction);
+
+		MPerm.MPermable permable = TypeMPermable.get(faction).read(this.argAt(1), sender);
+
 		
 		// Do the sender have the right to change perms for this faction?
 		if ( ! MPerm.getPermPerms().has(msender, faction, true)) return;
@@ -54,25 +56,26 @@ public class CmdFactionsPermSet extends FactionsCommand
 		}
 		
 		// Event
-		EventFactionsPermChange event = new EventFactionsPermChange(sender, faction, perm, rel, value);
+		EventFactionsPermChange event = new EventFactionsPermChange(sender, faction, perm, permable, value);
 		event.run();
 		if (event.isCancelled()) return;
 		value = event.getNewValue();
+
+		// Apply
+		boolean change = faction.setPermitted(permable, perm, value);
 		
 		// No change
-		if (faction.getPermitted(perm).contains(rel) == value)
+		if (!change)
 		{
-			msg("%s <i>already has %s <i>set to %s <i>for %s<i>.", faction.describeTo(msender), perm.getDesc(true, false), Txt.parse(value ? "<g>YES" : "<b>NOO"), rel.getColor() + rel.getDescPlayerMany());
+			msg("%s <i>already has %s <i>set to %s <i>for %s<i>.", faction.describeTo(msender), perm.getDesc(true, false), Txt.parse(value ? "<g>YES" : "<b>NOO"), permable.getColor() + permable.getName() + "s");
 			return;
 		}
-		
-		// Apply
-		faction.setRelationPermitted(perm, rel, value);
+
 		
 		// The following is to make sure the leader always has the right to change perms if that is our goal.
-		if (perm == MPerm.getPermPerms() && MPerm.getPermPerms().getStandard().contains(Rel.LEADER))
+		if (perm == MPerm.getPermPerms() && MConf.get().defaultPermsLeader.contains(MPerm.ID_PERMS))
 		{
-			faction.setRelationPermitted(MPerm.getPermPerms(), Rel.LEADER, true);
+			faction.setPermitted( faction.getLeaderRank(), MPerm.getPermPerms(), true);
 		}
 		
 		// Create messages
@@ -80,8 +83,8 @@ public class CmdFactionsPermSet extends FactionsCommand
 		
 		// Inform sender
 		messages.add(Txt.titleize("Perm for " + faction.describeTo(msender, true)));
-		messages.add(MPerm.getStateHeaders());
-		messages.add(Txt.parse(perm.getStateInfo(faction.getPermitted(perm), true)));
+		messages.add(MPerm.getStateHeaders(faction));
+		messages.add(Txt.parse(perm.getStateInfo(faction, true)));
 		message(messages);
 		
 		// Inform faction (their message is slighly different)
