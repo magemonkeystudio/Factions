@@ -170,8 +170,7 @@ public class EngineChunkChange extends Engine
 			MPerm claimnear = MPerm.getPermClaimnear();
 			for (Faction nearbyFaction : nearbyFactions)
 			{
-				if (claimnear.has(newFaction, nearbyFaction)) continue;
-				mplayer.message(claimnear.createDeniedMessage(mplayer, nearbyFaction));
+				if (claimnear.has(mplayer, nearbyFaction, true)) continue;
 				event.setCancelled(true);
 				return;
 			}

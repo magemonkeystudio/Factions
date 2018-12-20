@@ -39,7 +39,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class Faction extends Entity<Faction> implements FactionsParticipator
+public class Faction extends Entity<Faction> implements FactionsParticipator, MPerm.MPermable
 {
 	// -------------------------------------------- //
 	// CONSTANTS
@@ -761,13 +761,53 @@ public class Faction extends Entity<Faction> implements FactionsParticipator
 
 	// IS PERMITTED
 
-	public boolean isPermitted(MPerm.MPermable mpermable, String permId)
+	public boolean isPlayerPermitted(MPlayer mplayer, String permId)
 	{
-		if (mpermable == null) throw new NullPointerException("mpermable");
+		if (isPermitted(mplayer.getId(), permId)) return true;
+		if (isPermitted(mplayer.getFaction().getId(), permId)) return true;
+		if (isPermitted(mplayer.getRank().getId(), permId)) return true;
+		if (isPermitted(RelationUtil.getRelationOfThatToMe(mplayer, this).toString(), permId)) return true;
+
+		return false;
+	}
+
+	public boolean isPlayerPermitted(MPlayer mplayer, MPerm mperm)
+	{
+		return isPlayerPermitted(mplayer, mperm.getId());
+	}
+
+	public boolean isFactionPermitted(Faction faction, String permId)
+	{
+		if (isPermitted(faction.getId(), permId)) return true;
+		if (isPermitted(RelationUtil.getRelationOfThatToMe(faction, this).toString(), permId)) return true;
+
+		return false;
+	}
+
+	public boolean isFactionPermitted(Faction faction, MPerm mperm)
+	{
+		return isFactionPermitted(faction, mperm.getId());
+	}
+
+	@Deprecated
+	public boolean isPermablePermitted(MPerm.MPermable permable, String permId)
+	{
+		return isPermitted(permable.getId(), permId);
+	}
+
+	@Deprecated
+	public boolean isPermablePermitted(MPerm.MPermable permable, MPerm mperm)
+	{
+		return isPermablePermitted(permable, mperm.getId());
+	}
+
+	private boolean isPermitted(String permableId, String permId)
+	{
+		if (permableId == null) throw new NullPointerException("permableId");
 		if (permId == null) throw new NullPointerException("permId");
 
-		var perms = this.perms.get(permId);
-		if (perms == null)
+		var permables = this.perms.get(permId);
+		if (permables == null)
 		{
 			// No perms was found, but likely this is just a new MPerm.
 			// So if this does not exist in the database, throw an error.
@@ -777,14 +817,7 @@ public class Faction extends Entity<Faction> implements FactionsParticipator
 			return false;
 		}
 
-		return perms.contains(mpermable.getId());
-	}
-
-	public boolean isPermitted(MPerm.MPermable mpermable, MPerm mperm)
-	{
-		if (mpermable == null) throw new NullPointerException("mpermable");
-		if (mperm == null) throw new NullPointerException("mperm");
-		return isPermitted(mpermable, mperm.getId());
+		return permables.contains(permableId);
 	}
 
 	// SET PERMITTED

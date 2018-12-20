@@ -350,9 +350,8 @@ public class MPerm extends Entity<MPerm> implements Prioritized, Registerable, N
 		// Null Check
 		if (faction == null) throw new NullPointerException("faction");
 		if (hostFaction == null) throw new NullPointerException("hostFaction");
-		
-		Rel rel = faction.getRelationTo(hostFaction);
-		return hostFaction.isPermitted(rel, this);
+
+		return hostFaction.isFactionPermitted(faction, this);
 	}
 	
 	public boolean has(MPlayer mplayer, Faction hostFaction, boolean verboose)
@@ -365,7 +364,7 @@ public class MPerm extends Entity<MPerm> implements Prioritized, Registerable, N
 		
 		Rel rel = mplayer.getRelationTo(hostFaction);
 		MPermable permable = rel == Rel.FACTION ? mplayer.getRank() : rel;
-		if (hostFaction.isPermitted(permable, this)) return true;
+		if (hostFaction.isPlayerPermitted(mplayer, this)) return true;
 		
 		if (verboose) mplayer.message(this.createDeniedMessage(mplayer, hostFaction));
 		
@@ -441,7 +440,7 @@ public class MPerm extends Entity<MPerm> implements Prioritized, Registerable, N
 
 		for (MPermable permable : getPermables(faction))
 		{
-			if (faction.isPermitted(permable, this))
+			if (faction.isPermablePermitted(permable, this))
 			{
 				ret += "<g>YES";
 			}
@@ -504,6 +503,7 @@ public class MPerm extends Entity<MPerm> implements Prioritized, Registerable, N
 				throw new RuntimeException();
 			}
 		}
+
 	}
 	
 }
