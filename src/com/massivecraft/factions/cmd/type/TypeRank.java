@@ -4,8 +4,11 @@ import com.massivecraft.factions.Rel;
 import com.massivecraft.factions.entity.Faction;
 import com.massivecraft.factions.entity.Rank;
 import com.massivecraft.massivecore.command.type.TypeAbstractChoice;
+import com.massivecraft.massivecore.util.MUtil;
+import org.bukkit.command.CommandSender;
 
 import java.util.Collections;
+import java.util.Set;
 
 public class TypeRank extends TypeAbstractChoice<Rank>
 {
@@ -40,5 +43,23 @@ public class TypeRank extends TypeAbstractChoice<Rank>
 
 	private final Faction faction;
 	public Faction getFaction() { return this.faction; }
+
+	// -------------------------------------------- //
+	// OVERRIDE
+	// -------------------------------------------- //
+
+	@Override
+	public boolean isValid(String arg, CommandSender sender)
+	{
+		// In the generic case accept all
+		if (this.getAll().isEmpty()) return true;
+		else return super.isValid(arg, sender);
+	}
+
+	@Override
+	public Set<String> getNamesInner(Rank value)
+	{
+		return MUtil.set(value.getName(), value.getPrefix() + value.getName());
+	}
 
 }

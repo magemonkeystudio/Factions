@@ -1,6 +1,7 @@
 package com.massivecraft.factions.entity;
 
 import com.massivecraft.massivecore.store.EntityInternal;
+import org.bukkit.ChatColor;
 
 public class Rank extends EntityInternal<Rank> implements MPerm.MPermable
 {
@@ -28,19 +29,9 @@ public class Rank extends EntityInternal<Rank> implements MPerm.MPermable
 	public int getPriority() { return this.priority; }
 	public void setPriority(int priority) { this.priority = priority; this.changed(); }
 
-	public String getPrefix()
-	{
-		String ret = "";
-		if (this.isLeader()) ret += "L";
-
-		if (this.getName().equalsIgnoreCase("Leader")) ret += "**";
-		else if (this.getName().equalsIgnoreCase("Officer")) ret += "*";
-		else if (this.getName().equalsIgnoreCase("Member")) ret += "+";
-		else if (this.getName().equalsIgnoreCase("Recruit")) ret += "-";
-		else ret += "=";
-
-		return ret;
-	}
+	private String prefix;
+	public String getPrefix() { return this.prefix; }
+	public void setPrefix(String prefix) { this.prefix = prefix; this.changed(); }
 
 	// -------------------------------------------- //
 	// CONSTRUCT
@@ -49,13 +40,28 @@ public class Rank extends EntityInternal<Rank> implements MPerm.MPermable
 	// For GSON
 	private Rank()
 	{
-		this(null,0);
+		this(null,0, "");
 	}
 
-	public Rank(String name, int priority)
+	public Rank(String name, int priority, String prefix)
 	{
 		this.name = name;
 		this.priority = priority;
+		this.prefix = prefix;
+	}
+
+	// -------------------------------------------- //
+	// VISUAL
+	// -------------------------------------------- //
+
+	public String getVisual()
+	{
+		String ret = "";
+		ret += ChatColor.GREEN.toString();
+		ret += this.getPrefix();
+		ret += this.getName();
+		ret += " (" + this.getPriority() + ")";
+		return ret;
 	}
 
 	// -------------------------------------------- //
@@ -128,28 +134,5 @@ public class Rank extends EntityInternal<Rank> implements MPerm.MPermable
 		}
 		return ret;
 	}
-
-	// -------------------------------------------- //
-	// PERM
-	// -------------------------------------------- //
-
-	/*public boolean addPerm(MPerm mperm)
-	{
-		var ret = this.getPermIds().add(mperm.getId());
-		if (ret) this.changed();
-		return ret;
-	}
-
-	public boolean removePerm(MPerm mperm)
-	{
-		var ret = this.getPermIds().remove(mperm.getId());
-		if (ret) this.changed();
-		return ret;
-	}
-
-	public boolean hasPerm(MPerm mperm)
-	{
-		return this.getPermIds().contains(mperm.getId());
-	}*/
 
 }

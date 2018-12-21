@@ -41,10 +41,10 @@ public class MigratorFaction002Ranks extends MigratorRoot
 		String idMember = MStore.createId();
 		String idRecruit = MStore.createId();
 
-		Rank leader = new Rank("Leader", 400);
-		Rank officer = new Rank("Officer", 300);
-		Rank member = new Rank("Member", 200);
-		Rank recruit = new Rank("Recruit", 100);
+		Rank leader = new Rank("Leader", 400, "**");
+		Rank officer = new Rank("Officer", 300, "*");
+		Rank member = new Rank("Member", 200, "+");
+		Rank recruit = new Rank("Recruit", 100, "-");
 
 		Map<String, Rank> map = new MassiveMap<>();
 		map.put(idLeader, leader);

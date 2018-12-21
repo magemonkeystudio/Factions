@@ -1,4 +1,5 @@
 main: ${project.groupId}.${project.name}
+main: ${project.groupId}.${project.name}
 name: ${project.name}
 version: ${project.version}
 website: ${project.url}
@@ -65,7 +66,14 @@ permissions:
   factions.powerboost.set: {description: set powerboost, default: false}
   factions.rank: {description: manage/show ranks, default: false}
   factions.rank.show: {description: show rank, default: false}
-  factions.rank.action: {description: change rank, default: false}
+  factions.rank.set: {description: set rank, default: false}
+  factions.rank.list: {description: list ranks, default: false}
+  factions.rank.edit: {description: edit ranks, default: false}
+  factions.rank.edit.create: {description: create rank, default: false}
+  factions.rank.edit.name: {description: set rank name, default: false}
+  factions.rank.edit.prefix: {description: set rank prefix, default: false}
+  factions.rank.edit.priority: {description: set rank priority, default: false}
+  factions.rank.edit.delete: {description: delete rank, default: false}
   factions.relation: {description: manage faction relations, default: false}
   factions.relation.list: {description: list all factions with certain relation, default: false}
   factions.relation.set: {description: set relation wish to another faction, default: false}
@@ -154,6 +162,16 @@ permissions:
       factions.powerboost.faction: true
       factions.powerboost.player: true
       factions.powerboost.set: true
+      factions.rank: true
+      factions.rank.show: true
+      factions.rank.set: true
+      factions.rank.list: true
+      factions.rank.edit: true
+      factions.rank.edit.create: true
+      factions.rank.edit.name: true
+      factions.rank.edit.prefix: true
+      factions.rank.edit.priority: true
+      factions.rank.edit.delete: true
       factions.promote: true
       factions.relation: true
       factions.relation.list: true
@@ -267,7 +285,14 @@ permissions:
       factions.powerboost.player: true
       factions.rank: true
       factions.rank.show: true
-      factions.rank.action: true
+      factions.rank.set: true
+      factions.rank.list: true
+      factions.rank.edit: true
+      factions.rank.edit.create: true
+      factions.rank.edit.name: true
+      factions.rank.edit.prefix: true
+      factions.rank.edit.priority: true
+      factions.rank.edit.delete: true
       factions.relation: true
       factions.relation.list: true
       factions.relation.set: true
