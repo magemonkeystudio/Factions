@@ -12,15 +12,12 @@ public class EnumerationUtil
 	// -------------------------------------------- //
 	
 	public static final BackstringSet<Material> MATERIALS_EDIT_ON_INTERACT = new BackstringSet<>(Material.class,
-		"DIODE_BLOCK_OFF", // Minecraft 1.?
-		"DIODE_BLOCK_ON", // Minecraft 1.?
+		"REPEATER", // Minecraft 1.?
 		"NOTE_BLOCK", // Minecraft 1.?
 		"CAULDRON", // Minecraft 1.?
-		"SOIL", // Minecraft 1.?
+		"FARMLAND", // Minecraft 1.?
 		"DAYLIGHT_DETECTOR", // Minecraft 1.5
-		"DAYLIGHT_DETECTOR_INVERTED", // Minecraft 1.5
-		"REDSTONE_COMPARATOR_OFF", // Minecraft 1.?
-		"REDSTONE_COMPARATOR_ON" // Minecraft 1.?
+		"COMPARATOR" // Minecraft 1.?
 	);
 	
 	public static boolean isMaterialEditOnInteract(Material material)
@@ -33,17 +30,21 @@ public class EnumerationUtil
 	// -------------------------------------------- //
 	
 	public static final BackstringSet<Material> MATERIALS_EDIT_TOOL = new BackstringSet<>(Material.class,
-		"FIREBALL", // Minecraft 1.?
+		"FIRE_CHARGE", // Minecraft 1.?
 		"FLINT_AND_STEEL", // Minecraft 1.?
-		"BUCKET", // Minecraft 1.?
+		"BUCKET",
 		"WATER_BUCKET", // Minecraft 1.?
-		"LAVA_BUCKET", // Minecraft 1.?
+		"LAVA_BUCKET",// Minecraft 1.?
+		"COD_BUCKET",// Minecraft 1.13
+		"PUFFERFISH_BUCKET", // Minecraft 1.13
+		"SALMON_BUCKET", // Minecraft 1.13
+		"TROPICAL_FISH_BUCKET", // Minecraft 1.13
 		"ARMOR_STAND", // Minecraft 1.8
 		"END_CRYSTAL", // Minecraft 1.10
 		
 		// The duplication bug found in Spigot 1.8 protocol patch
 		// https://github.com/MassiveCraft/Factions/issues/693
-		"CHEST", // Minecraft 1.?
+		"CHEST", // Minecraft 1.? // TODO why chest?
 		"SIGN_POST", // Minecraft 1.?
 		"TRAPPED_CHEST", // Minecraft 1.?
 		"SIGN", // Minecraft 1.?
@@ -62,19 +63,24 @@ public class EnumerationUtil
 	
 	// Interacting with these materials placed in the terrain results in door toggling.
 	public static final BackstringSet<Material> MATERIALS_DOOR = new BackstringSet<>(Material.class,
-		"WOODEN_DOOR", // Minecraft 1.?
-		"ACACIA_DOOR", // Minecraft 1.8
-		"BIRCH_DOOR", // Minecraft 1.8
-		"DARK_OAK_DOOR", // Minecraft 1.8
-		"JUNGLE_DOOR", // Minecraft 1.8
-		"SPRUCE_DOOR", // Minecraft 1.8
-		"TRAP_DOOR", // Minecraft 1.?
-		"FENCE_GATE", // Minecraft 1.?
-		"ACACIA_FENCE_GATE", // Minecraft 1.8
-		"BIRCH_FENCE_GATE", // Minecraft 1.8
-		"DARK_OAK_FENCE_GATE", // Minecraft 1.8
-		"JUNGLE_FENCE_GATE", // Minecraft 1.8
-		"SPRUCE_FENCE_GATE" // Minecraft 1.8
+		"OAK_DOOR",
+		"OAK_TRAPDOOR",
+		"OAK_FENCE_GATE",
+		"ACACIA_DOOR",
+		"ACACIA_TRAPDOOR",
+		"AKACIA_FENCE_GATE",
+		"BIRCH_DOOR",
+		"BIRCH_TRAPDOOR",
+		"BIRCH_FENCE_GATE",
+		"DARK_OAK_DOOR",
+		"DARK_OAK_TRAPDOOR",
+		"DARK_OAK_FENCE_GATE",
+		"JUNGLE_DOOR",
+		"JUNGLE_TRAPDOOR",
+		"JUNGLE_FENCE_GATE",
+		"SPRUCE_DOOR",
+		"SPRUCE_TRAPDOOR",
+		"SPRUCE_FENCE_GATE"
 	);
 	
 	public static boolean isMaterialDoor(Material material)
@@ -87,36 +93,37 @@ public class EnumerationUtil
 	// -------------------------------------------- //
 	
 	public static final BackstringSet<Material> MATERIALS_CONTAINER = new BackstringSet<>(Material.class,
-		"DISPENSER", // Minecraft 1.?
-		"CHEST", // Minecraft 1.?
-		"FURNACE", // Minecraft 1.?
-		"BURNING_FURNACE", // Minecraft 1.?
-		"JUKEBOX", // Minecraft 1.?
-		"BREWING_STAND", // Minecraft 1.?
-		"ENCHANTMENT_TABLE", // Minecraft 1.?
-		"ANVIL", // Minecraft 1.?
-		"BEACON", // Minecraft 1.?
-		"TRAPPED_CHEST", // Minecraft 1.?
-		"HOPPER", // Minecraft 1.?
-		"DROPPER", // Minecraft 1.?
+		"DISPENSER",
+		"CHEST",
+		"TRAPPED_CHEST",
+		"FURNACE",
+		"JUKEBOX",
+		"BREWING_STAND",
+		"ENCHANTING_TABLE",
+		"ANVIL",
+		"CHIPPED_ANVIL",
+		"DAMAGED_ANVIL",
+		"BEACON",
+		"HOPPER",
+		"DROPPER",
 		
 		// The various shulker boxes, they had to make each one a different material -.-
-		"BLACK_SHULKER_BOX", // Minecraft 1.11
-		"BLUE_SHULKER_BOX", // Minecraft 1.11
-		"BROWN_SHULKER_BOX", // Minecraft 1.11
-		"CYAN_SHULKER_BOX", // Minecraft 1.11
-		"GRAY_SHULKER_BOX", // Minecraft 1.11
-		"GREEN_SHULKER_BOX", // Minecraft 1.11
-		"LIGHT_BLUE_SHULKER_BOX", // Minecraft 1.11
-		"LIME_SHULKER_BOX", // Minecraft 1.11
-		"MAGENTA_SHULKER_BOX", // Minecraft 1.11
-		"ORANGE_SHULKER_BOX", // Minecraft 1.11
-		"PINK_SHULKER_BOX", // Minecraft 1.11
-		"PURPLE_SHULKER_BOX", // Minecraft 1.11
-		"RED_SHULKER_BOX", // Minecraft 1.11
-		"SILVER_SHULKER_BOX", // Minecraft 1.11
-		"WHITE_SHULKER_BOX", // Minecraft 1.11
-		"YELLOW_SHULKER_BOX" // Minecraft 1.11
+		"BLACK_SHULKER_BOX",
+		"BLUE_SHULKER_BOX",
+		"BROWN_SHULKER_BOX",
+		"CYAN_SHULKER_BOX",
+		"GRAY_SHULKER_BOX",
+		"GREEN_SHULKER_BOX",
+		"LIGHT_BLUE_SHULKER_BOX",
+		"LIME_SHULKER_BOX",
+		"MAGENTA_SHULKER_BOX",
+		"ORANGE_SHULKER_BOX",
+		"PINK_SHULKER_BOX",
+		"PURPLE_SHULKER_BOX",
+		"RED_SHULKER_BOX",
+		"SILVER_SHULKER_BOX",
+		"WHITE_SHULKER_BOX",
+		"YELLOW_SHULKER_BOX"
 	);
 	
 	public static boolean isMaterialContainer(Material material)
@@ -177,15 +184,15 @@ public class EnumerationUtil
 		"BLAZE", // Minecraft 1.?
 		"CAVE_SPIDER", // Minecraft 1.?
 		"CREEPER", // Minecraft 1.?
-		"ELDER_GUARDIAN", // minecraft 1.11
+		"ELDER_GUARDIAN",
 		"ENDERMAN", // Minecraft 1.?
 		"ENDERMITE", // Minecraft 1.8
 		"ENDER_DRAGON", // Minecraft 1.?
-		"EVOKER", // Minecraft 1.11
+		"EVOKER",
 		"GUARDIAN", // Minecraft 1.8
 		"GHAST", // Minecraft 1.?
 		"GIANT", // Minecraft 1.?
-		"HUSK", // Minecraft 1.11
+		"HUSK",
 		"MAGMA_CUBE", // Minecraft 1.?
 		"PIG_ZOMBIE", // Minecraft 1.?
 		"POLAR_BEAR", // Minecraft 1.10
@@ -194,14 +201,14 @@ public class EnumerationUtil
 		"SKELETON", // Minecraft 1.?
 		"SLIME", // Minecraft 1.?
 		"SPIDER", // Minecraft 1.?
-		"STRAY", // Minecraft 1.11
-		"VINDICATOR", // Minecraft 1.11
-		"VEX", // Minecraft 1.11
+		"STRAY",
+		"VINDICATOR",
+		"VEX",
 		"WITCH", // Minecraft 1.?
 		"WITHER", // Minecraft 1.?
-		"WITHER_SKELETON", // Minecraft 1.11
+		"WITHER_SKELETON",
 		"ZOMBIE", // Minecraft 1.?
-		"ZOMBIE_VILLAGER", // Minecraft 1.11
+		"ZOMBIE_VILLAGER",
 		"ILLUSIONER" // Minecraft 1.12
 	);
 	
@@ -218,19 +225,19 @@ public class EnumerationUtil
 		"BAT", // Minecraft 1.?
 		"CHICKEN", // Minecraft 1.?
 		"COW", // Minecraft 1.?
-		"DONKEY", // Minecraft 1.11
+		"DONKEY",
 		"HORSE", // Minecraft 1.?
-		"LLAMA", // Minecraft 1.11
-		"MULE", // Minecraft 1.11
+		"LLAMA",
+		"MULE",
 		"MUSHROOM_COW", // Minecraft 1.?
 		"OCELOT", // Minecraft 1.?
 		"PIG", // Minecraft 1.?
 		"RABBIT", // Minecraft 1.?
 		"SHEEP", // Minecraft 1.?
-		"SKELETON_HORSE", // Minecraft 1.11
+		"SKELETON_HORSE",
 		"SQUID", // Minecraft 1.?
 		"WOLF", // Minecraft 1.?
-		"ZOMBIE_HORSE", // Minecraft 1.11
+		"ZOMBIE_HORSE",
 		"PARROT" // Minecraft 1.12
 	);
 	

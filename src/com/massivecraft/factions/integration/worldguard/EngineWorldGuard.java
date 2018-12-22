@@ -61,7 +61,7 @@ public class EngineWorldGuard extends Engine
 		// Only do this for players 
 		if (player == null) return;
 		
-		LocalPlayer wrapperPlayer = WorldGuardPlugin.inst().wrapPlayer(player);
+		LocalPlayer wrapperPlayer = WorldGuardPlugin.inst()	.wrapPlayer(player);
 		
 		if ( ! MConf.get().worldguardCheckWorldsEnabled.contains(player)) return;
 
