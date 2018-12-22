@@ -4,16 +4,11 @@ import com.massivecraft.factions.cmd.type.TypeFaction;
 import com.massivecraft.factions.cmd.type.TypeMPerm;
 import com.massivecraft.factions.cmd.type.TypeMPermable;
 import com.massivecraft.factions.entity.Faction;
-import com.massivecraft.factions.entity.MConf;
 import com.massivecraft.factions.entity.MPerm;
-import com.massivecraft.factions.entity.MPlayer;
 import com.massivecraft.factions.event.EventFactionsPermChange;
 import com.massivecraft.massivecore.MassiveException;
 import com.massivecraft.massivecore.command.type.primitive.TypeBooleanYes;
 import com.massivecraft.massivecore.util.Txt;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class CmdFactionsPermSet extends FactionsCommand
 {
@@ -43,7 +38,6 @@ public class CmdFactionsPermSet extends FactionsCommand
 		Faction faction = this.readArgAt(3, msenderFaction);
 
 		MPerm.MPermable permable = TypeMPermable.get(faction).read(this.argAt(1), sender);
-
 		
 		// Do the sender have the right to change perms for this faction?
 		if ( ! MPerm.getPermPerms().has(msender, faction, true)) return;
@@ -51,8 +45,12 @@ public class CmdFactionsPermSet extends FactionsCommand
 		// Is this perm editable?
 		if ( ! msender.isOverriding() && ! perm.isEditable())
 		{
-			msg("<b>The perm <h>%s <b>is not editable.", perm.getName());
-			return;
+			throw new MassiveException().addMsg("<b>The perm <h>%s <b>is not editable.", perm.getName());
+		}
+
+		if (permable == faction)
+		{
+			throw new MassiveException().addMsg("<b>A faction can't have perms for itself. Perhaps try ranks.");
 		}
 		
 		// Event
@@ -67,35 +65,18 @@ public class CmdFactionsPermSet extends FactionsCommand
 		// No change
 		if (!change)
 		{
-			msg("%s <i>already has %s <i>set to %s <i>for %s<i>.", faction.describeTo(msender), perm.getDesc(true, false), Txt.parse(value ? "<g>YES" : "<b>NOO"), permable.getColor() + permable.getName() + "s");
-			return;
+			throw new MassiveException().addMsg("%s <i>already has %s <i>set to %s <i>for %s<i>.", faction.describeTo(msender), perm.getDesc(true, false), Txt.parse(value ? "<g>YES" : "<b>NOO"), permable.getDisplayName(msender));
 		}
-
 		
 		// The following is to make sure the leader always has the right to change perms if that is our goal.
-		if (perm == MPerm.getPermPerms() && MConf.get().defaultPermsLeader.contains(MPerm.ID_PERMS))
+		if (perm == MPerm.getPermPerms() && MPerm.getPermPerms().getStandard().contains("LEADER"))
 		{
 			faction.setPermitted( faction.getLeaderRank(), MPerm.getPermPerms(), true);
 		}
-		
-		// Create messages
-		List<Object> messages = new ArrayList<>();
-		
+
 		// Inform sender
-		messages.add(Txt.titleize("Perm for " + faction.describeTo(msender, true)));
-		messages.add(MPerm.getStateHeaders(faction));
-		messages.add(Txt.parse(perm.getStateInfo(faction, true)));
-		message(messages);
-		
-		// Inform faction (their message is slighly different)
-		List<MPlayer> recipients = faction.getMPlayers();
-		recipients.remove(msender);
-		
-		for (MPlayer recipient : recipients)
-		{
-			recipient.msg("<h>%s <i>set a perm for <h>%s<i>.", msender.describeTo(recipient, true), faction.describeTo(recipient, true));
-			recipient.message(messages);
-		}
+		String yesNo = Txt.parse(value ? "<g>YES" : "<b>NOO");
+		msg("<i>Set perm <h>%s <i>to <h>%s <i>for <reset>%s<i> in <reset>%s<i>.", perm.getName(), yesNo, permable.getDisplayName(msender), faction.describeTo(msender));
 	}
 	
 }

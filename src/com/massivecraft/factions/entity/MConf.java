@@ -280,14 +280,14 @@ public class MConf extends Entity<MConf>
 	// PERMS
 	// -------------------------------------------- //
 
-	public List<String> defaultPermsEnemy = MUtil.list(MPerm.ID_DEPOSIT);
+	/*public List<String> defaultPermsEnemy = MUtil.list(MPerm.ID_DEPOSIT);
 	public List<String> defaultPermsNeutral = MUtil.list(MPerm.ID_DEPOSIT);
 	public List<String> defaultPermsTruce = MUtil.list(MPerm.ID_DEPOSIT);
 	public List<String> defaultPermsAlly = MUtil.list(MPerm.ID_DOOR, MPerm.ID_BUTTON, MPerm.ID_LEVER, MPerm.ID_HOME, MPerm.ID_CLAIMNEAR);
 	public List<String> defaultPermsRecruit = MUtil.list(MPerm.ID_DOOR, MPerm.ID_BUTTON, MPerm.ID_LEVER, MPerm.ID_LEVER, MPerm.ID_HOME, MPerm.ID_CLAIMNEAR);
 	public List<String> defaultPermsMember = MUtil.list(MPerm.ID_BUILD, MPerm.ID_DOOR, MPerm.ID_BUTTON, MPerm.ID_LEVER, MPerm.ID_LEVER, MPerm.ID_CONTAINER, MPerm.ID_HOME, MPerm.ID_CLAIMNEAR);
 	public List<String> defaultPermsOfficer = MUtil.list(MPerm.ID_BUILD, MPerm.ID_DOOR, MPerm.ID_BUTTON, MPerm.ID_LEVER, MPerm.ID_LEVER, MPerm.ID_CONTAINER, MPerm.ID_DESC, MPerm.ID_MOTD, MPerm.ID_INVITE, MPerm.ID_KICK, MPerm.ID_RANK, MPerm.ID_TITLE, MPerm.ID_HOME, MPerm.ID_SETHOME, MPerm.ID_TERRITORY, MPerm.ID_ACCESS, MPerm.ID_CLAIMNEAR, MPerm.ID_REL);
-	public List<String> defaultPermsLeader = MUtil.list(MPerm.ID_BUILD, MPerm.ID_DOOR, MPerm.ID_BUTTON, MPerm.ID_LEVER, MPerm.ID_LEVER, MPerm.ID_CONTAINER, MPerm.ID_NAME, MPerm.ID_DESC, MPerm.ID_MOTD, MPerm.ID_INVITE, MPerm.ID_KICK, MPerm.ID_RANK, MPerm.ID_TITLE, MPerm.ID_HOME, MPerm.ID_SETHOME, MPerm.ID_WITHDRAW, MPerm.ID_TERRITORY, MPerm.ID_ACCESS, MPerm.ID_CLAIMNEAR, MPerm.ID_REL, MPerm.ID_DISBAND, MPerm.ID_FLAGS, MPerm.ID_FLAGS);
+	public List<String> defaultPermsLeader = MUtil.list(MPerm.ID_BUILD, MPerm.ID_DOOR, MPerm.ID_BUTTON, MPerm.ID_LEVER, MPerm.ID_LEVER, MPerm.ID_CONTAINER, MPerm.ID_NAME, MPerm.ID_DESC, MPerm.ID_MOTD, MPerm.ID_INVITE, MPerm.ID_KICK, MPerm.ID_RANK, MPerm.ID_TITLE, MPerm.ID_HOME, MPerm.ID_SETHOME, MPerm.ID_WITHDRAW, MPerm.ID_TERRITORY, MPerm.ID_ACCESS, MPerm.ID_CLAIMNEAR, MPerm.ID_REL, MPerm.ID_DISBAND, MPerm.ID_FLAGS, MPerm.ID_FLAGS);*/
 
 	// -------------------------------------------- //
 	// TERRITORY INFO

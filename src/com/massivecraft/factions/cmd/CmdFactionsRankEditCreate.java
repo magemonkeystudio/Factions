@@ -6,6 +6,7 @@ import com.massivecraft.factions.entity.Rank;
 import com.massivecraft.massivecore.MassiveException;
 import com.massivecraft.massivecore.command.type.primitive.TypeInteger;
 import com.massivecraft.massivecore.command.type.primitive.TypeString;
+import com.massivecraft.massivecore.command.type.primitive.TypeStringParsed;
 
 public class CmdFactionsRankEditCreate extends FactionsCommand
 {
@@ -18,7 +19,7 @@ public class CmdFactionsRankEditCreate extends FactionsCommand
 		// Parameters
 		this.addParameter(TypeString.get(), "name");
 		this.addParameter(TypeInteger.get(), "priority");
-		this.addParameter("", TypeString.get(), "prefix", "none");
+		this.addParameter("", TypeStringParsed.get(), "prefix", "none");
 		this.addParameter(TypeFaction.get(), "faction", "you");
 	}
 

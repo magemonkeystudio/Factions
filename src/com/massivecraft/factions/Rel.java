@@ -114,6 +114,12 @@ public enum Rel implements Colorized, Named, MPerm.MPermable
 	{
 		return name();
 	}
+
+	@Override
+	public String getDisplayName(Object senderObject)
+	{
+		return this.getColor() + this.getName();
+	}
 	
 	// -------------------------------------------- //
 	// UTIL

@@ -1,6 +1,8 @@
 package com.massivecraft.factions.entity;
 
 import com.massivecraft.massivecore.store.EntityInternal;
+import com.massivecraft.massivecore.store.EntityInternalMap;
+import com.massivecraft.massivecore.util.Txt;
 import org.bukkit.ChatColor;
 
 public class Rank extends EntityInternal<Rank> implements MPerm.MPermable
@@ -15,6 +17,20 @@ public class Rank extends EntityInternal<Rank> implements MPerm.MPermable
 		this.name = that.name;
 
 		return this;
+	}
+
+	@Override
+	public void preDetach(String id)
+	{
+		for (var f : FactionColl.get().getAll())
+		{
+			for (var it = f.getPerms().entrySet().iterator(); it.hasNext();)
+			{
+				var entry = it.next();
+				var value = entry.getValue();
+				value.remove(id);
+			}
+		}
 	}
 
 	// -------------------------------------------- //
@@ -32,6 +48,13 @@ public class Rank extends EntityInternal<Rank> implements MPerm.MPermable
 	private String prefix;
 	public String getPrefix() { return this.prefix; }
 	public void setPrefix(String prefix) { this.prefix = prefix; this.changed(); }
+
+	public Faction getFaction()
+	{
+		var internalMap = (EntityInternalMap<Rank>) this.getContainer();
+		var faction = (Faction) internalMap.getEntity();
+		return faction;
+	}
 
 	// -------------------------------------------- //
 	// CONSTRUCT
@@ -53,6 +76,14 @@ public class Rank extends EntityInternal<Rank> implements MPerm.MPermable
 	// -------------------------------------------- //
 	// VISUAL
 	// -------------------------------------------- //
+
+	@Override
+	public String getDisplayName(Object senderObject)
+	{
+		String ret = this.getVisual();
+		ret += Txt.parse(" of ") + this.getFaction().getDisplayName(senderObject);
+		return ret;
+	}
 
 	public String getVisual()
 	{

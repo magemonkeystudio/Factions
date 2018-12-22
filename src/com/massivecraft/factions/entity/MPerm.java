@@ -18,7 +18,6 @@ import com.massivecraft.massivecore.ps.PS;
 import com.massivecraft.massivecore.store.Entity;
 import com.massivecraft.massivecore.util.MUtil;
 import com.massivecraft.massivecore.util.Txt;
-import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -417,7 +416,7 @@ public class MPerm extends Entity<MPerm> implements Prioritized, Registerable, N
 		return list;
 	}
 	
-	public static String getStateHeaders(Faction faction)
+	/*public static String getStateHeaders(Faction faction)
 	{
 		if (faction == null) throw new NullPointerException("faction");
 
@@ -469,7 +468,7 @@ public class MPerm extends Entity<MPerm> implements Prioritized, Registerable, N
 		if (withDesc) ret += " <i>" + this.getDesc();
 		
 		return ret;
-	}
+	}*/
 
 	public interface MPermable extends Named, Identified
 	{
@@ -488,22 +487,7 @@ public class MPerm extends Entity<MPerm> implements Prioritized, Registerable, N
 			return this.getName().substring(0, 3).toUpperCase();
 		}
 
-		default ChatColor getColor()
-		{
-			if (this.isRelation())
-			{
-				throw new RuntimeException();
-			}
-			else if (this.isRank())
-			{
-				return MConf.get().colorMember;
-			}
-			else
-			{
-				throw new RuntimeException();
-			}
-		}
-
+		String getDisplayName(Object senderObject);
 	}
 	
 }

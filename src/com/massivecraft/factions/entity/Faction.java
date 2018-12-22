@@ -158,7 +158,7 @@ public class Faction extends Entity<Faction> implements FactionsParticipator, MP
 
 	// The perm overrides are modifications to the default values.
 	// Null means default.
-	private Map<String, Set<String>> perms = new MassiveMap<>();
+	private Map<String, Set<String>> perms = this.createNewPermMap();
 	
 	// -------------------------------------------- //
 	// FIELD: id
@@ -751,13 +751,39 @@ public class Faction extends Entity<Faction> implements FactionsParticipator, MP
 	}
 	
 	// -------------------------------------------- //
-	// FIELD: permOverrides
+	// FIELD: perms
 	// -------------------------------------------- //
 
 	public Map<String, Set<String>> getPerms()
 	{
 		return this.perms;
 	}
+
+	public Map<String, Set<String>> createNewPermMap()
+	{
+		Map<String, Set<String>> ret = new MassiveMap<>();
+
+		var leaderId = this.getRanks().getAll().stream().filter(r -> r.getName().equalsIgnoreCase("leader")).map(Rank::getId).findFirst();
+		var officerId = this.getRanks().getAll().stream().filter(r -> r.getName().equalsIgnoreCase("officer")).map(Rank::getId).findFirst();
+		var memberId = this.getRanks().getAll().stream().filter(r -> r.getName().equalsIgnoreCase("member")).map(Rank::getId).findFirst();
+		var recruitId = this.getRanks().getAll().stream().filter(r -> r.getName().equalsIgnoreCase("recruit")).map(Rank::getId).findAny();
+
+		for (var mperm : MPerm.getAll())
+		{
+			var id = mperm.getId();
+			var value = new MassiveSet<>(mperm.getStandard());
+
+			if (value.remove("LEADER") && leaderId.isPresent()) value.add(leaderId.get());
+			if (value.remove("OFFICER") && officerId.isPresent()) value.add(officerId.get());
+			if (value.remove("MEMBER") && memberId.isPresent()) value.add(memberId.get());
+			if (value.remove("RECRUIT") && recruitId.isPresent()) value.add(recruitId.get());
+
+			ret.put(mperm.getId(), value);
+		}
+
+		return ret;
+	}
+
 
 	// IS PERMITTED
 
@@ -789,19 +815,30 @@ public class Faction extends Entity<Faction> implements FactionsParticipator, MP
 		return isFactionPermitted(faction, mperm.getId());
 	}
 
-	@Deprecated
-	public boolean isPermablePermitted(MPerm.MPermable permable, String permId)
+	public Set<String> getPermitted(String permId)
 	{
-		return isPermitted(permable.getId(), permId);
+		if (permId == null) throw new NullPointerException("permId");
+		var permables = this.perms.get(permId);
+
+		if (permables == null)
+		{
+			// No perms was found, but likely this is just a new MPerm.
+			// So if this does not exist in the database, throw an error.
+			if (!doesPermExist(permId)) throw new NullPointerException(permId + " caused null");
+
+			permables = new MassiveSet<>();
+			this.perms.put(permId, permables);
+		}
+
+		return permables;
 	}
 
-	@Deprecated
-	public boolean isPermablePermitted(MPerm.MPermable permable, MPerm mperm)
+	public Set<String> getPermitted(MPerm mperm)
 	{
-		return isPermablePermitted(permable, mperm.getId());
+		return getPermitted(mperm.getId());
 	}
 
-	private boolean isPermitted(String permableId, String permId)
+	public boolean isPermitted(String permableId, String permId)
 	{
 		if (permableId == null) throw new NullPointerException("permableId");
 		if (permId == null) throw new NullPointerException("permId");
@@ -817,7 +854,7 @@ public class Faction extends Entity<Faction> implements FactionsParticipator, MP
 			return false;
 		}
 
-		return permables.contains(permableId);
+		return getPermitted(permId).contains(permableId);
 	}
 
 	// SET PERMITTED
@@ -873,7 +910,6 @@ public class Faction extends Entity<Faction> implements FactionsParticipator, MP
 		return MPermColl.get().getFixed(permId) != null;
 	}
 
-
 	// -------------------------------------------- //
 	// OVERRIDE: RelationParticipator
 	// -------------------------------------------- //
@@ -907,7 +943,20 @@ public class Faction extends Entity<Faction> implements FactionsParticipator, MP
 	{
 		return RelationUtil.getColorOfThatToMe(this, observer);
 	}
-	
+
+	// -------------------------------------------- //
+	// OVERRIDE: permable
+	// -------------------------------------------- //
+
+	@Override
+	public String getDisplayName(Object senderObject)
+	{
+		MPlayer mplayer = MPlayer.get(senderObject);
+		if (mplayer == null) return this.getName();
+
+		return this.describeTo(mplayer);
+	}
+
 	// -------------------------------------------- //
 	// POWER
 	// -------------------------------------------- //

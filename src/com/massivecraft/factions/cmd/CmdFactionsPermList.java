@@ -15,19 +15,6 @@ import java.util.List;
 public class CmdFactionsPermList extends FactionsCommand
 {
 	// -------------------------------------------- //
-	// REUSABLE PREDICATE
-	// -------------------------------------------- //
-	
-	private static final Predicate<MPerm> PREDICATE_MPERM_VISIBLE = new Predicate<MPerm>()
-	{
-		@Override
-		public boolean apply(MPerm mperm)
-		{
-			return mperm.isVisible();
-		}
-	};
-	
-	// -------------------------------------------- //
 	// CONSTRUCT
 	// -------------------------------------------- //
 	
@@ -49,16 +36,8 @@ public class CmdFactionsPermList extends FactionsCommand
 		
 		// Pager create
 		String title = String.format("Perms for %s", msenderFaction.describeTo(msender));
-		final Pager<MPerm> pager = new Pager<>(this, title, page, new Stringifier<MPerm>()
-		{
-			@Override
-			public String toString(MPerm mperm, int index)
-			{
-				return mperm.getDesc(true, true);
-			}
-		});
-		
-		final Predicate<MPerm> predicate = msender.isOverriding() ? null : PREDICATE_MPERM_VISIBLE;
+		final Pager<MPerm> pager = new Pager<>(this, title, page, (Stringifier<MPerm>) (mp, i) -> mp.getDesc(true, true));
+		final Predicate<MPerm> predicate = msender.isOverriding() ? null : MPerm::isVisible;
 		
 		Bukkit.getScheduler().runTaskAsynchronously(Factions.get(), new Runnable()
 		{
