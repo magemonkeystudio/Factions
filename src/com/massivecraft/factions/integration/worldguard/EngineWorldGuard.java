@@ -6,9 +6,10 @@ import com.massivecraft.factions.entity.MPlayer;
 import com.massivecraft.factions.event.EventFactionsChunksChange;
 import com.massivecraft.massivecore.Engine;
 import com.massivecraft.massivecore.ps.PS;
-import com.sk89q.worldedit.BlockVector;
+import com.sk89q.worldedit.bukkit.BukkitWorld;
+import com.sk89q.worldedit.math.BlockVector3;
 import com.sk89q.worldguard.LocalPlayer;
-import com.sk89q.worldguard.bukkit.WGBukkit;
+import com.sk89q.worldguard.WorldGuard;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import com.sk89q.worldguard.protection.managers.RegionManager;
 import com.sk89q.worldguard.protection.regions.GlobalProtectedRegion;
@@ -30,13 +31,7 @@ public class EngineWorldGuard extends Engine
 	
 	private static EngineWorldGuard i = new EngineWorldGuard();
 	public static EngineWorldGuard get() { return i; }
-	
-	// -------------------------------------------- //
-	// FIELDS
-	// -------------------------------------------- //
-	
-	protected WorldGuardPlugin worldGuard;	
-	
+
 	// -------------------------------------------- //
 	// OVERRIDE
 	// -------------------------------------------- //
@@ -44,14 +39,7 @@ public class EngineWorldGuard extends Engine
 	@Override
 	public void setActiveInner(boolean active)
 	{
-		if (active)
-		{
-			this.worldGuard = WGBukkit.getPlugin();
-		}
-		else
-		{
-			this.worldGuard = null;
-		}
+
 	}
 	
 	// -------------------------------------------- //
@@ -62,7 +50,7 @@ public class EngineWorldGuard extends Engine
 	public void checkForRegion(EventFactionsChunksChange event)
 	{
 		// Skip checks if the configuration has worldguardCheckEnabled disabled
-		if ( ! MConf.get().worldguardCheckEnabled) return; 
+		if ( ! MConf.get().worldguardCheckEnabled) return;
 		
 		// Permanent Factions should not apply this rule 
 		if (event.getNewFaction().getFlag(MFlag.ID_PERMANENT)) return;
@@ -73,7 +61,7 @@ public class EngineWorldGuard extends Engine
 		// Only do this for players 
 		if (player == null) return;
 		
-		LocalPlayer wrapperPlayer = this.worldGuard.wrapPlayer(player);
+		LocalPlayer wrapperPlayer = WorldGuardPlugin.inst().wrapPlayer(player);
 		
 		if ( ! MConf.get().worldguardCheckWorldsEnabled.contains(player)) return;
 
@@ -119,15 +107,15 @@ public class EngineWorldGuard extends Engine
 		
 		int worldHeight = ps.asBukkitWorld().getMaxHeight();
 		
-		BlockVector minChunk = new BlockVector(minChunkX, 0, minChunkZ);
-		BlockVector maxChunk = new BlockVector(maxChunkX, worldHeight, maxChunkZ);
+		BlockVector3 minChunk = BlockVector3.at(minChunkX, 0, minChunkZ);
+		BlockVector3 maxChunk = BlockVector3.at(maxChunkX, worldHeight, maxChunkZ);
 		
-		RegionManager regionManager = this.worldGuard.getRegionManager(ps.asBukkitWorld());
+		RegionManager regionManager = WorldGuard.getInstance().getPlatform().getRegionContainer().get(new BukkitWorld(ps.asBukkitWorld()));
 		
 		String regionName = "factions_temp";
 		ProtectedCuboidRegion region = new ProtectedCuboidRegion(regionName, minChunk, maxChunk);
 		
-		Map<String, ProtectedRegion> regionMap = regionManager.getRegions(); 
+		Map<String, ProtectedRegion> regionMap = regionManager.getRegions();
 		List<ProtectedRegion> regionList = new ArrayList<>(regionMap.values());
 		
 		// Let's find what we've overlapped
