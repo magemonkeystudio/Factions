@@ -395,7 +395,8 @@ public class MPerm extends Entity<MPerm> implements Prioritized, Registerable, N
 			}
 		}
 		
-		return this.has(mplayer, hostFaction, verboose);
+		var ret = this.has(mplayer, hostFaction, verboose);
+		return ret;
 	}
 
 	// -------------------------------------------- //

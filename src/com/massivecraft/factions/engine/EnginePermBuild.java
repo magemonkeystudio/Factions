@@ -34,7 +34,6 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.entity.EntityCombustByEntityEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.ProjectileHitEvent;
 import org.bukkit.event.hanging.HangingBreakByEntityEvent;
 import org.bukkit.event.hanging.HangingPlaceEvent;
 import org.bukkit.event.player.PlayerBucketEmptyEvent;
@@ -87,6 +86,7 @@ public class EnginePermBuild extends Engine
 	{
 		Boolean ret = isProtected(protectCase, verboose, MPlayer.get(senderObject), ps, object);
 		if (Boolean.TRUE.equals(ret) && cancellable != null) cancellable.setCancelled(true);
+
 		return ret;
 	}
 	
