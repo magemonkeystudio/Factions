@@ -117,7 +117,7 @@ public class TypeMPermable extends TypeAbstract<MPerm.MPermable>
 		ret.addAll(TypeFaction.get().getTabList(sender, arg));
 
 		// Faction specific ranks
-		if (arg.length() >= 3)
+		if (arg.length() >= 2)
 		{
 			for (var f : FactionColl.get().getAll())
 			{

@@ -55,7 +55,7 @@ public class CmdFactionsPermShow extends FactionsCommand
 		String permableNames = Txt.implodeCommaAnd(permableList, Txt.parse("<i>"));
 
 		// Create messages
-		msg("<i>In <reset>%s <i>permission <h>%s <i>is granted to <reset>%s<i>.", faction.describeTo(msender), mperm.getName(), permableNames);
+		msg("<i>In <reset>%s <i>permission <reset>%s <i>is granted to <reset>%s<i>.", faction.describeTo(msender), mperm.getDesc(true, false), permableNames);
 	}
 
 	public static MPerm.MPermable idToMPermable(String id)

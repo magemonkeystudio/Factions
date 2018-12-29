@@ -63,7 +63,8 @@ permissions:
   factions.perm: {description: change faction permissions, default: false}
   factions.perm.list: {description: list perms, default: false}
   factions.perm.set: {description: set perms, default: false}
-  factions.perm.show: {description: show perms, default: false}
+  factions.perm.show: {description: show who has perm, default: false}
+  factions.perm.show2: {description: show perms given to, default: false}
   factions.player: {description: show player information}
   factions.powerboost: {description: manage powerboost, default: false}
   factions.powerboost.faction: {description: show faction powerboost, default: false}
@@ -162,6 +163,7 @@ permissions:
       factions.perm.list: true
       factions.perm.set: true
       factions.perm.show: true
+      factions.perm.show2: true
       factions.player: true
       factions.powerboost: true
       factions.powerboost.faction: true
@@ -283,6 +285,7 @@ permissions:
       factions.perm.list: true
       factions.perm.set: true
       factions.perm.show: true
+      factions.perm.show2: true
       factions.player: true
       factions.promote: true
       factions.powerboost: true
