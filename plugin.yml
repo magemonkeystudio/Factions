@@ -10,7 +10,7 @@ softdepend: [PermissionsEx, Permissions, Essentials, EssentialsChat, HeroChat, L
 api-version: 1.13
 commands:
   f:
-    description: Hi
+    description: Factions basecommand
     permission: factions.basecommand
 permissions:
 # -------------------------------------------- #
