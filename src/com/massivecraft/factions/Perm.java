@@ -58,7 +58,7 @@ public enum Perm implements Identified
 	PERM_LIST,
 	PERM_SET,
 	PERM_SHOW,
-	PERM_SHOW2,
+	PERM_VIEW,
 	PLAYER,
 	POWERBOOST,
 	POWERBOOST_PLAYER,

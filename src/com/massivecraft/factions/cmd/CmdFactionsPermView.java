@@ -15,13 +15,13 @@ import org.bukkit.ChatColor;
 
 import java.util.stream.Collectors;
 
-public class CmdFactionsPermShow2 extends FactionsCommand
+public class CmdFactionsPermView extends FactionsCommand
 {
 	// -------------------------------------------- //
 	// CONSTRUCT
 	// -------------------------------------------- //
 
-	public CmdFactionsPermShow2()
+	public CmdFactionsPermView()
 	{
 		// Parameters
 		this.addParameter(TypeMPermable.get(), "rank/rel/player/faction");
