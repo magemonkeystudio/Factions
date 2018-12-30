@@ -20,7 +20,7 @@ public class CmdFactionsPermSet extends FactionsCommand
 	{
 		// Parameters
 		this.addParameter(TypeMPerm.get(), "perm");
-		this.addParameter(TypeMPermable.get(), "relation");
+		this.addParameter(TypeMPermable.get(), "rank/rel/player/faction");
 		this.addParameter(TypeBooleanYes.get(), "yes/no");
 		this.addParameter(TypeFaction.get(), "faction", "you");
 	}
