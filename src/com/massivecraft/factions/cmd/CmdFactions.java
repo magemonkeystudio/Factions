@@ -25,6 +25,7 @@ public class CmdFactions extends FactionsCommand
 	public CmdFactionsList cmdFactionsList = new CmdFactionsList();
 	public CmdFactionsFaction cmdFactionsFaction = new CmdFactionsFaction();
 	public CmdFactionsPlayer cmdFactionsPlayer = new CmdFactionsPlayer();
+	public CmdFactionsStatus cmdFactionsStatus = new CmdFactionsStatus();
 	public CmdFactionsJoin cmdFactionsJoin = new CmdFactionsJoin();
 	public CmdFactionsLeave cmdFactionsLeave = new CmdFactionsLeave();
 	public CmdFactionsHome cmdFactionsHome = new CmdFactionsHome();
@@ -43,7 +44,6 @@ public class CmdFactions extends FactionsCommand
 	public CmdFactionsSeeChunk cmdFactionsSeeChunk = new CmdFactionsSeeChunk();
 	public CmdFactionsSeeChunkOld cmdFactionsSeeChunkOld = new CmdFactionsSeeChunkOld();
 	public CmdFactionsTerritorytitles cmdFactionsTerritorytitles = new CmdFactionsTerritorytitles();
-	public CmdFactionsStatus cmdFactionsStatus = new CmdFactionsStatus();
 	public CmdFactionsClaim cmdFactionsClaim = new CmdFactionsClaim();
 	public CmdFactionsUnclaim cmdFactionsUnclaim = new CmdFactionsUnclaim();
 	public CmdFactionsAccess cmdFactionsAccess = new CmdFactionsAccess();

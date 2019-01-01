@@ -27,7 +27,7 @@ public class CmdFactionsRankEdit extends FactionsCommand
 
 		if (!msender.getRank().isLeader())
 		{
-			throw new MassiveException().addMsg("<b>Only the leader can create ranks.");
+			throw new MassiveException().addMsg("<b>Only the leader can create, edit or delete ranks.");
 		}
 	}
 

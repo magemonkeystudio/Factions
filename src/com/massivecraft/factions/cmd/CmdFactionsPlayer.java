@@ -37,6 +37,9 @@ public class CmdFactionsPlayer extends FactionsCommand
 		
 		// INFO: Title
 		message(Txt.titleize("Player " + mplayer.describeTo(msender)));
+
+		// INFO: Rank
+		msg("<a>Rank: <v>%s", mplayer.getRank().getDisplayName(sender));
 		
 		// INFO: Power (as progress bar)
 		double progressbarQuota = 0;
