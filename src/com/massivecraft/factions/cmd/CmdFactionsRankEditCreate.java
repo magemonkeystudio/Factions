@@ -8,6 +8,8 @@ import com.massivecraft.massivecore.command.type.primitive.TypeInteger;
 import com.massivecraft.massivecore.command.type.primitive.TypeString;
 import com.massivecraft.massivecore.command.type.primitive.TypeStringParsed;
 
+import java.util.Collection;
+
 public class CmdFactionsRankEditCreate extends FactionsCommand
 {
 	// -------------------------------------------- //
@@ -36,9 +38,9 @@ public class CmdFactionsRankEditCreate extends FactionsCommand
 		String prefix = this.readArg();
 		Faction faction = this.readArg(msenderFaction);
 
-		CmdFactionsRankEdit.ensureAllowed(msender, faction);
+		CmdFactionsRankEdit.ensureAllowed(msender, faction, "create");
 
-		var ranks = faction.getRanks().getAll();
+		Collection<Rank> ranks = faction.getRanks().getAll();
 
 		if (ranks.stream().map(Rank::getName).anyMatch(s -> s.equalsIgnoreCase(name)))
 		{

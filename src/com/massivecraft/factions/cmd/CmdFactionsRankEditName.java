@@ -7,6 +7,8 @@ import com.massivecraft.factions.entity.Rank;
 import com.massivecraft.massivecore.MassiveException;
 import com.massivecraft.massivecore.command.type.primitive.TypeString;
 
+import java.util.Collection;
+
 public class CmdFactionsRankEditName extends FactionsCommand
 {
 	// -------------------------------------------- //
@@ -38,16 +40,16 @@ public class CmdFactionsRankEditName extends FactionsCommand
 
 		// Args
 
-		CmdFactionsRankEdit.ensureAllowed(msender, faction);
+		CmdFactionsRankEdit.ensureAllowed(msender, faction, "rename");
 
-		var ranks = faction.getRanks().getAll();
+		Collection<Rank> ranks = faction.getRanks().getAll();
 
 		if (ranks.stream().map(Rank::getName).anyMatch(s -> s.equalsIgnoreCase(name)))
 		{
 			throw new MassiveException().addMsg("<b>There is already a rank called <h>%s<b>.", name);
 		}
 
-		var priorVisual = rank.getVisual();
+		String priorVisual = rank.getVisual();
 		rank.setName(name);
 
 		// Visual

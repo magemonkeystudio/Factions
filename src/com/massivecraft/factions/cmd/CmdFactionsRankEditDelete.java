@@ -3,11 +3,14 @@ package com.massivecraft.factions.cmd;
 import com.massivecraft.factions.cmd.type.TypeFaction;
 import com.massivecraft.factions.cmd.type.TypeRank;
 import com.massivecraft.factions.entity.Faction;
+import com.massivecraft.factions.entity.MPlayer;
 import com.massivecraft.factions.entity.Rank;
 import com.massivecraft.massivecore.MassiveException;
 import com.massivecraft.massivecore.command.type.primitive.TypeString;
 import com.massivecraft.massivecore.util.Txt;
 
+import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class CmdFactionsRankEditDelete extends FactionsCommand
@@ -37,21 +40,22 @@ public class CmdFactionsRankEditDelete extends FactionsCommand
 		TypeRank typeRank = new TypeRank(faction);
 		Rank rank = typeRank.read(this.argAt(0), sender);
 
-		CmdFactionsRankEdit.ensureAllowed(msender, faction);
+		CmdFactionsRankEdit.ensureAllowed(msender, faction, "delete");
 
-		var ranks = faction.getRanks().getAll();
+		Collection<Rank> ranks = faction.getRanks().getAll();
 		if (ranks.size() <= 2)
 		{
 			throw new MassiveException().addMsg("<b>A faction must have at least two ranks.");
 		}
 
-		var mplayers = faction.getMPlayersWhereRank(rank);
+		List<MPlayer> mplayers = faction.getMPlayersWhereRank(rank);
 		if (!mplayers.isEmpty())
 		{
-			var count = mplayers.size();
-			var names = mplayers.stream().map(m -> m.getDisplayName(sender)).collect(Collectors.toList());
-			var namesDesc = Txt.implodeCommaAnd(names, Txt.parse("<i>"));
-			throw new MassiveException().addMsg("<b>This rank is held by <h>%s <b>change their ranks first.", namesDesc);
+			int count = mplayers.size();
+			List<String> names = mplayers.stream().map(m -> m.getDisplayName(sender)).collect(Collectors.toList());
+			String namesDesc = Txt.implodeCommaAnd(names, Txt.parse("<i>"));
+			String rankRanks = count == 1 ? "rank" : "ranks";
+			throw new MassiveException().addMsg("<b>This rank is held by <h>%s <b>change their %s first.", namesDesc, rankRanks);
 		}
 
 		String visual = rank.getVisual();

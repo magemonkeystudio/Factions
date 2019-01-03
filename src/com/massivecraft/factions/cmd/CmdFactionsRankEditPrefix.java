@@ -38,9 +38,9 @@ public class CmdFactionsRankEditPrefix extends FactionsCommand
 
 		// Args
 
-		CmdFactionsRankEdit.ensureAllowed(msender, faction);
+		CmdFactionsRankEdit.ensureAllowed(msender, faction, "edit");
 
-		var priorPrefix = rank.getPrefix();
+		String priorPrefix = rank.getPrefix();
 		rank.setPrefix(prefix);
 
 		// Visual

@@ -504,7 +504,6 @@ public class Faction extends Entity<Faction> implements FactionsParticipator, MP
 
 	// RAW
 
-
 	public EntityInternalMap<Rank> getRanks() { return this.ranks; }
 
 	// FINER
@@ -522,16 +521,11 @@ public class Faction extends Entity<Faction> implements FactionsParticipator, MP
 
 	private EntityInternalMap<Rank> createRankMap()
 	{
-		var ret = new EntityInternalMap<>(this, Rank.class);
+		EntityInternalMap<Rank> ret = new EntityInternalMap<>(this, Rank.class);
 		Rank leader = new Rank("Leader", 400, "**");
 		Rank officer = new Rank("Officer", 300, "*");
 		Rank member = new Rank("Member", 200, "+");
 		Rank recruit = new Rank("Recruit", 100, "-");
-
-		/*leader.setPermIds(new MassiveList<>(MConf.get().defaultPermsLeader));
-		officer.setPermIds(new MassiveList<>(MConf.get().defaultPermsOfficer));
-		member.setPermIds(new MassiveList<>(MConf.get().defaultPermsMember));
-		recruit.setPermIds(new MassiveList<>(MConf.get().defaultPermsRecruit));*/
 
 		ret.attach(leader);
 		ret.attach(officer);

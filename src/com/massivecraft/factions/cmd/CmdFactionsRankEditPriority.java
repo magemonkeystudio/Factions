@@ -7,6 +7,8 @@ import com.massivecraft.factions.entity.Rank;
 import com.massivecraft.massivecore.MassiveException;
 import com.massivecraft.massivecore.command.type.primitive.TypeInteger;
 
+import java.util.Collection;
+
 public class CmdFactionsRankEditPriority extends FactionsCommand
 {
 	// -------------------------------------------- //
@@ -36,9 +38,9 @@ public class CmdFactionsRankEditPriority extends FactionsCommand
 		TypeRank typeRank = new TypeRank(faction);
 		Rank rank = typeRank.read(this.argAt(0), sender);
 
-		CmdFactionsRankEdit.ensureAllowed(msender, faction);
+		CmdFactionsRankEdit.ensureAllowed(msender, faction, "edit");
 
-		var ranks = faction.getRanks().getAll();
+		Collection<Rank> ranks = faction.getRanks().getAll();
 
 		if (ranks.stream().map(Rank::getPriority).anyMatch(s -> s.equals(priority)))
 		{

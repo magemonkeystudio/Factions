@@ -16,7 +16,7 @@ public class CmdFactionsRankEdit extends FactionsCommand
 	public CmdFactionsRankEditPrefix cmdFactionsRankEditPrefix = new CmdFactionsRankEditPrefix();
 	public CmdFactionsRankEditPriority cmdFactionsRankEditPriority = new CmdFactionsRankEditPriority();
 
-	static void ensureAllowed(MPlayer msender, Faction faction) throws MassiveException
+	static void ensureAllowed(MPlayer msender, Faction faction, String action) throws MassiveException
 	{
 		if (msender.isOverriding()) return;
 
@@ -27,7 +27,7 @@ public class CmdFactionsRankEdit extends FactionsCommand
 
 		if (!msender.getRank().isLeader())
 		{
-			throw new MassiveException().addMsg("<b>Only the leader can create, edit or delete ranks.");
+			throw new MassiveException().addMsg("<b>Only the leader can %s ranks.", action);
 		}
 	}
 
