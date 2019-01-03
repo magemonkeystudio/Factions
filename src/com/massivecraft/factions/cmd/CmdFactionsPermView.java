@@ -13,6 +13,7 @@ import com.massivecraft.massivecore.util.MUtil;
 import com.massivecraft.massivecore.util.Txt;
 import org.bukkit.ChatColor;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class CmdFactionsPermView extends FactionsCommand
@@ -37,7 +38,7 @@ public class CmdFactionsPermView extends FactionsCommand
 	{
 		// Arg: Faction
 		Faction faction = this.readArgAt(1, msenderFaction);
-		var permableType = TypeMPermable.get(faction);
+		TypeMPermable permableType = TypeMPermable.get(faction);
 		MPerm.MPermable permable = permableType.read(this.argAt(0), sender);
 
 		if (permable == faction)
@@ -45,9 +46,9 @@ public class CmdFactionsPermView extends FactionsCommand
 			throw new MassiveException().addMsg("<b>A faction can't have perms for itself.");
 		}
 
-		var perms = new MassiveList<MPerm>();
+		List<MPerm> perms = new MassiveList<>();
 
-		for (var mperm : MPerm.getAll())
+		for (MPerm mperm : MPerm.getAll())
 		{
 			if (faction.isPermitted(permable.getId(), mperm.getId())) perms.add(mperm);
 		}
@@ -58,11 +59,11 @@ public class CmdFactionsPermView extends FactionsCommand
 		}
 		else
 		{
-			var permNames = perms.stream().map(perm -> Txt.parse("<h>") + perm.getName()).collect(Collectors.toList());
+			List<String> permNames = perms.stream().map(perm -> Txt.parse("<h>") + perm.getName()).collect(Collectors.toList());
 			String names = Txt.implodeCommaAnd(permNames, Txt.parse("<i>"));
 
 			// Create messages
-			var permissionSingularPlural = permNames.size() == 1 ? "permission" : "permissions";
+			String permissionSingularPlural = permNames.size() == 1 ? "permission" : "permissions";
 			msg("<i>In <reset>%s <reset>%s <i>specifically has the %s: <reset>%s<i>.", faction.describeTo(msender), permable.getDisplayName(sender), permissionSingularPlural, names);
 		}
 		if (permable instanceof MPlayer)
@@ -70,7 +71,7 @@ public class CmdFactionsPermView extends FactionsCommand
 			MPlayer mplayer = (MPlayer) permable;
 			msg("<i>They may have other permissions through their faction membership, rank or relation to <reset>%s<i>.", faction.describeTo(msender));
 
-			var msons = new MassiveList<Mson>();
+			List<Mson> msons = new MassiveList<>();
 
 			if (mplayer.getFaction() != faction) msons.add(Mson.parse("<command>[faction]").command(this, mplayer.getFaction().getName(), faction.getName()));
 			msons.add(Mson.parse("<command>[rank]").command(this, mplayer.getFaction().getName() + "-" + mplayer.getRank().getName(), faction.getName()));

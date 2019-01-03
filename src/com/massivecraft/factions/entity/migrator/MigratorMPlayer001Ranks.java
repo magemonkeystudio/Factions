@@ -4,7 +4,10 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import com.massivecraft.factions.entity.Faction;
 import com.massivecraft.factions.entity.MPlayer;
+import com.massivecraft.factions.entity.Rank;
 import com.massivecraft.massivecore.store.migrator.MigratorRoot;
+
+import java.util.Collection;
 
 public class MigratorMPlayer001Ranks extends MigratorRoot
 {
@@ -26,12 +29,12 @@ public class MigratorMPlayer001Ranks extends MigratorRoot
 	@Override
 	public void migrateInner(JsonObject entity)
 	{
-		var role = entity.remove("role").getAsString();
-		var factionId = entity.get("factionId").getAsString();
-		var faction = Faction.get(factionId);
+		String role = entity.remove("role").getAsString();
+		String factionId = entity.get("factionId").getAsString();
+		Faction faction = Faction.get(factionId);
 
-		var ranks = faction.getRanks().getAll();
-		for (var rank : ranks)
+		Collection<Rank> ranks = faction.getRanks().getAll();
+		for (Rank rank : ranks)
 		{
 			if (!rank.getName().equalsIgnoreCase(role)) continue;
 

@@ -6,6 +6,7 @@ import com.massivecraft.factions.cmd.type.TypeMPerm;
 import com.massivecraft.factions.entity.Faction;
 import com.massivecraft.factions.entity.FactionColl;
 import com.massivecraft.factions.entity.MPerm;
+import com.massivecraft.factions.entity.MPerm.MPermable;
 import com.massivecraft.factions.entity.MPlayer;
 import com.massivecraft.factions.entity.MPlayerColl;
 import com.massivecraft.factions.entity.Rank;
@@ -13,6 +14,8 @@ import com.massivecraft.massivecore.MassiveException;
 import com.massivecraft.massivecore.collections.MassiveList;
 import com.massivecraft.massivecore.util.Txt;
 
+import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class CmdFactionsPermShow extends FactionsCommand
@@ -39,16 +42,16 @@ public class CmdFactionsPermShow extends FactionsCommand
 		MPerm mperm = this.readArg();
 		Faction faction = this.readArg(msenderFaction);
 
-		var permittedIds = faction.getPerms().get(mperm.getId());
-		var permables = new MassiveList<MPerm.MPermable>();
+		Set<String> permittedIds = faction.getPerms().get(mperm.getId());
+		List<MPermable> permables = new MassiveList<>();
 
-		for (var permitted : permittedIds)
+		for (String permitted : permittedIds)
 		{
 			permables.add(idToMPermable(permitted));
 		}
 
-		var removeString = Txt.parse(" of ") + faction.getDisplayName(msender);
-		var permableList = permables.stream()
+		String removeString = Txt.parse(" of ") + faction.getDisplayName(msender);
+		List<String> permableList = permables.stream()
 				.map(permable -> permable.getDisplayName(msender))
 				.map(s -> s.replace(removeString, ""))
 				.collect(Collectors.toList());
@@ -66,7 +69,7 @@ public class CmdFactionsPermShow extends FactionsCommand
 		Faction faction = Faction.get(id);
 		if (faction != null) return faction;
 
-		for (var f : FactionColl.get().getAll())
+		for (Faction f : FactionColl.get().getAll())
 		{
 			Rank rank = f.getRank(id);
 			if (rank != null) return rank;

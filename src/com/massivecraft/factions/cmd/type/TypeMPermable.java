@@ -12,6 +12,7 @@ import com.massivecraft.massivecore.command.type.TypeAbstract;
 import org.bukkit.command.CommandSender;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class TypeMPermable extends TypeAbstract<MPerm.MPermable>
@@ -109,8 +110,8 @@ public class TypeMPermable extends TypeAbstract<MPerm.MPermable>
 
 	public Collection<String> getTabList(CommandSender sender, String arg)
 	{
-		var ret = new MassiveList<String>();
-		var faction = this.getFaction();
+		List<String> ret = new MassiveList<>();
+		Faction faction = this.getFaction();
 		if (faction == null) faction = MPlayer.get(sender).getFaction();
 		ret.addAll(faction.getRanks().getAll().stream().map(Rank::getName).collect(Collectors.toList()));
 		ret.addAll(TypeRelation.get().getTabList(sender, arg));
@@ -119,7 +120,7 @@ public class TypeMPermable extends TypeAbstract<MPerm.MPermable>
 		// Faction specific ranks
 		if (arg.length() >= 2)
 		{
-			for (var f : FactionColl.get().getAll())
+			for (Faction f : FactionColl.get().getAll())
 			{
 				String name = f.getName();
 				if (arg.length() <= name.length() && !name.toLowerCase().startsWith(arg.toLowerCase())) continue;

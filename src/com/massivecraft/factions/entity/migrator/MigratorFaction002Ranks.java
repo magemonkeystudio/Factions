@@ -52,14 +52,14 @@ public class MigratorFaction002Ranks extends MigratorRoot
 		map.put(idMember, member);
 		map.put(idRecruit, recruit);
 
-		var jsonMap = MassiveCore.gson.toJsonTree(map, (new TypeToken<Map<String,Rank>>(){}).getType());
+		JsonElement jsonMap = MassiveCore.gson.toJsonTree(map, (new TypeToken<Map<String,Rank>>(){}).getType());
 		entity.add("ranks", jsonMap);
 
 
-		var priorPerms = entity.get("perms");
-		var newPerms = getPerms(priorPerms, idLeader, idOfficer, idMember, idRecruit);
+		JsonElement priorPerms = entity.get("perms");
+		Map<String, Set<String>> newPerms = getPerms(priorPerms, idLeader, idOfficer, idMember, idRecruit);
 
-		var jsonPerms = MassiveCore.gson.toJsonTree(newPerms, (new TypeToken<Map<String,Set<String>>>(){}).getType());
+		JsonElement jsonPerms = MassiveCore.gson.toJsonTree(newPerms, (new TypeToken<Map<String,Set<String>>>(){}).getType());
 		entity.add("perms", jsonPerms);
 	}
 

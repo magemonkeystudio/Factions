@@ -11,6 +11,7 @@ import com.massivecraft.massivecore.MassiveException;
 import com.massivecraft.massivecore.collections.MassiveList;
 import com.massivecraft.massivecore.util.Txt;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class CmdFactionsPermViewall extends FactionsCommand
@@ -35,7 +36,7 @@ public class CmdFactionsPermViewall extends FactionsCommand
 	{
 		// Arg: Faction
 		Faction faction = this.readArgAt(1, msenderFaction);
-		var permableType = TypeMPermable.get(faction);
+		TypeMPermable permableType = TypeMPermable.get(faction);
 		MPerm.MPermable permable = permableType.read(this.argAt(0), sender);
 
 		// Self check
@@ -45,7 +46,7 @@ public class CmdFactionsPermViewall extends FactionsCommand
 		}
 
 		// Create list of all applicable permables
-		var permables = new MassiveList<MPermable>();
+		List<MPermable> permables = new MassiveList<>();
 		permables.add(permable);
 
 		if (permable instanceof MPlayer)
@@ -69,14 +70,14 @@ public class CmdFactionsPermViewall extends FactionsCommand
 		}
 
 		// Find the perms they have
-		var perms = new MassiveList<MPerm>();
+		List<MPerm> perms = new MassiveList<>();
 
 		perm:
-		for (var mperm : MPerm.getAll())
+		for (MPerm mperm : MPerm.getAll())
 		{
 			String mpermId = mperm.getId();
 			permable:
-			for (var mpa : permables)
+			for (MPermable mpa : permables)
 			{
 				if (!faction.isPermitted(mpa.getId(), mperm.getId())) continue permable;
 				perms.add(mperm);
@@ -91,11 +92,11 @@ public class CmdFactionsPermViewall extends FactionsCommand
 		}
 		else
 		{
-			var permNames = perms.stream().map(perm -> Txt.parse("<h>") + perm.getName()).collect(Collectors.toList());
+			List<String> permNames = perms.stream().map(perm -> Txt.parse("<h>") + perm.getName()).collect(Collectors.toList());
 			String names = Txt.implodeCommaAnd(permNames, Txt.parse("<i>"));
 
 			// Create messages
-			var permissionSingularPlural = permNames.size() == 1 ? "permission" : "permissions";
+			String permissionSingularPlural = permNames.size() == 1 ? "permission" : "permissions";
 			msg("<i>In <reset>%s <reset>%s <i>has the %s: <reset>%s<i> either specifically granted to them or through rank, relation or faction membership.", faction.describeTo(msender), permable.getDisplayName(sender), permissionSingularPlural, names);
 		}
 	}

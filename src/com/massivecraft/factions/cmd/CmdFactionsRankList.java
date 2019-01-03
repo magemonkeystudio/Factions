@@ -9,6 +9,7 @@ import com.massivecraft.massivecore.pager.Pager;
 import com.massivecraft.massivecore.pager.Stringifier;
 
 import java.util.Comparator;
+import java.util.List;
 
 public class CmdFactionsRankList extends FactionsCommand
 {
@@ -33,10 +34,10 @@ public class CmdFactionsRankList extends FactionsCommand
 		final int page = this.readArg();
 		Faction faction = this.readArg(msenderFaction);
 
-		var ranks = faction.getRanks().getAll(Comparator.comparingInt(Rank::getPriority).reversed());
+		List<Rank> ranks = faction.getRanks().getAll(Comparator.comparingInt(Rank::getPriority).reversed());
 
 		String title = "Rank list for " + faction.describeTo(msender);
-		var pager = new Pager(this, title, page, ranks, (Stringifier<Rank>) (r, i) -> r.getVisual());
+		Pager<Rank> pager = new Pager(this, title, page, ranks, (Stringifier<Rank>) (r, i) -> r.getVisual());
 		pager.message();
 	}
 	

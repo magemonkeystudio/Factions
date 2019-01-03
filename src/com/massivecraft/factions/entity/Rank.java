@@ -5,6 +5,10 @@ import com.massivecraft.massivecore.store.EntityInternalMap;
 import com.massivecraft.massivecore.util.Txt;
 import org.bukkit.ChatColor;
 
+import java.util.Iterator;
+import java.util.Map.Entry;
+import java.util.Set;
+
 public class Rank extends EntityInternal<Rank> implements MPerm.MPermable
 {
 	// -------------------------------------------- //
@@ -22,12 +26,12 @@ public class Rank extends EntityInternal<Rank> implements MPerm.MPermable
 	@Override
 	public void preDetach(String id)
 	{
-		for (var f : FactionColl.get().getAll())
+		for (Faction f : FactionColl.get().getAll())
 		{
-			for (var it = f.getPerms().entrySet().iterator(); it.hasNext();)
+			for (Iterator<Entry<String, Set<String>>> it = f.getPerms().entrySet().iterator(); it.hasNext();)
 			{
-				var entry = it.next();
-				var value = entry.getValue();
+				Entry<String, Set<String>> entry = it.next();
+				Set<String> value = entry.getValue();
 				value.remove(id);
 			}
 		}
@@ -51,8 +55,8 @@ public class Rank extends EntityInternal<Rank> implements MPerm.MPermable
 
 	public Faction getFaction()
 	{
-		var internalMap = (EntityInternalMap<Rank>) this.getContainer();
-		var faction = (Faction) internalMap.getEntity();
+		EntityInternalMap<Rank> internalMap = (EntityInternalMap<Rank>) this.getContainer();
+		Faction faction = (Faction) internalMap.getEntity();
 		return faction;
 	}
 

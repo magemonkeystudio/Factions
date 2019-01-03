@@ -36,6 +36,7 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -757,15 +758,15 @@ public class Faction extends Entity<Faction> implements FactionsParticipator, MP
 	{
 		Map<String, Set<String>> ret = new MassiveMap<>();
 
-		var leaderId = this.getRanks().getAll().stream().filter(r -> r.getName().equalsIgnoreCase("leader")).map(Rank::getId).findFirst();
-		var officerId = this.getRanks().getAll().stream().filter(r -> r.getName().equalsIgnoreCase("officer")).map(Rank::getId).findFirst();
-		var memberId = this.getRanks().getAll().stream().filter(r -> r.getName().equalsIgnoreCase("member")).map(Rank::getId).findFirst();
-		var recruitId = this.getRanks().getAll().stream().filter(r -> r.getName().equalsIgnoreCase("recruit")).map(Rank::getId).findAny();
+		Optional<String> leaderId = this.getRanks().getAll().stream().filter(r -> r.getName().equalsIgnoreCase("leader")).map(Rank::getId).findFirst();
+		Optional<String> officerId = this.getRanks().getAll().stream().filter(r -> r.getName().equalsIgnoreCase("officer")).map(Rank::getId).findFirst();
+		Optional<String> memberId = this.getRanks().getAll().stream().filter(r -> r.getName().equalsIgnoreCase("member")).map(Rank::getId).findFirst();
+		Optional<String> recruitId = this.getRanks().getAll().stream().filter(r -> r.getName().equalsIgnoreCase("recruit")).map(Rank::getId).findAny();
 
-		for (var mperm : MPerm.getAll())
+		for (MPerm mperm : MPerm.getAll())
 		{
-			var id = mperm.getId();
-			var value = new MassiveSet<>(mperm.getStandard());
+			String id = mperm.getId();
+			MassiveSet<String> value = new MassiveSet<>(mperm.getStandard());
 
 			if (value.remove("LEADER") && leaderId.isPresent()) value.add(leaderId.get());
 			if (value.remove("OFFICER") && officerId.isPresent()) value.add(officerId.get());
@@ -812,7 +813,7 @@ public class Faction extends Entity<Faction> implements FactionsParticipator, MP
 	public Set<String> getPermitted(String permId)
 	{
 		if (permId == null) throw new NullPointerException("permId");
-		var permables = this.perms.get(permId);
+		Set<String> permables = this.perms.get(permId);
 
 		if (permables == null)
 		{
@@ -837,7 +838,7 @@ public class Faction extends Entity<Faction> implements FactionsParticipator, MP
 		if (permableId == null) throw new NullPointerException("permableId");
 		if (permId == null) throw new NullPointerException("permId");
 
-		var permables = this.perms.get(permId);
+		Set<String> permables = this.perms.get(permId);
 		if (permables == null)
 		{
 			// No perms was found, but likely this is just a new MPerm.
@@ -857,7 +858,7 @@ public class Faction extends Entity<Faction> implements FactionsParticipator, MP
 	{
 		boolean changed = false;
 
-		var perms = this.perms.get(permId);
+		Set<String> perms = this.perms.get(permId);
 		if (perms == null)
 		{
 			// No perms was found, but likely this is just a new MPerm.
@@ -889,7 +890,7 @@ public class Faction extends Entity<Faction> implements FactionsParticipator, MP
 
 	public void setPermittedRelations(String permId, Collection<MPerm.MPermable> permables)
 	{
-		var ids = permables.stream().map(MPerm.MPermable::getId).collect(Collectors.toSet());
+		Set<String> ids = permables.stream().map(MPerm.MPermable::getId).collect(Collectors.toSet());
 		this.getPerms().put(permId, ids);
 	}
 
@@ -1119,7 +1120,7 @@ public class Faction extends Entity<Faction> implements FactionsParticipator, MP
 		MPlayer oldLeader = this.getLeader();
 		Rank leaderRank = oldLeader.getRank();
 
-		var replacements = Collections.<MPlayer>emptyList();
+		List<MPlayer> replacements = Collections.<MPlayer>emptyList();
 		for (Rank rank = leaderRank; rank != null; rank = rank.getRankBelow())
 		{
 			//Skip first

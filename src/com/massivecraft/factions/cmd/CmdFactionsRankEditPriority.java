@@ -63,7 +63,7 @@ public class CmdFactionsRankEditPriority extends FactionsCommand
 			}
 		}
 
-		var priorPriority = rank.getPriority();
+		int priorPriority = rank.getPriority();
 		rank.setPriority(priority);
 
 		// Visual

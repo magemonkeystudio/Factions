@@ -1,9 +1,12 @@
 package com.massivecraft.factions.entity.migrator;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.massivecraft.factions.entity.MConf;
 import com.massivecraft.massivecore.store.migrator.MigratorRoot;
+
+import java.util.Iterator;
 
 public class MigratorMConf004Rank extends MigratorRoot
 {
@@ -56,17 +59,17 @@ public class MigratorMConf004Rank extends MigratorRoot
 			JsonObject map = element.getAsJsonObject();
 			if (map.has("MEMBER"))
 			{
-				var e = map.remove("MEMBER");
+				JsonElement e = map.remove("MEMBER");
 				map.add("FACTION", e);
 			}
 		}
 		if (element.isJsonArray())
 		{
-			var array = element.getAsJsonArray();
-			var success = false;
-			for (var it = array.iterator(); it.hasNext(); )
+			JsonArray array = element.getAsJsonArray();
+			boolean success = false;
+			for (Iterator<JsonElement> it = array.iterator(); it.hasNext(); )
 			{
-				var e = it.next();
+				JsonElement e = it.next();
 				if (!e.getAsString().equals("MEMBER")) continue;
 				it.remove();
 				success = true;

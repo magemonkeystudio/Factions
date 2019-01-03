@@ -395,7 +395,7 @@ public class MPerm extends Entity<MPerm> implements Prioritized, Registerable, N
 			}
 		}
 		
-		var ret = this.has(mplayer, hostFaction, verboose);
+		boolean ret = this.has(mplayer, hostFaction, verboose);
 		return ret;
 	}
 
@@ -407,7 +407,7 @@ public class MPerm extends Entity<MPerm> implements Prioritized, Registerable, N
 	{
 		if (faction == null) throw new NullPointerException("faction");
 
-		var list = new MassiveList<MPermable>();
+		List<MPermable> list = new MassiveList<>();
 
 		list.addAll(Arrays.asList(Rel.values()));
 		list.remove(Rel.FACTION);
