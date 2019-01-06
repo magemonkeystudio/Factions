@@ -12,9 +12,9 @@ commands:
     description: Factions basecommand
     permission: factions.basecommand
 permissions:
-# -------------------------------------------- #
-# THE REAL NODES
-# -------------------------------------------- #
+  # -------------------------------------------- #
+  # THE REAL NODES
+  # -------------------------------------------- #
   factions.access: {description: manage access, with the proper fperm, default: false}
   factions.access.faction: {description: grant faction access, with the proper fperm, default: false}
   factions.access.player: {description: grant player access, with the proper fperm, default: false}
