@@ -63,11 +63,12 @@ public class CmdFactionsMotd extends FactionsCommand
 		
 		// Apply
 		msenderFaction.setMotd(target);
-		
+
 		// Inform
 		for (MPlayer follower : msenderFaction.getMPlayers())
 		{
-			follower.msg("<i>%s <i>set your faction motd to:\n%s", MixinDisplayName.get().getDisplayName(sender, follower), msenderFaction.getMotdDesc());
+			follower.msg("<i>%s <i>changed your faction motd.", MixinDisplayName.get().getDisplayName(sender, follower));
+			follower.message(msenderFaction.getMotdMessages());
 		}
 	}
 	

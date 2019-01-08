@@ -30,6 +30,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -323,8 +324,10 @@ public class Faction extends Entity<Faction> implements FactionsParticipator, MP
 		title = Txt.titleize(title);
 		ret.add(title);
 		
-		String motd = Txt.parse("<i>") + this.getMotdDesc();
-		ret.add(motd);
+		String motd = this.getMotdDesc();
+		List<String> motds = Arrays.asList(motd.split("\\\\n"));
+		motds = motds.stream().map(s -> Txt.parse("<i>") + s).collect(Collectors.toList());
+		ret.addAll(motds);
 		
 		ret.add("");
 		
