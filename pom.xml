@@ -59,6 +59,11 @@
             <groupId>com.griefcraft</groupId>
             <artifactId>lwc</artifactId>
         </dependency>
+        <!-- PlaceholderAPI -->
+        <dependency>
+          <groupId>me.clip</groupId>
+          <artifactId>placeholderapi</artifactId>
+        </dependency>
     </dependencies>
 
     <!-- Build -->
