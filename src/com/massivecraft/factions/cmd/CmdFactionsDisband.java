@@ -12,6 +12,8 @@ import com.massivecraft.factions.event.EventFactionsDisband;
 import com.massivecraft.factions.event.EventFactionsMembershipChange;
 import com.massivecraft.factions.event.EventFactionsMembershipChange.MembershipChangeReason;
 import com.massivecraft.massivecore.MassiveException;
+import com.massivecraft.massivecore.command.type.primitive.TypeStringConfirmation;
+import com.massivecraft.massivecore.util.ConfirmationUtil;
 import com.massivecraft.massivecore.util.IdUtil;
 import com.massivecraft.massivecore.util.Txt;
 
@@ -24,7 +26,8 @@ public class CmdFactionsDisband extends FactionsCommand
 	public CmdFactionsDisband()
 	{
 		// Parameters
-		this.addParameter(TypeFaction.get(), "faction", "you");
+		this.addParameter(TypeFaction.get(), "faction");
+		this.addParameter(TypeStringConfirmation.get(), "confirmation", "");
 	}
 
 	// -------------------------------------------- //
@@ -35,7 +38,10 @@ public class CmdFactionsDisband extends FactionsCommand
 	public void perform() throws MassiveException
 	{
 		// Args
-		Faction faction = this.readArg(msenderFaction);
+		Faction faction = this.readArg();
+		String confirmationString = this.readArg(null);
+
+		if(MConf.get().requireConfirmationForFactionDisbanding) ConfirmationUtil.tryConfirm(this);
 		
 		// MPerm
 		if ( ! MPerm.getPermDisband().has(msender, faction, true)) return;
@@ -43,8 +49,7 @@ public class CmdFactionsDisband extends FactionsCommand
 		// Verify
 		if (faction.getFlag(MFlag.getFlagPermanent()))
 		{
-			msg("<i>This faction is designated as permanent, so you cannot disband it.");
-			return;
+			throw new MassiveException().addMsg("<i>This faction is designated as permanent, so you cannot disband it.");
 		}
 
 		// Event

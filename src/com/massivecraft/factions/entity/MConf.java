@@ -335,6 +335,9 @@ public class MConf extends Entity<MConf>
 	// Protects the faction land from piston extending/retracting
 	// through the denying of MPerm build
 	public boolean handlePistonProtectionThroughDenyBuild = true;
+
+	// Make faction disbanding a confirmation thing
+	public boolean requireConfirmationForFactionDisbanding = true;
 	
 	// -------------------------------------------- //
 	// DENY COMMANDS
@@ -474,7 +477,7 @@ public class MConf extends Entity<MConf>
 	// -------------------------------------------- //
 	// PREFIXES
 	// -------------------------------------------- //
-	
+
 	// Here you may edit the name prefixes associated with different faction ranks.
 	public String prefixLeader = "**";
 	public String prefixOfficer = "*";
