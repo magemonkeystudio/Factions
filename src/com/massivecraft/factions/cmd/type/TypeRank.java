@@ -8,6 +8,7 @@ import org.bukkit.command.CommandSender;
 
 import java.util.Collection;
 import java.util.List;
+
 import java.util.Set;
 
 public class TypeRank extends TypeEntityInternalFaction<Rank>
@@ -42,6 +43,7 @@ public class TypeRank extends TypeEntityInternalFaction<Rank>
 	}
 
 	private final Rank currentRank;
+
 
 	// -------------------------------------------- //
 	// OVERRIDE

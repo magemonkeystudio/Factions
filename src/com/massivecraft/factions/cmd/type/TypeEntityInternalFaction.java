@@ -11,6 +11,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Set;
 
+
 public abstract class TypeEntityInternalFaction<E extends EntityInternal<E>> extends TypeAbstractChoice<E>
 {
 	// -------------------------------------------- //

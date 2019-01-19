@@ -1,11 +1,9 @@
 package com.massivecraft.factions.cmd;
 
 import com.massivecraft.factions.Factions;
-import com.massivecraft.factions.Perm;
 import com.massivecraft.factions.entity.MConf;
 import com.massivecraft.massivecore.command.MassiveCommandDeprecated;
 import com.massivecraft.massivecore.command.MassiveCommandVersion;
-import com.massivecraft.massivecore.command.requirement.RequirementHasPerm;
 
 import java.util.List;
 
@@ -30,6 +28,7 @@ public class CmdFactions extends FactionsCommand
 	public CmdFactionsJoin cmdFactionsJoin = new CmdFactionsJoin();
 	public CmdFactionsLeave cmdFactionsLeave = new CmdFactionsLeave();
 	public CmdFactionsWarp cmdFactionsWarp = new CmdFactionsWarp();
+	public CmdFactionsVote cmdFactionsVote = new CmdFactionsVote();
 	public CmdFactionsMap cmdFactionsMap = new CmdFactionsMap();
 	public CmdFactionsCreate cmdFactionsCreate = new CmdFactionsCreate();
 	public CmdFactionsName cmdFactionsName = new CmdFactionsName();

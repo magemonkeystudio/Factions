@@ -48,7 +48,7 @@ public class MigratorMPlayer001Ranks extends MigratorRoot
 
 		// Get faction
 		JsonElement jsonFaction = entity.get("factionId");
-		
+
 		String factionId;
 		if (jsonFaction == null) factionId = MConf.get().defaultPlayerFactionId;
 		else factionId = jsonFaction.getAsString();

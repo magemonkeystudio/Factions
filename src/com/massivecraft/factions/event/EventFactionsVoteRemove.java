@@ -1,11 +1,11 @@
 package com.massivecraft.factions.event;
 
 import com.massivecraft.factions.entity.Faction;
-import com.massivecraft.factions.entity.Warp;
+import com.massivecraft.factions.entity.Vote;
 import org.bukkit.command.CommandSender;
 import org.bukkit.event.HandlerList;
 
-public class EventFactionsWarpRemove extends EventFactionsAbstractSender
+public class EventFactionsVoteRemove extends EventFactionsAbstractSender
 {
 	// -------------------------------------------- //
 	// REQUIRED EVENT CODE
@@ -22,19 +22,19 @@ public class EventFactionsWarpRemove extends EventFactionsAbstractSender
 	private final Faction faction;
 	public Faction getFaction() { return this.faction; }
 
-	private Warp warp;
-	public Warp getWarp() { return this.warp; }
-	public void setWarp(Warp warp) { this.warp = warp; }
+	private Vote vote;
+	public Vote getVote() { return this.vote; }
+	public void setVote(Vote vote) { this.vote = vote; }
 
 	// -------------------------------------------- //
 	// CONSTRUCT
 	// -------------------------------------------- //
 
-	public EventFactionsWarpRemove(CommandSender sender, Faction faction, Warp warp)
+	public EventFactionsVoteRemove(CommandSender sender, Faction faction, Vote vote)
 	{
 		super(sender);
 		this.faction = faction;
-		this.warp = warp;
+		this.vote = vote;
 	}
 	
 }

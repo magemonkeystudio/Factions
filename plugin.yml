@@ -113,6 +113,12 @@ permissions:
   factions.unclaim.square: {description: unclaim by square and radius, default: false}
   factions.unclaim.circle: {description: unclaim by circle and radius, default: false}
   factions.unclaim.all: {description: unclaim all faction land, default: false}
+  factions.vote: {description: vote in faction votes, default: false}
+  factions.vote.do: {description: do vote, default: false}
+  factions.vote.list: {description: list votes, default: false}
+  factions.vote.show: {description: show vote result, default: false}
+  factions.vote.create: {description: create a vote, default: false}
+  factions.vote.remove: {description: remove a vote, default: false}
   factions.warp: {description: use warps, default: false}
   factions.warp.go: {description: go to a warp, default: false}
   factions.warp.list: {description: list warps, default: false}
@@ -239,6 +245,12 @@ permissions:
       factions.unclaim.all: true
       factions.unsethome: true
       factions.unstuck: true
+      factions.vote: true
+      factions.vote.do: true
+      factions.vote.list: true
+      factions.vote.show: true
+      factions.vote.create: true
+      factions.vote.remove: true
       factions.warp: true
       factions.warp.go: true
       factions.warp.list: true
@@ -384,6 +396,12 @@ permissions:
       factions.unclaim.all: true
       factions.unsethome: true
       factions.unstuck: true
+      factions.vote: true
+      factions.vote.do: true
+      factions.vote.list: true
+      factions.vote.show: true
+      factions.vote.create: true
+      factions.vote.remove: true
       factions.warp: true
       factions.warp.go: true
       factions.warp.list: true

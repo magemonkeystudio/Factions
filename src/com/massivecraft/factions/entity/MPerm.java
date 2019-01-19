@@ -52,6 +52,8 @@ public class MPerm extends Entity<MPerm> implements Prioritized, Registerable, N
 	public final static transient String ID_WITHDRAW = "withdraw";
 	public final static transient String ID_TERRITORY = "territory";
 	public final static transient String ID_ACCESS = "access";
+	public final static transient String ID_VOTE = "VOTE";
+	public final static transient String ID_CREATEVOTE = "createvote";
 	public final static transient String ID_CLAIMNEAR = "claimnear";
 	public final static transient String ID_REL = "rel";
 	public final static transient String ID_DISBAND = "disband";
@@ -78,6 +80,8 @@ public class MPerm extends Entity<MPerm> implements Prioritized, Registerable, N
 	public final static transient int PRIORITY_WITHDRAW = 16000;
 	public final static transient int PRIORITY_TERRITORY = 17000;
 	public final static transient int PRIORITY_ACCESS = 18000;
+	public final static transient int PRIORITY_VOTE = 18200;
+	public final static transient int PRIORITY_CREATEVOTE = 18600;
 	public final static transient int PRIORITY_CLAIMNEAR = 19000;
 	public final static transient int PRIORITY_REL = 20000;
 	public final static transient int PRIORITY_DISBAND = 21000;
@@ -128,6 +132,8 @@ public class MPerm extends Entity<MPerm> implements Prioritized, Registerable, N
 		getPermWithdraw();
 		getPermTerritory();
 		getPermAccess();
+		getPermVote();
+		getPermCreateVote();
 		getPermClaimnear();
 		getPermRel();
 		getPermDisband();
@@ -155,6 +161,8 @@ public class MPerm extends Entity<MPerm> implements Prioritized, Registerable, N
 	public static MPerm getPermWithdraw() { return getCreative(PRIORITY_WITHDRAW, ID_WITHDRAW, ID_WITHDRAW, "withdraw money", MUtil.set("LEADER"), false, true, true); }
 	public static MPerm getPermTerritory() { return getCreative(PRIORITY_TERRITORY, ID_TERRITORY, ID_TERRITORY, "claim or unclaim", MUtil.set("LEADER", "OFFICER"), false, true, true); }
 	public static MPerm getPermAccess() { return getCreative(PRIORITY_ACCESS, ID_ACCESS, ID_ACCESS, "grant territory", MUtil.set("LEADER", "OFFICER"), false, true, true); }
+	public static MPerm getPermVote() { return getCreative(PRIORITY_VOTE, ID_VOTE, ID_VOTE, "vote", MUtil.set("LEADER", "OFFICER", "MEMBER", "RECRUIT"), false, true, true); }
+	public static MPerm getPermCreateVote() { return getCreative(PRIORITY_CREATEVOTE, ID_CREATEVOTE, ID_CREATEVOTE, "manage votes", MUtil.set("LEADER", "OFFICER"), false, true, true); }
 	public static MPerm getPermClaimnear() { return getCreative(PRIORITY_CLAIMNEAR, ID_CLAIMNEAR, ID_CLAIMNEAR, "claim nearby", MUtil.set("LEADER", "OFFICER", "MEMBER", "RECRUIT", "ALLY"), false, false, false); } // non editable, non visible.
 	public static MPerm getPermRel() { return getCreative(PRIORITY_REL, ID_REL, ID_REL, "change relations", MUtil.set("LEADER", "OFFICER"), false, true, true); }
 	public static MPerm getPermDisband() { return getCreative(PRIORITY_DISBAND, ID_DISBAND, ID_DISBAND, "disband the faction", MUtil.set("LEADER"), false, true, true); }
@@ -203,6 +211,7 @@ public class MPerm extends Entity<MPerm> implements Prioritized, Registerable, N
 	private transient boolean registered = false;
 	public boolean isRegistered() { return this.registered; }
 	public void setRegistered(boolean registered) { this.registered = registered; }
+
 	// -------------------------------------------- //
 	// VERSION
 	// -------------------------------------------- //

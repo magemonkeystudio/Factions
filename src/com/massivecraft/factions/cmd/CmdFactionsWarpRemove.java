@@ -39,6 +39,7 @@ public class CmdFactionsWarpRemove extends FactionsCommandWarp
 		EventFactionsWarpRemove event = new EventFactionsWarpRemove(sender, faction, warp);
 		event.run();
 		if (event.isCancelled()) return;
+		warp = event.getWarp();
 
 		// Apply
 		warp.detach();

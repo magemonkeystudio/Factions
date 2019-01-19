@@ -77,6 +77,7 @@ public class Faction extends Entity<Faction> implements FactionsParticipator, MP
 		this.setPowerBoost(that.powerBoost);
 		this.invitations.load(that.invitations);
 		this.ranks.load(that.ranks);
+		this.votes.load(that.votes);
 		this.setRelationWishes(that.relationWishes);
 		this.setFlagIds(that.flags);
 		this.perms = that.perms;
@@ -143,11 +144,13 @@ public class Faction extends Entity<Faction> implements FactionsParticipator, MP
 	
 	// This is the ids of the invited players.
 	// They are actually "senderIds" since you can invite "@console" to your faction.
-	// Null means no one is invited
 	private EntityInternalMap<Invitation> invitations = new EntityInternalMap<>(this, Invitation.class);
 
 	// This is where all the ranks are, they are faction specific
 	private EntityInternalMap<Rank> ranks = this.createRankMap();
+
+	// This is the votes currently open in the faction
+	private EntityInternalMap<Vote> votes = new EntityInternalMap<>(this, Vote.class);
 
 	// The keys in this map are factionIds.
 	// Null means no special relation whishes.
@@ -567,6 +570,26 @@ public class Faction extends Entity<Faction> implements FactionsParticipator, MP
 			ret = rank;
 		}
 		return ret;
+	}
+
+	// -------------------------------------------- //
+	// FIELD: votes
+	// -------------------------------------------- //
+
+	// RAW
+
+	public EntityInternalMap<Vote> getVotes() { return this.votes; }
+
+	public void addVote(Vote vote)
+	{
+		if (vote == null) throw new NullPointerException("vote");
+		this.getVotes().attach(vote);
+	}
+
+	public Optional<Vote> getVoteByName(String name)
+	{
+		if (name == null) throw new NullPointerException("name");
+		return this.getVotes().getAll().stream().filter(vote -> vote.getName().equalsIgnoreCase(name)).findFirst();
 	}
 
 	// -------------------------------------------- //
