@@ -41,7 +41,7 @@ public class CmdFactionsDisband extends FactionsCommand
 		Faction faction = this.readArg();
 		String confirmationString = this.readArg(null);
 
-		if(MConf.get().requireConfirmationForFactionDisbanding) ConfirmationUtil.tryConfirm(this);
+		if (MConf.get().requireConfirmationForFactionDisbanding) ConfirmationUtil.tryConfirm(this);
 		
 		// MPerm
 		if ( ! MPerm.getPermDisband().has(msender, faction, true)) return;
