@@ -19,16 +19,19 @@ public class PlaceholderFactions extends PlaceholderExpansion
 	// OVERRIDE
 	// -------------------------------------------- //
 
+	@Override
 	public String getIdentifier()
 	{
 		return "factions";
 	}
 
+	@Override
 	public String getAuthor()
 	{
 		return "Madus";
 	}
 
+	@Override
 	public String getVersion()
 	{
 		return Factions.get().getDescription().getVersion();
@@ -37,9 +40,7 @@ public class PlaceholderFactions extends PlaceholderExpansion
 	@Override
 	public String onPlaceholderRequest(Player player, String params)
 	{
-		System.out.println("A");
 		if (player == null) return null;
-		System.out.println("B");
 
 
 		MPlayer mplayer = MPlayer.get(player);
@@ -59,4 +60,5 @@ public class PlaceholderFactions extends PlaceholderExpansion
 		}
         return null;
     }
+
 }
