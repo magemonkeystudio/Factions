@@ -21,7 +21,8 @@ public class CmdFactions extends FactionsCommand
 	// -------------------------------------------- //
 	// FIELDS
 	// -------------------------------------------- //
-	
+
+	public CmdFactionsDocumentation cmdFactionsDocumentation = new CmdFactionsDocumentation();
 	public CmdFactionsList cmdFactionsList = new CmdFactionsList();
 	public CmdFactionsFaction cmdFactionsFaction = new CmdFactionsFaction();
 	public CmdFactionsPlayer cmdFactionsPlayer = new CmdFactionsPlayer();
