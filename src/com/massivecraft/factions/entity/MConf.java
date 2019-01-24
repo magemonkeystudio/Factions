@@ -96,7 +96,6 @@ public class MConf extends Entity<MConf>
 	
 	// Define the time in minutes between certain Factions system tasks is ran.
 	public double taskPlayerPowerUpdateMinutes = 1;
-	public double taskPlayerDataRemoveMinutes = 5;
 	public double taskEconLandRewardMinutes = 20;
 	
 	// -------------------------------------------- //
@@ -187,12 +186,7 @@ public class MConf extends Entity<MConf>
 	// Limit the length of faction names here.
 	public int factionNameLengthMin = 3;
 	public int factionNameLengthMax = 16;
-	
-	// Should faction names automatically be converted to upper case?
-	// You probably don't want this feature.
-	// It's a remnant from old faction versions.
-	public boolean factionNameForceUpperCase = false;
-	
+
 	// -------------------------------------------- //
 	// SET LIMITS
 	// -------------------------------------------- //
@@ -275,19 +269,6 @@ public class MConf extends Entity<MConf>
 	// This value can be used to tweak compatibility with other plugins altering the respawn location.
 	// Choose between: LOWEST, LOW, NORMAL, HIGH, HIGHEST and MONITOR.
 	public EventPriority homesTeleportToOnDeathPriority = EventPriority.NORMAL;
-
-	// -------------------------------------------- //
-	// PERMS
-	// -------------------------------------------- //
-
-	/*public List<String> defaultPermsEnemy = MUtil.list(MPerm.ID_DEPOSIT);
-	public List<String> defaultPermsNeutral = MUtil.list(MPerm.ID_DEPOSIT);
-	public List<String> defaultPermsTruce = MUtil.list(MPerm.ID_DEPOSIT);
-	public List<String> defaultPermsAlly = MUtil.list(MPerm.ID_DOOR, MPerm.ID_BUTTON, MPerm.ID_LEVER, MPerm.ID_HOME, MPerm.ID_CLAIMNEAR);
-	public List<String> defaultPermsRecruit = MUtil.list(MPerm.ID_DOOR, MPerm.ID_BUTTON, MPerm.ID_LEVER, MPerm.ID_LEVER, MPerm.ID_HOME, MPerm.ID_CLAIMNEAR);
-	public List<String> defaultPermsMember = MUtil.list(MPerm.ID_BUILD, MPerm.ID_DOOR, MPerm.ID_BUTTON, MPerm.ID_LEVER, MPerm.ID_LEVER, MPerm.ID_CONTAINER, MPerm.ID_HOME, MPerm.ID_CLAIMNEAR);
-	public List<String> defaultPermsOfficer = MUtil.list(MPerm.ID_BUILD, MPerm.ID_DOOR, MPerm.ID_BUTTON, MPerm.ID_LEVER, MPerm.ID_LEVER, MPerm.ID_CONTAINER, MPerm.ID_DESC, MPerm.ID_MOTD, MPerm.ID_INVITE, MPerm.ID_KICK, MPerm.ID_RANK, MPerm.ID_TITLE, MPerm.ID_HOME, MPerm.ID_SETHOME, MPerm.ID_TERRITORY, MPerm.ID_ACCESS, MPerm.ID_CLAIMNEAR, MPerm.ID_REL);
-	public List<String> defaultPermsLeader = MUtil.list(MPerm.ID_BUILD, MPerm.ID_DOOR, MPerm.ID_BUTTON, MPerm.ID_LEVER, MPerm.ID_LEVER, MPerm.ID_CONTAINER, MPerm.ID_NAME, MPerm.ID_DESC, MPerm.ID_MOTD, MPerm.ID_INVITE, MPerm.ID_KICK, MPerm.ID_RANK, MPerm.ID_TITLE, MPerm.ID_HOME, MPerm.ID_SETHOME, MPerm.ID_WITHDRAW, MPerm.ID_TERRITORY, MPerm.ID_ACCESS, MPerm.ID_CLAIMNEAR, MPerm.ID_REL, MPerm.ID_DISBAND, MPerm.ID_FLAGS, MPerm.ID_FLAGS);*/
 
 	// -------------------------------------------- //
 	// TERRITORY INFO
@@ -473,17 +454,7 @@ public class MConf extends Entity<MConf>
 	
 	// This one is for example applied to WarZone since that faction has the friendly fire flag set to true.
 	public ChatColor colorFriendlyFire = ChatColor.DARK_RED;
-	
-	// -------------------------------------------- //
-	// PREFIXES
-	// -------------------------------------------- //
 
-	// Here you may edit the name prefixes associated with different faction ranks.
-	public String prefixLeader = "**";
-	public String prefixOfficer = "*";
-	public String prefixMember = "+";
-	public String prefixRecruit = "-";
-	
 	// -------------------------------------------- //
 	// EXPLOITS
 	// -------------------------------------------- //
@@ -491,26 +462,6 @@ public class MConf extends Entity<MConf>
 	public boolean handleExploitObsidianGenerators = true;
 	public boolean handleExploitEnderPearlClipping = true;
 	public boolean handleNetherPortalTrap = true;
-	
-	// -------------------------------------------- //
-	// SEE CHUNK
-	// -------------------------------------------- //
-	
-	// These options can be used to tweak the "/f seechunk" particle effect.
-	// They are fine as is but feel free to experiment with them if you want to.
-	
-	// Use 1 or multiple of 3, 4 or 5.
-	public int seeChunkSteps = 1;
-	
-	// White/Black List for creating sparse patterns.
-	public int seeChunkKeepEvery = 5;
-	public int seeChunkSkipEvery = 0;
-	
-	@EditorType(TypeMillisDiff.class)
-	public long seeChunkPeriodMillis = 500;
-	public int seeChunkParticleAmount = 30;
-	public float seeChunkParticleOffsetY = 2;
-	public float seeChunkParticleDeltaY = 2;
 	
 	// -------------------------------------------- //
 	// UNSTUCK

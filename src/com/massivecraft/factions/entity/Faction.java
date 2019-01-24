@@ -189,11 +189,6 @@ public class Faction extends Entity<Faction> implements FactionsParticipator, MP
 	{
 		String ret = this.name;
 		
-		if (MConf.get().factionNameForceUpperCase)
-		{
-			ret = ret.toUpperCase();
-		}
-		
 		return ret;
 	}
 	
