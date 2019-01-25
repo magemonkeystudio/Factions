@@ -553,7 +553,15 @@ public class MConf extends Entity<MConf>
 	// Enable the WorldGuard check per-world 
 	// Specify which worlds the WorldGuard Check can be used in
 	public WorldExceptionSet worldguardCheckWorldsEnabled = new WorldExceptionSet();
-	
+
+	// -------------------------------------------- //
+	// INTEGRATION: VentureChat
+	// -------------------------------------------- //
+
+	public String ventureChatFactionChannelName = "faction";
+	public String ventureChatAllyChannelName = "ally";
+	public boolean ventureChatAllowFactionchatBetweenFactionless = false;
+
 	// -------------------------------------------- //
 	// INTEGRATION: ECONOMY
 	// -------------------------------------------- //

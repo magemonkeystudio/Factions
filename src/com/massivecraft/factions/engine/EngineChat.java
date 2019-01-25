@@ -1,8 +1,12 @@
 package com.massivecraft.factions.engine;
 
 import com.massivecraft.factions.Factions;
+import com.massivecraft.factions.Rel;
+import com.massivecraft.factions.RelationParticipator;
 import com.massivecraft.factions.chat.ChatFormatter;
+import com.massivecraft.factions.entity.Faction;
 import com.massivecraft.factions.entity.MConf;
+import com.massivecraft.factions.entity.MPlayer;
 import com.massivecraft.massivecore.Engine;
 import com.massivecraft.massivecore.event.EventMassiveCorePlayerToRecipientChat;
 import com.massivecraft.massivecore.util.MUtil;
@@ -14,6 +18,9 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.plugin.EventExecutor;
+
+import java.util.Iterator;
+import java.util.function.Predicate;
 
 public class EngineChat extends Engine
 {
@@ -137,6 +144,36 @@ public class EngineChat extends Engine
 		String format = event.getFormat();
 		format = ChatFormatter.format(format, event.getSender(), event.getRecipient());
 		event.setFormat(format);
+	}
+
+	// -------------------------------------------- //
+	// FILTER CHAT CHANNEL
+	// -------------------------------------------- //
+
+	public static Predicate<Player> getPredicateIsInFaction(RelationParticipator participator)
+	{
+		return player -> MPlayer.get(player).getRelationTo(participator).isAtLeast(Rel.FACTION);
+	}
+
+	public static Predicate<Player> getPredicateIsAlly(RelationParticipator participator)
+	{
+		return player -> MPlayer.get(player).getFaction().getRelationTo(participator).isAtLeast(Rel.ALLY);
+	}
+
+	public static void filterToPredicate(AsyncPlayerChatEvent event, Predicate<Player> predicate)
+	{
+		Player player = event.getPlayer();
+		MPlayer mplayer = MPlayer.get(player);
+		Faction faction = mplayer.getFaction();
+
+		// Get and filter recipients
+		for (Iterator<Player> it = event.getRecipients().iterator(); it.hasNext();)
+		{
+			Player recipient = it.next();
+			if (predicate.test(recipient)) continue;
+
+			it.remove();
+		}
 	}
 	
 }

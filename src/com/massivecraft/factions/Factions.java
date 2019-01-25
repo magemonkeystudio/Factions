@@ -63,6 +63,7 @@ import com.massivecraft.factions.integration.V18.IntegrationV18;
 import com.massivecraft.factions.integration.V19.IntegrationV19;
 import com.massivecraft.factions.integration.lwc.IntegrationLwc;
 import com.massivecraft.factions.integration.placeholderapi.IntegrationPlaceholderAPI;
+import com.massivecraft.factions.integration.venturechat.IntegrationVentureChat;
 import com.massivecraft.factions.integration.worldguard.IntegrationWorldGuard;
 import com.massivecraft.factions.mixin.PowerMixin;
 import com.massivecraft.factions.task.TaskEconLandReward;
@@ -180,6 +181,7 @@ public class Factions extends MassivePlugin
 	{
 		return MUtil.list(
 			IntegrationPlaceholderAPI.class,
+			IntegrationVentureChat.class,
 			IntegrationV18.class,
 			IntegrationV19.class,
 			IntegrationLwc.class,
