@@ -28,7 +28,9 @@ permissions:
   factions.description: {description: change faction description, default: false}
   factions.disband: {description: disband faction, default: false}
   factions.documentation: {description: show documentation, default: false}
+  factions.documentation.flags: {description: show flag documentation, default: false}
   factions.documentation.power: {description: show power documentation, default: false}
+  factions.documentation.perms: {description: show perms documentation, default: false}
   factions.documentation.ranks: {description: show rank documentation, default: false}
   factions.expansions: {description: list expansions, default: false}
   factions.faction: {description: show faction information, default: false}
@@ -127,6 +129,8 @@ permissions:
       factions.description: true
       factions.disband: true
       factions.documentation: true
+      factions.documentation.flags: true
+      factions.documentation.perms: true
       factions.documentation.power: true
       factions.documentation.ranks: true
       factions.expansions: true
@@ -257,6 +261,8 @@ permissions:
       factions.description: true
       factions.disband: true
       factions.documentation: true
+      factions.documentation.flags: true
+      factions.documentation.perms: true
       factions.documentation.power: true
       factions.documentation.ranks: true
       factions.expansions: true

@@ -96,6 +96,8 @@ public class CmdFactionsPermView extends FactionsCommand
 			Mson msons = Mson.implode(MUtil.list(msonFaction, msonRelation), Mson.SPACE);
 			message(mson(mson("Commands: ").color(ChatColor.YELLOW), msons));
 		}
+		msg("<i>To view all perms held by %s <i>type:", permable.getDisplayName(sender));
+		message(CmdFactions.get().cmdFactionsPerm.cmdFactionsPermViewall.getTemplateWithArgs(sender, MUtil.list(permable.getName(), faction.getName())));
 	}
 	
 }

@@ -1,6 +1,7 @@
 package com.massivecraft.factions.cmd;
 
 import com.massivecraft.factions.cmd.req.ReqFactionHomesEnabled;
+import com.massivecraft.massivecore.mson.Mson;
 
 public class FactionsCommandDocumentation extends FactionsCommand
 {
@@ -35,10 +36,16 @@ public class FactionsCommandDocumentation extends FactionsCommand
 	// MESSAGE
 	// -------------------------------------------- //
 
-	public void msgDoc(String msg, String... args)
+	public void msgDoc(String msg, Object... args)
 	{
-		msg = "<lime>" + this.num++ + ") <i>";
+		msg = "<lime>" + this.num++ + ") <i>" + msg;
 		msg(msg, args);
+	}
+
+	public void messageDoc(Mson message)
+	{
+		Mson mson = mson(Mson.parse("<lime>" + this.num++ + ") "), message);
+		message(mson);
 	}
 
 }
