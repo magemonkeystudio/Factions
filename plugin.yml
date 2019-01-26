@@ -38,7 +38,6 @@ permissions:
   factions.flag.list: {description: list flags, default: false}
   factions.flag.set: {description: set flags, default: false}
   factions.flag.show: {description: show flags, default: false}
-  factions.home: {description: teleport to faction home, default: false}
   factions.invite: {description: manage invites, default: false}
   factions.invite.list: {description: list invited players, default: false}
   factions.invite.list.other: {description: list invited players of another factions, default: false}
@@ -87,7 +86,6 @@ permissions:
   factions.relation.wishes: {description: list the relation wishes, default: false}
   factions.seechunk: {description: see the chunk you stand in, default: false}
   factions.seechunkold: {description: see the chunk you stand in, default: false}
-  factions.sethome: {description: set the faction home, default: false}
   factions.setpower: {description: set power, default: false}
   factions.status: {description: show status, default: false}
   factions.name: {description: set faction name, default: false}
@@ -101,7 +99,11 @@ permissions:
   factions.unclaim.square: {description: unclaim by square and radius, default: false}
   factions.unclaim.circle: {description: unclaim by circle and radius, default: false}
   factions.unclaim.all: {description: unclaim all faction land, default: false}
-  factions.unsethome: {description: unset faction home, default: false}
+  factions.warp: {description: use warps, default: false}
+  factions.warp.go: {description: go to a warp, default: false}
+  factions.warp.list: {description: list warps, default: false}
+  factions.warp.add: {description: add new warp, default: false}
+  factions.warp.remove: {description: remove warp, default: false}
   factions.unstuck: {description: teleport to nearest wilderness, default: false}
   factions.config: {description: edit the factions config, default: false}
   factions.clean: {description: clean the factions database, default: false}
@@ -209,6 +211,11 @@ permissions:
       factions.unclaim.all: true
       factions.unsethome: true
       factions.unstuck: true
+      factions.warp: true
+      factions.warp.go: true
+      factions.warp.list: true
+      factions.warp.add: true
+      factions.warp.remove: true
       factions.config: true
       factions.clean: true
       factions.version: true
@@ -335,6 +342,11 @@ permissions:
       factions.unclaim.all: true
       factions.unsethome: true
       factions.unstuck: true
+      factions.warp: true
+      factions.warp.go: true
+      factions.warp.list: true
+      factions.warp.add: true
+      factions.warp.remove: true
       factions.version: true
   factions.kit.default:
     default: true

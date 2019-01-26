@@ -53,10 +53,12 @@ import com.massivecraft.factions.entity.MPermColl;
 import com.massivecraft.factions.entity.MPlayerColl;
 import com.massivecraft.factions.entity.migrator.MigratorFaction001Invitations;
 import com.massivecraft.factions.entity.migrator.MigratorFaction002Ranks;
+import com.massivecraft.factions.entity.migrator.MigratorFaction003Warps;
 import com.massivecraft.factions.entity.migrator.MigratorMConf001EnumerationUtil;
 import com.massivecraft.factions.entity.migrator.MigratorMConf002CleanInactivity;
 import com.massivecraft.factions.entity.migrator.MigratorMConf003CleanInactivity;
 import com.massivecraft.factions.entity.migrator.MigratorMConf004Rank;
+import com.massivecraft.factions.entity.migrator.MigratorMConf005Warps;
 import com.massivecraft.factions.entity.migrator.MigratorMPlayer001Ranks;
 import com.massivecraft.factions.event.EventFactionsChunkChangeType;
 import com.massivecraft.factions.integration.V18.IntegrationV18;
@@ -139,10 +141,12 @@ public class Factions extends MassivePlugin
 		return MUtil.list(
 			MigratorFaction001Invitations.class,
 			MigratorFaction002Ranks.class,
+			MigratorFaction003Warps.class,
 			MigratorMConf001EnumerationUtil.class,
 			MigratorMConf002CleanInactivity.class,
 			MigratorMConf003CleanInactivity.class,
 			MigratorMConf004Rank.class,
+			MigratorMConf005Warps.class,
 			MigratorMPlayer001Ranks.class
 		);
 	}

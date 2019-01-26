@@ -23,11 +23,11 @@ public class Invitation extends EntityInternal<Invitation>
 	
 	private String inviterId;
 	public String getInviterId() { return inviterId; }
-	public void setInviterId(String inviterId) { this.inviterId = inviterId; }
+	public void setInviterId(String inviterId) { this.inviterId = inviterId; this.changed(); }
 	
 	private Long creationMillis;
 	public Long getCreationMillis() { return creationMillis; }
-	public void setCreationMillis(Long creationMillis) { this.creationMillis = creationMillis; }
+	public void setCreationMillis(Long creationMillis) { this.creationMillis = creationMillis; this.changed(); }
 	
 	// -------------------------------------------- //
 	// CONSTRUCT

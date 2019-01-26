@@ -70,7 +70,7 @@ public class Faction extends Entity<Faction> implements FactionsParticipator, MP
 		this.setDescription(that.description);
 		this.setMotd(that.motd);
 		this.setCreatedAtMillis(that.createdAtMillis);
-		this.setHome(that.home);
+		this.warps.load(that.warps);
 		this.setPowerBoost(that.powerBoost);
 		this.invitations.load(that.invitations);
 		this.ranks.load(that.ranks);
@@ -99,7 +99,7 @@ public class Faction extends Entity<Faction> implements FactionsParticipator, MP
 	// VERSION
 	// -------------------------------------------- //
 	
-	public int version = 2;
+	public int version = 3;
 	
 	// -------------------------------------------- //
 	// FIELDS: RAW
@@ -125,11 +125,9 @@ public class Faction extends Entity<Faction> implements FactionsParticipator, MP
 	// We store the creation date for the faction.
 	// It can be displayed on info pages etc.
 	private long createdAtMillis = System.currentTimeMillis();
-	
-	// Factions can optionally set a home location.
-	// If they do their members can teleport there using /f home
-	// Null means the faction has no home.
-	private PS home = null;
+
+	// Factions can set a few significant locations (warps)
+	private EntityInternalMap<Warp> warps = new EntityInternalMap<>(this, Warp.class);
 	
 	// Factions usually do not have a powerboost. It defaults to 0.
 	// The powerBoost is a custom increase/decrease to default and maximum power.
@@ -362,46 +360,37 @@ public class Faction extends Entity<Faction> implements FactionsParticipator, MP
 	}
 	
 	// -------------------------------------------- //
-	// FIELD: home
+	// FIELD: warp
 	// -------------------------------------------- //
-	
-	public PS getHome()
+
+	public EntityInternalMap<Warp> getWarps() { return this.warps; }
+
+	public Warp getWarp(Object oid)
 	{
-		this.verifyHomeIsValid();
-		return this.home;
+		if (oid == null) throw new NullPointerException("oid");
+		Warp warp = this.getWarps().get(oid);
+		if (warp == null) return null;
+
+		if (!warp.verifyIsValid()) return null;
+		return warp;
+	}
+
+	public PS getWarpPS(Object oid)
+	{
+		if (oid == null) throw new NullPointerException("oid");
+		Warp warp = this.getWarp(oid);
+		if (warp == null) return null;
+		return warp.getLocation();
 	}
 	
-	public void verifyHomeIsValid()
+	public String addWarp(Warp warp)
 	{
-		if (this.isValidHome(this.home)) return;
-		this.home = null;
-		this.changed();
-		msg("<b>Your faction home has been un-set since it is no longer in your territory.");
+		return this.getWarps().attach(warp);
 	}
-	
-	public boolean isValidHome(PS ps)
+
+	public Warp removeWarp(Warp warp)
 	{
-		if (ps == null) return true;
-		if (!MConf.get().homesMustBeInClaimedTerritory) return true;
-		if (BoardColl.get().getFactionAt(ps) == this) return true;
-		return false;
-	}
-	
-	public boolean hasHome()
-	{
-		return this.getHome() != null;
-	}
-	
-	public void setHome(PS home)
-	{
-		// Detect Nochange
-		if (MUtil.equals(this.home, home)) return;
-		
-		// Apply
-		this.home = home;
-		
-		// Mark as changed
-		this.changed();
+		return this.getWarps().detachEntity(warp);
 	}
 	
 	// -------------------------------------------- //

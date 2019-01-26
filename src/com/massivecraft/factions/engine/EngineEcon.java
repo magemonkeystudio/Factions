@@ -12,8 +12,9 @@ import com.massivecraft.factions.event.EventFactionsCreate;
 import com.massivecraft.factions.event.EventFactionsDescriptionChange;
 import com.massivecraft.factions.event.EventFactionsDisband;
 import com.massivecraft.factions.event.EventFactionsFlagChange;
-import com.massivecraft.factions.event.EventFactionsHomeChange;
-import com.massivecraft.factions.event.EventFactionsHomeTeleport;
+import com.massivecraft.factions.event.EventFactionsWarpAdd;
+import com.massivecraft.factions.event.EventFactionsWarpRemove;
+import com.massivecraft.factions.event.EventFactionsWarpTeleport;
 import com.massivecraft.factions.event.EventFactionsInvitedChange;
 import com.massivecraft.factions.event.EventFactionsMembershipChange;
 import com.massivecraft.factions.event.EventFactionsMembershipChange.MembershipChangeReason;
@@ -177,11 +178,20 @@ public class EngineEcon extends Engine
 	}
 	
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
-	public void payForCommand(EventFactionsHomeChange event)
+	public void payForCommand(EventFactionsWarpAdd event)
 	{
-		Double cost = MConf.get().econCostSethome;
-		String desc = CmdFactions.get().cmdFactionsSethome.getDesc();
+		Double cost = MConf.get().econCostWarpAdd;
+		String desc = CmdFactions.get().cmdFactionsWarp.cmdFactionWarpAdd.getDesc();
 		
+		payForAction(event, cost, desc);
+	}
+
+	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+	public void payForCommand(EventFactionsWarpRemove event)
+	{
+		Double cost = MConf.get().econCostWarpRemove;
+		String desc = CmdFactions.get().cmdFactionsWarp.cmdFactionWarpRemove.getDesc();
+
 		payForAction(event, cost, desc);
 	}
 	
@@ -240,13 +250,12 @@ public class EngineEcon extends Engine
 	}
 	
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
-	public void payForCommand(EventFactionsHomeTeleport event)
+	public void payForCommand(EventFactionsWarpTeleport event)
 	{
-		Double cost = MConf.get().econCostHome;
-		String desc = CmdFactions.get().cmdFactionsHome.getDesc();
+		Double cost = MConf.get().econCostWarpGo;
+		String desc = CmdFactions.get().cmdFactionsWarp.cmdFactionsWarpGo.getDesc();
 		
 		payForAction(event, cost, desc);
 	}
-	
 
 }

@@ -29,14 +29,12 @@ public class CmdFactions extends FactionsCommand
 	public CmdFactionsStatus cmdFactionsStatus = new CmdFactionsStatus();
 	public CmdFactionsJoin cmdFactionsJoin = new CmdFactionsJoin();
 	public CmdFactionsLeave cmdFactionsLeave = new CmdFactionsLeave();
-	public CmdFactionsHome cmdFactionsHome = new CmdFactionsHome();
+	public CmdFactionsWarp cmdFactionsWarp = new CmdFactionsWarp();
 	public CmdFactionsMap cmdFactionsMap = new CmdFactionsMap();
 	public CmdFactionsCreate cmdFactionsCreate = new CmdFactionsCreate();
 	public CmdFactionsName cmdFactionsName = new CmdFactionsName();
 	public CmdFactionsDescription cmdFactionsDescription = new CmdFactionsDescription();
 	public CmdFactionsMotd cmdFactionsMotd = new CmdFactionsMotd();
-	public CmdFactionsSethome cmdFactionsSethome = new CmdFactionsSethome();
-	public CmdFactionsUnsethome cmdFactionsUnsethome = new CmdFactionsUnsethome();
 	public CmdFactionsInvite cmdFactionsInvite = new CmdFactionsInvite();
 	public CmdFactionsKick cmdFactionsKick = new CmdFactionsKick();
 	public CmdFactionsTitle cmdFactionsTitle = new CmdFactionsTitle();

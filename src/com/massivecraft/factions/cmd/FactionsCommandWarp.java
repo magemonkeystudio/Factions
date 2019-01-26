@@ -1,18 +1,18 @@
 package com.massivecraft.factions.cmd;
 
-import com.massivecraft.factions.cmd.req.ReqFactionHomesEnabled;
+import com.massivecraft.factions.cmd.req.ReqFactionWarpsEnabled;
 import com.massivecraft.factions.entity.MConf;
 import com.massivecraft.massivecore.command.Visibility;
 
-public class FactionsCommandHome extends FactionsCommand
+public class FactionsCommandWarp extends FactionsCommand
 {
 	// -------------------------------------------- //
 	// CONSTRUCT
 	// -------------------------------------------- //
 	
-	public FactionsCommandHome()
+	public FactionsCommandWarp()
 	{
-		this.addRequirements(ReqFactionHomesEnabled.get());
+		this.addRequirements(ReqFactionWarpsEnabled.get());
 	}
 	
 	// -------------------------------------------- //
@@ -22,7 +22,7 @@ public class FactionsCommandHome extends FactionsCommand
 	@Override
 	public Visibility getVisibility()
 	{
-		return MConf.get().homesEnabled ? super.getVisibility() : Visibility.INVISIBLE;  
+		return MConf.get().warpsEnabled ? super.getVisibility() : Visibility.INVISIBLE;
 	}
 	
 }

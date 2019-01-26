@@ -1,6 +1,6 @@
 package com.massivecraft.factions.cmd;
 
-import com.massivecraft.factions.cmd.req.ReqFactionHomesEnabled;
+import com.massivecraft.factions.cmd.req.ReqFactionWarpsEnabled;
 import com.massivecraft.massivecore.mson.Mson;
 
 public class FactionsCommandDocumentation extends FactionsCommand
@@ -11,7 +11,7 @@ public class FactionsCommandDocumentation extends FactionsCommand
 
 	public FactionsCommandDocumentation()
 	{
-		this.addRequirements(ReqFactionHomesEnabled.get());
+		this.addRequirements(ReqFactionWarpsEnabled.get());
 	}
 	
 	// -------------------------------------------- //

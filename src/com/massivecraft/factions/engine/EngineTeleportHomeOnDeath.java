@@ -3,14 +3,16 @@ package com.massivecraft.factions.engine;
 import com.massivecraft.factions.entity.Faction;
 import com.massivecraft.factions.entity.MConf;
 import com.massivecraft.factions.entity.MPlayer;
+import com.massivecraft.factions.entity.Warp;
 import com.massivecraft.massivecore.Engine;
-import com.massivecraft.massivecore.ps.PS;
 import com.massivecraft.massivecore.util.MUtil;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerRespawnEvent;
+
+import java.util.List;
 
 public class EngineTeleportHomeOnDeath extends Engine
 {
@@ -33,23 +35,25 @@ public class EngineTeleportHomeOnDeath extends Engine
 		final MPlayer mplayer = MPlayer.get(player);
 		
 		// ... homes are enabled, active and at this priority ...
-		if (!MConf.get().homesEnabled) return;
-		if (!MConf.get().homesTeleportToOnDeathActive) return;
-		if (MConf.get().homesTeleportToOnDeathPriority != priority) return;
+		if (!MConf.get().warpsEnabled) return;
+		if (!MConf.get().warpsTeleportToOnDeathActive) return;
+		if (MConf.get().warpsTeleportToOnDeathPriority != priority) return;
 		
 		// ... and the player has a faction ...
 		final Faction faction = mplayer.getFaction();
 		if (faction.isNone()) return;
 		
 		// ... and the faction has a home ...
-		PS home = faction.getHome();
-		if (home == null) return;
+		List<Warp> warps = faction.getWarps().getAll(warp -> warp.getName().equalsIgnoreCase(MConf.get().warpsTeleportToOnDeathName));
+		if (warps.isEmpty()) return;
+
+		Warp warp = warps.get(0);
 		
 		// ... and the home is translatable ...
 		Location respawnLocation = null;
 		try
 		{
-			respawnLocation = home.asBukkitLocation(true);
+			respawnLocation = warp.getLocation().asBukkitLocation(true);
 		}
 		catch (Exception e)
 		{

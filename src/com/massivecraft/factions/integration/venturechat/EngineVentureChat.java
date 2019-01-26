@@ -5,7 +5,6 @@ import com.massivecraft.factions.entity.Faction;
 import com.massivecraft.factions.entity.MConf;
 import com.massivecraft.factions.entity.MPlayer;
 import com.massivecraft.massivecore.Engine;
-import kangarko.chatcontrol.ChatControl;
 import mineverse.Aust1n46.chat.api.MineverseChatAPI;
 import mineverse.Aust1n46.chat.api.MineverseChatPlayer;
 import mineverse.Aust1n46.chat.channel.ChatChannel;
@@ -68,7 +67,6 @@ public class EngineVentureChat extends Engine
 		Predicate<Player> predicate = isSpy.or(predicateChannel);
 
 		EngineChat.filterToPredicate(event, predicate);
-		ChatControl
 	}
 	
 }

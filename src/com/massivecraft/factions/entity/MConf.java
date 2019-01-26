@@ -59,7 +59,7 @@ public class MConf extends Entity<MConf>
 	// VERSION
 	// -------------------------------------------- //
 	
-	public int version = 4;
+	public int version = 5;
 	
 	// -------------------------------------------- //
 	// COMMAND ALIASES
@@ -243,32 +243,34 @@ public class MConf extends Entity<MConf>
 	// HOMES
 	// -------------------------------------------- //
 	
-	// Is the home feature enabled?
-	// If you set this to false players can't set homes or teleport home.
-	public boolean homesEnabled = true;
-	
-	// Must homes be located inside the faction's territory?
+	// Is the warps feature enabled?
+	// If you set this to false players can't set warps or teleport to a warp.
+	public boolean warpsEnabled = true;
+
+	// How many warps can they have?
+	public int warpsMax = 1;
+
+	// Must warps be located inside the faction's territory?
 	// It's usually a wise idea keeping this true.
-	// Otherwise players can set their homes inside enemy territory.
-	public boolean homesMustBeInClaimedTerritory = true;
+	// Otherwise players can set their warps inside enemy territory.
+	public boolean warpsMustBeInClaimedTerritory = true;
 	
-	// Is the home teleport command available?
-	// One reason you might set this to false is if you only want players going home on respawn after death.
-	public boolean homesTeleportCommandEnabled = true;
+	// These options can be used to limit rights to warp under different circumstances.
+	public boolean warpsTeleportAllowedFromEnemyTerritory = true;
+	public boolean warpsTeleportAllowedFromDifferentWorld = true;
+	public double warpsTeleportAllowedEnemyDistance = 32.0;
+	public boolean warpsTeleportIgnoreEnemiesIfInOwnTerritory = true;
 	
-	// These options can be used to limit rights to tp home under different circumstances.
-	public boolean homesTeleportAllowedFromEnemyTerritory = true;
-	public boolean homesTeleportAllowedFromDifferentWorld = true;
-	public double homesTeleportAllowedEnemyDistance = 32.0;
-	public boolean homesTeleportIgnoreEnemiesIfInOwnTerritory = true;
-	
-	// Should players teleport to faction home on death?
+	// Should players teleport to faction warp on death?
 	// Set this to true to override the default respawn location.
-	public boolean homesTeleportToOnDeathActive = false;
+	public boolean warpsTeleportToOnDeathActive = false;
+
+	// And waht faction warp should it be? It must have a specific name.
+	public String warpsTeleportToOnDeathName = "home";
 	
 	// This value can be used to tweak compatibility with other plugins altering the respawn location.
 	// Choose between: LOWEST, LOW, NORMAL, HIGH, HIGHEST and MONITOR.
-	public EventPriority homesTeleportToOnDeathPriority = EventPriority.NORMAL;
+	public EventPriority warpsTeleportToOnDeathPriority = EventPriority.NORMAL;
 
 	// -------------------------------------------- //
 	// TERRITORY INFO
@@ -590,13 +592,16 @@ public class MConf extends Entity<MConf>
 	public double econCostCreate = 100.0;
 	
 	// And so on and so forth ... you get the idea.
-	public double econCostSethome = 0.0;
+	@Deprecated public double econCostSethome = 0.0;
+	public double econCostWarpAdd = 0.0;
+	public double econCostWarpRemove = 0.0;
 	public double econCostJoin = 0.0;
 	public double econCostLeave = 0.0;
 	public double econCostKick = 0.0;
 	public double econCostInvite = 0.0;
 	public double econCostDeinvite = 0.0;
-	public double econCostHome = 0.0;
+	@Deprecated public double econCostHome = 0.0;
+	public double econCostWarpGo = 0.0;
 	public double econCostName = 0.0;
 	public double econCostDescription = 0.0;
 	public double econCostTitle = 0.0;
