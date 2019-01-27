@@ -69,10 +69,6 @@ public class CmdFactions extends FactionsCommand
 	public CmdFactions()
 	{
 		// Deprecated Commands
-		this.addChild(new MassiveCommandDeprecated(this.cmdFactionsClaim.cmdFactionsClaimAuto, "autoclaim"));
-		this.addChild(new MassiveCommandDeprecated(this.cmdFactionsUnclaim.cmdFactionsUnclaimAll, "unclaimall"));
-		this.addChild(new MassiveCommandDeprecated(this.cmdFactionsFlag, "open"));
-		this.addChild(new MassiveCommandDeprecated(this.cmdFactionsFaction, "show", "who"));
 		this.addChild(new MassiveCommandDeprecated(this.cmdFactionsRank, "leader", "owner", "officer", "moderator", "demote", "promote"));
 		this.addChild(new MassiveCommandDeprecated(this.cmdFactionsWarp, "home"));
 		this.addChild(new MassiveCommandDeprecated(this.cmdFactionsWarp.cmdFactionWarpAdd, "sethome"));
