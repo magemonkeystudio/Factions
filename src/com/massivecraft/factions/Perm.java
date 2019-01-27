@@ -93,6 +93,7 @@ public enum Perm implements Identified
 	TITLE,
 	TITLE_COLOR,
 	TERRITORYTITLES,
+	TOP,
 	UNCLAIM,
 	UNCLAIM_ONE,
 	UNCLAIM_AUTO,

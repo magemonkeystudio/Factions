@@ -92,6 +92,7 @@ permissions:
   factions.title: {description: set player title, default: false}
   factions.title.color: {description: set player title with color, default: false}
   factions.territorytitles: {description: toggle territory titles, default: false}
+  factions.top: {description: show faction top, default: false}
   factions.unclaim: {description: unclaim faction territory, default: false}
   factions.unclaim.one: {description: unclaim a single chunk, default: false}
   factions.unclaim.auto: {description: unclaim as you walk around, default: false}
@@ -202,6 +203,7 @@ permissions:
       factions.title: true
       factions.title.color: true
       factions.territorytitles: true
+      factions.top: true
       factions.unclaim: true
       factions.unclaim.one: true
       factions.unclaim.auto: true
@@ -333,6 +335,7 @@ permissions:
       factions.title: true
       factions.title.color: true
       factions.territorytitles: true
+      factions.top: true
       factions.unclaim: true
       factions.unclaim.one: true
       factions.unclaim.auto: true
