@@ -46,8 +46,8 @@ public class MPerm extends Entity<MPerm> implements Prioritized, Registerable, N
 	public final static transient String ID_KICK = "kick";
 	public final static transient String ID_RANK = "rank";
 	public final static transient String ID_TITLE = "title";
-	public final static transient String ID_HOME = "home";
-	public final static transient String ID_SETHOME = "sethome";
+	public final static transient String ID_WARP = "home";
+	public final static transient String ID_SETWARP = "sethome";
 	public final static transient String ID_DEPOSIT = "deposit";
 	public final static transient String ID_WITHDRAW = "withdraw";
 	public final static transient String ID_TERRITORY = "territory";
@@ -72,8 +72,8 @@ public class MPerm extends Entity<MPerm> implements Prioritized, Registerable, N
 	public final static transient int PRIORITY_KICK = 11000;
 	public final static transient int PRIORITY_RANK = 11500;
 	public final static transient int PRIORITY_TITLE = 12000;
-	public final static transient int PRIORITY_HOME = 13000;
-	public final static transient int PRIORITY_SETHOME = 14000;
+	public final static transient int PRIORITY_WARP = 13000;
+	public final static transient int PRIORITY_SETWARP = 14000;
 	public final static transient int PRIORITY_DEPOSIT = 15000;
 	public final static transient int PRIORITY_WITHDRAW = 16000;
 	public final static transient int PRIORITY_TERRITORY = 17000;
@@ -122,8 +122,8 @@ public class MPerm extends Entity<MPerm> implements Prioritized, Registerable, N
 		getPermKick();
 		getPermRank();
 		getPermTitle();
-		getPermHome();
-		getPermSethome();
+		getPermWarp();
+		getPermSetwarp();
 		getPermDeposit();
 		getPermWithdraw();
 		getPermTerritory();
@@ -149,8 +149,8 @@ public class MPerm extends Entity<MPerm> implements Prioritized, Registerable, N
 	public static MPerm getPermKick() { return getCreative(PRIORITY_KICK, ID_KICK, ID_KICK, "kick members", MUtil.set("LEADER", "OFFICER"), false, true, true); }
 	public static MPerm getPermRank() { return getCreative(PRIORITY_RANK, ID_RANK, ID_RANK, "change ranks", MUtil.set("LEADER", "OFFICER"), false, true, true); }
 	public static MPerm getPermTitle() { return getCreative(PRIORITY_TITLE, ID_TITLE, ID_TITLE, "set titles", MUtil.set("LEADER", "OFFICER"), false, true, true); }
-	public static MPerm getPermHome() { return getCreative(PRIORITY_HOME, ID_HOME, ID_HOME, "teleport home", MUtil.set("LEADER", "OFFICER", "MEMBER", "RECRUIT", "ALLY"), false, true, true); }
-	public static MPerm getPermSethome() { return getCreative(PRIORITY_SETHOME, ID_SETHOME, ID_SETHOME, "set the home", MUtil.set("LEADER", "OFFICER"), false, true, true); }
+	public static MPerm getPermWarp() { return getCreative(PRIORITY_WARP, ID_WARP, "warp", "teleport to warp", MUtil.set("LEADER", "OFFICER", "MEMBER", "RECRUIT", "ALLY"), false, true, true); }
+	public static MPerm getPermSetwarp() { return getCreative(PRIORITY_SETWARP, ID_SETWARP, "setwarp", "set warps", MUtil.set("LEADER", "OFFICER"), false, true, true); }
 	public static MPerm getPermDeposit() { return getCreative(PRIORITY_DEPOSIT, ID_DEPOSIT, ID_DEPOSIT, "deposit money", MUtil.set("LEADER", "OFFICER", "MEMBER", "RECRUIT", "ALLY", "TRUCE", "NEUTRAL", "ENEMY"), false, false, false); } // non editable, non visible.
 	public static MPerm getPermWithdraw() { return getCreative(PRIORITY_WITHDRAW, ID_WITHDRAW, ID_WITHDRAW, "withdraw money", MUtil.set("LEADER"), false, true, true); }
 	public static MPerm getPermTerritory() { return getCreative(PRIORITY_TERRITORY, ID_TERRITORY, ID_TERRITORY, "claim or unclaim", MUtil.set("LEADER", "OFFICER"), false, true, true); }
@@ -203,7 +203,13 @@ public class MPerm extends Entity<MPerm> implements Prioritized, Registerable, N
 	private transient boolean registered = false;
 	public boolean isRegistered() { return this.registered; }
 	public void setRegistered(boolean registered) { this.registered = registered; }
-	
+	// -------------------------------------------- //
+	// VERSION
+	// -------------------------------------------- //
+
+	public int version = 1;
+
+
 	// -------------------------------------------- //
 	// FIELDS
 	// -------------------------------------------- //

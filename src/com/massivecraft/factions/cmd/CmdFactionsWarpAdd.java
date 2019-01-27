@@ -46,7 +46,7 @@ public class CmdFactionsWarpAdd extends FactionsCommandWarp
 		Warp warp = new Warp(name, ps);
 		
 		// MPerm
-		if ( ! MPerm.getPermSethome().has(msender, faction, true)) return;
+		if ( ! MPerm.getPermSetwarp().has(msender, faction, true)) return;
 
 		if (faction.getWarps().getAll().stream().map(Warp::getName).anyMatch(s -> s.equalsIgnoreCase(name)))
 		{

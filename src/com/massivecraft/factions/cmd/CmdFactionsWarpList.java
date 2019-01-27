@@ -36,7 +36,7 @@ public class CmdFactionsWarpList extends FactionsCommandWarp
 		int idx = this.readArg();
 
 		// Any and MPerm
-		if ( ! MPerm.getPermHome().has(msender, faction, true)) return;
+		if ( ! MPerm.getPermWarp().has(msender, faction, true)) return;
 
 		Pager<Warp> pager = new Pager<>(this, "Warps for " + faction.getName(), idx, faction.getWarps().getAll());
 		pager.setMsonifier((Stringifier<Warp>)  (warp, i) ->

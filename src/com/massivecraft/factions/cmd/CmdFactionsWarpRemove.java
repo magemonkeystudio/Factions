@@ -33,7 +33,7 @@ public class CmdFactionsWarpRemove extends FactionsCommandWarp
 		Warp warp = TypeWarp.get(faction).read(this.argAt(0), sender);
 		
 		// Any and MPerm
-		if ( ! MPerm.getPermSethome().has(msender, faction, true)) return;
+		if ( ! MPerm.getPermSetwarp().has(msender, faction, true)) return;
 		
 		// Event
 		EventFactionsWarpRemove event = new EventFactionsWarpRemove(sender, faction, warp);

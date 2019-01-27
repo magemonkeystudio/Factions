@@ -54,7 +54,7 @@ public class CmdFactionsWarpGo extends FactionsCommandWarp
 		String warpDesc = Txt.parse("<h>%s <i>in <reset>%s<i>.", warp.getName(), faction.describeTo(msender, false));
 		
 		// Any and MPerm
-		if ( ! MPerm.getPermHome().has(msender, faction, true)) return;
+		if ( ! MPerm.getPermWarp().has(msender, faction, true)) return;
 		
 		if ( ! MConf.get().warpsTeleportAllowedFromEnemyTerritory && msender.isInEnemyTerritory())
 		{
