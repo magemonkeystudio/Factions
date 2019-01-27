@@ -54,6 +54,7 @@ public class CmdFactions extends FactionsCommand
 	public CmdFactionsRelationOld cmdFactionsRelationOldEnemy = new CmdFactionsRelationOld("enemy");
 	public CmdFactionsPerm cmdFactionsPerm = new CmdFactionsPerm();
 	public CmdFactionsFlag cmdFactionsFlag = new CmdFactionsFlag();
+	public CmdFactionsFly cmdFactionsFly = new CmdFactionsFly();
 	public CmdFactionsUnstuck cmdFactionsUnstuck = new CmdFactionsUnstuck();
 	public CmdFactionsOverride cmdFactionsOverride = new CmdFactionsOverride();
 	public CmdFactionsDisband cmdFactionsDisband = new CmdFactionsDisband();

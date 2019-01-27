@@ -33,6 +33,7 @@ import com.massivecraft.factions.engine.EngineFlagExplosion;
 import com.massivecraft.factions.engine.EngineFlagFireSpread;
 import com.massivecraft.factions.engine.EngineFlagSpawn;
 import com.massivecraft.factions.engine.EngineFlagZombiegrief;
+import com.massivecraft.factions.engine.EngineFly;
 import com.massivecraft.factions.engine.EngineLastActivity;
 import com.massivecraft.factions.engine.EngineMotd;
 import com.massivecraft.factions.engine.EngineMoveChunk;
@@ -220,6 +221,7 @@ public class Factions extends MassivePlugin
 			EngineFlagFireSpread.class,
 			EngineFlagSpawn.class,
 			EngineFlagZombiegrief.class,
+			EngineFly.class,
 			EngineLastActivity.class,
 			EngineMotd.class,
 			EngineMoveChunk.class,

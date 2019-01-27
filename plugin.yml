@@ -38,6 +38,8 @@ permissions:
   factions.flag.list: {description: list flags, default: false}
   factions.flag.set: {description: set flags, default: false}
   factions.flag.show: {description: show flags, default: false}
+  factions.fly: {description: faction fly, default: false}
+  factions.fly.other: {description: set faction fly for others, default: false}
   factions.invite: {description: manage invites, default: false}
   factions.invite.list: {description: list invited players, default: false}
   factions.invite.list.other: {description: list invited players of another factions, default: false}
@@ -142,6 +144,8 @@ permissions:
       factions.flag.list: true
       factions.flag.set: true
       factions.flag.show: true
+      factions.fly: true
+      factions.fly.other: true
       factions.home: true
       factions.invite: true
       factions.invite.list: true
@@ -243,6 +247,7 @@ permissions:
       factions.leader.any: true
       factions.officer.any: true
       factions.access.any: true
+      factions.fly.other: true
       factions.setpower: true
   factions.kit.rank1:
     default: false
@@ -280,6 +285,7 @@ permissions:
       factions.flag.list: true
       factions.flag.set: true
       factions.flag.show: true
+      factions.fly: true
       factions.home: true
       factions.invite: true
       factions.invite.list: true

@@ -175,6 +175,9 @@ public class MPlayer extends SenderEntity<MPlayer> implements FactionsParticipat
 	// Null means default specified in MConf.
 	private Boolean territoryInfoTitles = null;
 
+	// Is the player doing faction flying?
+	private Boolean flying = null;
+
 	// The Faction this player is currently autoclaiming for.
 	// Null means the player isn't auto claiming.
 	// NOTE: This field will not be saved to the database ever.
@@ -580,6 +583,20 @@ public class MPlayer extends SenderEntity<MPlayer> implements FactionsParticipat
 
 		// Mark as changed
 		this.changed();
+	}
+
+	// -------------------------------------------- //
+	// FIELD: fly
+	// -------------------------------------------- //
+
+	public boolean isFlying()
+	{
+		return this.convertGet(this.flying, false, Perm.FLY);
+	}
+
+	public void setFlying(Boolean flying)
+	{
+		this.flying = this.convertSet(flying, this.flying, false);
 	}
 
 	// -------------------------------------------- //

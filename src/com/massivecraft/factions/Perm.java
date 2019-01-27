@@ -37,6 +37,8 @@ public enum Perm implements Identified
 	FLAG_LIST,
 	FLAG_SET,
 	FLAG_SHOW,
+	FLY,
+	FLY_OTHER,
 	HOME,
 	INVITE,
 	INVITE_LIST,

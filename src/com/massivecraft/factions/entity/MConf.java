@@ -321,6 +321,9 @@ public class MConf extends Entity<MConf>
 
 	// Make faction disbanding a confirmation thing
 	public boolean requireConfirmationForFactionDisbanding = true;
+
+	// At what speed can players fly with /f fly?
+	public float flySpeed = 0.1f;
 	
 	// -------------------------------------------- //
 	// DENY COMMANDS
