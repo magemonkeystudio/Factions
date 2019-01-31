@@ -4,9 +4,9 @@ import com.massivecraft.factions.engine.EngineFly;
 import com.massivecraft.factions.entity.MPlayer;
 import com.massivecraft.massivecore.MassiveException;
 import com.massivecraft.massivecore.command.MassiveCommandToggle;
+import com.massivecraft.massivecore.command.requirement.RequirementIsPlayer;
 import com.massivecraft.massivecore.engine.EngineMassiveCorePlayerUpdate;
 import com.massivecraft.massivecore.ps.PS;
-import com.massivecraft.massivecore.util.IdUtil;
 import org.bukkit.entity.Player;
 
 public class CmdFactionsFly extends MassiveCommandToggle
@@ -24,8 +24,7 @@ public class CmdFactionsFly extends MassiveCommandToggle
 
 	public CmdFactionsFly()
 	{
-		super();
-		this.setAliases("fly");
+		this.addRequirements(RequirementIsPlayer.get());
 	}
 
 	// -------------------------------------------- //
@@ -47,14 +46,11 @@ public class CmdFactionsFly extends MassiveCommandToggle
 	public void setValue(boolean value) throws MassiveException
 	{
 		MPlayer mplayer = MPlayer.get(sender);
-		Player player = IdUtil.getPlayer(sender);
+		Player player = me;
 		if (player == null) throw new MassiveException().addMsg("<b>Could not find player.");
 
 		PS ps = PS.valueOf(player);
-		if (value && !EngineFly.canFlyInTerritory(mplayer, ps))
-		{
-			throw new MassiveException().addMsg("<b>You can't fly where you are.");
-		}
+		if (value) EngineFly.canFlyInTerritoryOrThrow(mplayer, ps);
 
 		mplayer.setFlying(value);
 		EngineMassiveCorePlayerUpdate.update(player, false);

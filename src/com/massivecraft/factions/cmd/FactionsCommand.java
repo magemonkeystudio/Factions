@@ -19,7 +19,7 @@ public class FactionsCommand extends MassiveCommand
 
 	public FactionsCommand()
 	{
-		this.setSetupEnabled(true);
+
 	}
 
 	// -------------------------------------------- //
