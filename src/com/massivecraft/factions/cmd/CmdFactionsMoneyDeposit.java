@@ -21,8 +21,8 @@ public class CmdFactionsMoneyDeposit extends FactionsCommand
 	public CmdFactionsMoneyDeposit()
 	{
 		// Parameters
-		this.addParameter(TypeDouble.get(), "amount");
-		this.addParameter(TypeFaction.get(), "faction", "you");
+		this.addParameter(TypeDouble.get(), "amount").setDesc("the amount of money to deposit");
+		this.addParameter(TypeFaction.get(), "faction", "you").setDesc("the faction to deposit money to");
 
 		// Requirements
 		this.addRequirements(ReqBankCommandsEnabled.get());

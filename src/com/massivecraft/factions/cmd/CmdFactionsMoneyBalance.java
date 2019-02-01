@@ -16,7 +16,7 @@ public class CmdFactionsMoneyBalance extends FactionsCommand
 	public CmdFactionsMoneyBalance()
 	{
 		// Parameters
-		this.addParameter(TypeFaction.get(), "faction", "you");
+		this.addParameter(TypeFaction.get(), "faction", "you").setDesc("the faction whose balance to check");
 
 		// Requirements
 		this.addRequirements(ReqBankCommandsEnabled.get());

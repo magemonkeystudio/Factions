@@ -28,8 +28,8 @@ public class CmdFactionsStatus extends FactionsCommand
 	{
 		// Parameters
 		this.addParameter(Parameter.getPage());
-		this.addParameter(TypeFaction.get(), "faction", "you");
-		this.addParameter(TypeSortMPlayer.get(), "sort", "time");
+		this.addParameter(TypeFaction.get(), "faction", "you").setDesc("the faction whose status to see");
+		this.addParameter(TypeSortMPlayer.get(), "sort", "time").setDesc("sort mplayers by rank, power or last active time?");
 	}
 
 	// -------------------------------------------- //

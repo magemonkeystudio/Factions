@@ -18,9 +18,9 @@ public class CmdFactionsFlagSet extends FactionsCommand
 	public CmdFactionsFlagSet()
 	{
 		// Parameters
-		this.addParameter(TypeMFlag.get(), "flag");
-		this.addParameter(TypeBooleanYes.get(), "yes/no");
-		this.addParameter(TypeFaction.get(), "faction", "you");
+		this.addParameter(TypeMFlag.get(), "flag").setDesc("the faction flag to set a value for");
+		this.addParameter(TypeBooleanYes.get(), "yes/no").setDesc("should the flag be on or off?");
+		this.addParameter(TypeFaction.get(), "faction", "you").setDesc("the faction to set the flag for (per default your own)");
 	}
 	
 	// -------------------------------------------- //

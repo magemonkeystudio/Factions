@@ -19,7 +19,7 @@ public class CmdFactionsMotd extends FactionsCommand
 	public CmdFactionsMotd()
 	{
 		// Parameters
-		this.addParameter(TypeNullable.get(TypeString.get()), "new", "read", true);
+		this.addParameter(TypeNullable.get(TypeString.get()), "new", "read", true).setDesc("the new motd\nif not specified you will just see the current one");
 	}
 
 	// -------------------------------------------- //

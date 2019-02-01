@@ -15,7 +15,7 @@ public class CmdFactionsMap extends FactionsCommand
 	public CmdFactionsMap()
 	{
 		// Parameters
-		this.addParameter(TypeBooleanYes.get(), "on/off", "once");
+		this.addParameter(TypeBooleanYes.get(), "on/off", "once").setDesc("set to yes to get an auto updating map\nset to no to disable");
 
 		// Requirements
 		this.addRequirements(RequirementIsPlayer.get());

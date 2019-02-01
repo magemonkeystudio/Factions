@@ -23,7 +23,7 @@ public class CmdFactionsInviteRemove extends FactionsCommand
 	public CmdFactionsInviteRemove()
 	{
 		// Parameters
-		this.addParameter(TypeSet.get(TypeMPlayer.get()), "players/all", true);
+		this.addParameter(TypeSet.get(TypeMPlayer.get()), "players/all", true).setDesc("the player to deinvite");
 	}
 	
 	// -------------------------------------------- //

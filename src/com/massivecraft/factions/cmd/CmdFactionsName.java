@@ -3,14 +3,9 @@ package com.massivecraft.factions.cmd;
 import com.massivecraft.factions.cmd.type.TypeFaction;
 import com.massivecraft.factions.cmd.type.TypeFactionNameLenient;
 import com.massivecraft.factions.entity.Faction;
-import com.massivecraft.factions.entity.FactionColl;
 import com.massivecraft.factions.entity.MPerm;
 import com.massivecraft.factions.event.EventFactionsNameChange;
-import com.massivecraft.factions.util.MiscUtil;
 import com.massivecraft.massivecore.MassiveException;
-import com.massivecraft.massivecore.command.type.primitive.TypeString;
-
-import java.util.ArrayList;
 
 public class CmdFactionsName extends FactionsCommand
 {
@@ -21,8 +16,8 @@ public class CmdFactionsName extends FactionsCommand
 	public CmdFactionsName()
 	{
 		// Parameters
-		this.addParameter(TypeFactionNameLenient.get(), "new name");
-		this.addParameter(TypeFaction.get(), "faction", "you");
+		this.addParameter(TypeFactionNameLenient.get(), "new name").setDesc("the new name of the faction");
+		this.addParameter(TypeFaction.get(), "faction", "you").setDesc("the faction whose name to change");
 	}
 
 	// -------------------------------------------- //

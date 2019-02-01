@@ -22,8 +22,8 @@ public class CmdFactionsMoneyWithdraw extends FactionsCommand
 	public CmdFactionsMoneyWithdraw()
 	{
 		// Parameters
-		this.addParameter(TypeDouble.get(), "amount");
-		this.addParameter(TypeFaction.get(), "faction", "you");
+		this.addParameter(TypeDouble.get(), "amount").setDesc("the amount of money to withdraw");
+		this.addParameter(TypeFaction.get(), "faction", "you").setDesc("the faction to transfer money to");
 
 		// Requirements
 		this.addRequirements(ReqBankCommandsEnabled.get());

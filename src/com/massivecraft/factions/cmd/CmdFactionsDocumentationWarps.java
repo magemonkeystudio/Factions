@@ -30,11 +30,11 @@ public class CmdFactionsDocumentationWarps extends FactionsCommandDocumentation
 
 		if (MConf.get().warpsMax < 0)
 		{
-			msgDoc("There is no limit to how many warps a faction can have.");
+			msgDoc("There is <h>no limit <i>to how many warps a faction can have.");
 		}
 		else
 		{
-			msgDoc("There is no limit to how many warps a faction can have.");
+			msgDoc("A faction can only have <h>%d <i>warps.", MConf.get().warpsMax);
 		}
 
 		if (MConf.get().warpsMustBeInClaimedTerritory)

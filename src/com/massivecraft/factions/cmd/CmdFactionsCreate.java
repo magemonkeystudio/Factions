@@ -26,7 +26,7 @@ public class CmdFactionsCreate extends FactionsCommand
 		this.addAliases("new");
 		
 		// Parameters
-		this.addParameter(TypeFactionNameStrict.get(), "name");
+		this.addParameter(TypeFactionNameStrict.get(), "name").setDesc("the name of your new faction");
 		
 		// Requirements
 		this.addRequirements(ReqHasntFaction.get());

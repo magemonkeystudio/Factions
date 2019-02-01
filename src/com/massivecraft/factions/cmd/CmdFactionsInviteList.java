@@ -32,7 +32,7 @@ public class CmdFactionsInviteList extends FactionsCommand
 	{
 		// Parameters
 		this.addParameter(Parameter.getPage());
-		this.addParameter(TypeFaction.get(), "faction", "you");
+		this.addParameter(TypeFaction.get(), "faction", "you").setDesc("the faction to list invites for");
 	}
 	
 	// -------------------------------------------- //

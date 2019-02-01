@@ -20,7 +20,7 @@ public class CmdFactionsFlagShow extends FactionsCommand
 	public CmdFactionsFlagShow()
 	{
 		// Parameters
-		this.addParameter(TypeFaction.get(), "faction", "you");
+		this.addParameter(TypeFaction.get(), "faction", "you").setDesc("the faction to show flags for");
 		this.addParameter(Parameter.getPage());
 	}
 	

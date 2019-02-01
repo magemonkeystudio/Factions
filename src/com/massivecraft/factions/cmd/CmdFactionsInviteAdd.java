@@ -23,7 +23,7 @@ public class CmdFactionsInviteAdd extends FactionsCommand
 	public CmdFactionsInviteAdd()
 	{
 		// Parameters
-		this.addParameter(TypeSet.get(TypeMPlayer.get()), "players", true);
+		this.addParameter(TypeSet.get(TypeMPlayer.get()), "players", true).setDesc("the player to invite");
 	}
 	
 	// -------------------------------------------- //

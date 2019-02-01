@@ -24,8 +24,8 @@ public class CmdFactionsJoin extends FactionsCommand
 	public CmdFactionsJoin()
 	{
 		// Parameters
-		this.addParameter(TypeFaction.get(), "faction");
-		this.addParameter(TypeMPlayer.get(), "player", "you");
+		this.addParameter(TypeFaction.get(), "faction").setDesc("the faction to join");
+		this.addParameter(TypeMPlayer.get(), "player", "you").setDesc("the player that should join tje faction (for admins only)");
 	}
 
 	// -------------------------------------------- //

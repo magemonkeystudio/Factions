@@ -22,7 +22,7 @@ public class CmdFactionsKick extends FactionsCommand
 	public CmdFactionsKick()
 	{
 		// Parameters
-		this.addParameter(TypeMPlayer.get(), "player");
+		this.addParameter(TypeMPlayer.get(), "player").setDesc("the player to kick");
 	}
 
 	// -------------------------------------------- //
