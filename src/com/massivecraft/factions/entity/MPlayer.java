@@ -1,6 +1,5 @@
 package com.massivecraft.factions.entity;
 
-import com.google.gson.annotations.SerializedName;
 import com.massivecraft.factions.Factions;
 import com.massivecraft.factions.FactionsIndex;
 import com.massivecraft.factions.FactionsParticipator;
@@ -52,7 +51,7 @@ public class MPlayer extends SenderEntity<MPlayer> implements FactionsParticipat
 	// VERSION
 	// -------------------------------------------- //
 
-	public int version = 1;
+	public int version = 2;
 
 	// -------------------------------------------- //
 	// LOAD
@@ -168,7 +167,6 @@ public class MPlayer extends SenderEntity<MPlayer> implements FactionsParticipat
 
 	// Is this player overriding?
 	// Null means false
-	@SerializedName(value = "usingAdminMode")
 	private Boolean overriding = null;
 
 	// Does this player use titles for territory info?
