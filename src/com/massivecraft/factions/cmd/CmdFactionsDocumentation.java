@@ -21,6 +21,7 @@ public class CmdFactionsDocumentation extends FactionsCommand
 	
 	public CmdFactionsDocumentationPower cmdFactionsDocumentationPower = new CmdFactionsDocumentationPower();
 	public CmdFactionsDocumentationRanks cmdFactionsDocumentationRanks = new CmdFactionsDocumentationRanks();
+	public CmdFactionsDocumentationWarps cmdFactionsDocumentationWarps = new CmdFactionsDocumentationWarps();
 	public CmdFactionsDocumentationFlags cmdFactionsDocumentationFlags = new CmdFactionsDocumentationFlags();
 	public CmdFactionsDocumentationPerms cmdFactionsDocumentationPerms = new CmdFactionsDocumentationPerms();
 

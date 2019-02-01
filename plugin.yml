@@ -32,6 +32,7 @@ permissions:
   factions.documentation.power: {description: show power documentation, default: false}
   factions.documentation.perms: {description: show perms documentation, default: false}
   factions.documentation.ranks: {description: show rank documentation, default: false}
+  factions.documentation.warps: {description: show warp documentation, default: false}
   factions.expansions: {description: list expansions, default: false}
   factions.faction: {description: show faction information, default: false}
   factions.flag: {description: manage faction flags, default: false}
@@ -138,6 +139,7 @@ permissions:
       factions.documentation.perms: true
       factions.documentation.power: true
       factions.documentation.ranks: true
+      factions.documentation.warps: true
       factions.expansions: true
       factions.faction: true
       factions.flag: true
@@ -279,6 +281,7 @@ permissions:
       factions.documentation.perms: true
       factions.documentation.power: true
       factions.documentation.ranks: true
+      factions.documentation.warps: true
       factions.expansions: true
       factions.faction: true
       factions.flag: true

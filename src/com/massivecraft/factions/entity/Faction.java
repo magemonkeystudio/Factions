@@ -6,6 +6,8 @@ import com.massivecraft.factions.FactionsIndex;
 import com.massivecraft.factions.FactionsParticipator;
 import com.massivecraft.factions.Rel;
 import com.massivecraft.factions.RelationParticipator;
+import com.massivecraft.factions.cmd.CmdFactionsPermShow;
+import com.massivecraft.factions.entity.MPerm.MPermable;
 import com.massivecraft.factions.predicate.PredicateCommandSenderFaction;
 import com.massivecraft.factions.predicate.PredicateMPlayerRank;
 import com.massivecraft.factions.util.MiscUtil;
@@ -818,6 +820,18 @@ public class Faction extends Entity<Faction> implements FactionsParticipator, MP
 	public Set<String> getPermitted(MPerm mperm)
 	{
 		return getPermitted(mperm.getId());
+	}
+
+	public Set<MPermable> getPermittedPermables(String permId)
+	{
+		return getPermitted(permId).stream()
+			.map(CmdFactionsPermShow::idToMPermable)
+			.collect(Collectors.toSet());
+	}
+
+	public Set<MPermable> getPermittedPermables(MPerm mperm)
+	{
+		return getPermittedPermables(mperm.getId());
 	}
 
 	public boolean isPermitted(String permableId, String permId)

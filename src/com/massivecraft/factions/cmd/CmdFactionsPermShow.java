@@ -14,6 +14,7 @@ import com.massivecraft.massivecore.MassiveException;
 import com.massivecraft.massivecore.collections.MassiveList;
 import com.massivecraft.massivecore.util.Txt;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -81,6 +82,23 @@ public class CmdFactionsPermShow extends FactionsCommand
 		if (Rel.ENEMY.name().equalsIgnoreCase(id)) return Rel.ENEMY;
 
 		throw new RuntimeException(id);
+	}
+
+	public static String permablesToDisplayString(Collection<MPermable> permables, Object watcherObject)
+	{
+		MPlayer mplayer = MPlayer.get(watcherObject);
+		Faction faction = mplayer.getFaction();
+
+		String removeString;
+		if (faction.isNone()) removeString = "";
+		else removeString = Txt.parse(" of ") + faction.getDisplayName(mplayer);
+
+		List<String> permableList = permables.stream()
+				.map(permable -> permable.getDisplayName(mplayer))
+				.map(s -> s.replace(removeString, ""))
+				.collect(Collectors.toList());
+
+		return Txt.implodeCommaAnd(permableList, Txt.parse("<i>"));
 	}
 	
 }
