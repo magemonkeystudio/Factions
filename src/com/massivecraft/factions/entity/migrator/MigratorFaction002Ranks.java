@@ -55,7 +55,6 @@ public class MigratorFaction002Ranks extends MigratorRoot
 		JsonElement jsonMap = MassiveCore.gson.toJsonTree(map, (new TypeToken<Map<String,Rank>>(){}).getType());
 		entity.add("ranks", jsonMap);
 
-
 		JsonElement priorPerms = entity.get("perms");
 		Map<String, Set<String>> newPerms = getPerms(priorPerms, idLeader, idOfficer, idMember, idRecruit);
 

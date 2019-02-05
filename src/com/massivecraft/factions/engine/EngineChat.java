@@ -46,7 +46,6 @@ public class EngineChat extends Engine
 		
 		if (MConf.get().chatSetFormat)
 		{
-
 			Bukkit.getPluginManager().registerEvent(AsyncPlayerChatEvent.class, this, MConf.get().chatSetFormatAt, new SetFormatEventExecutor(), Factions.get(), true);
 		}
 		
