@@ -59,7 +59,7 @@ public class EngineEcon extends Engine
 		if (oldFaction.getMPlayers().size() > 1) return;
 		
 		// ... then transfer all money to the player. 
-		double money = Money.get(oldFaction);
+		double money = Econ.getMoney(oldFaction);
 		if (money == 0) return;
 		Econ.transferMoney(mplayer, oldFaction, mplayer, money);
 	}
@@ -81,7 +81,7 @@ public class EngineEcon extends Engine
 		// ... then transfer all the faction money to the sender.
 		Faction faction = event.getFaction();
 	
-		double amount = Money.get(faction);
+		double amount = Econ.getMoney(faction);
 	
 		// Check that there is an amount
 		if (amount == 0) return;

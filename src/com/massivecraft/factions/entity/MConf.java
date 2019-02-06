@@ -625,4 +625,6 @@ public class MConf extends Entity<MConf>
 	// If you set this to false the player executing the command will pay instead.
 	public boolean bankFactionPaysCosts = true;
 
+	public boolean useNewMoneySystem = false;
+
 }

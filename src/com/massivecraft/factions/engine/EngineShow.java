@@ -153,7 +153,7 @@ public class EngineShow extends Engine
 				// BANK
 				if (MConf.get().bankEnabled)
 				{
-					double bank = Money.get(faction);
+					double bank = Econ.getMoney(faction);
 					String bankDesc = Txt.parse("<h>%s", Money.format(bank, true));
 					show(idPriorityLiness, SHOW_ID_FACTION_BANK, SHOW_PRIORITY_FACTION_BANK, "Bank", bankDesc);
 				}

@@ -63,7 +63,7 @@ public class Econ
 
 	public static void sendBalanceInfo(MPlayer to, EconomyParticipator about)
 	{
-		to.msg("<a>%s's<i> balance is <h>%s<i>.", about.describeTo(to, true), Money.format(Money.get(about)));
+		to.msg("<a>%s's<i> balance is <h>%s<i>.", about.describeTo(to, true), Money.format(getMoney(about)));
 	}
 
 	public static boolean isMePermittedYou(EconomyParticipator me, EconomyParticipator you, MPerm mperm)
@@ -128,7 +128,7 @@ public class Econ
 		}
 		
 		// Is there enough money for the transaction to happen?
-		if (Money.get(from) < amount)
+		if (getMoney(from) < amount)
 		{
 			// There was not enough money to pay
 			if (by != null && notify)
@@ -139,7 +139,7 @@ public class Econ
 		}
 		
 		// Transfer money
-		if (Money.move(from, to, by, amount, "Factions"))
+		if (moveMoney(from, to, by, amount))
 		{
 			if (notify)
 			{
@@ -219,7 +219,7 @@ public class Econ
 	{
 		if ( ! isEnabled()) return true;
 
-		if (Money.get(ep) < delta)
+		if (getMoney(ep) < delta)
 		{
 			if (toDoThis != null && !toDoThis.isEmpty())
 			{
@@ -240,7 +240,7 @@ public class Econ
 		
 		boolean hasActionDesctription = (actionDescription != null && !actionDescription.isEmpty());
 
-		if (Money.spawn(ep, null, delta, "Factions"))
+		if (moveMoney(null, ep, null, delta))
 		{
 			modifyUniverseMoney(ep, -delta);
 			
@@ -272,6 +272,63 @@ public class Econ
 			}
 			return false;
 		}
+	}
+
+	public static double getMoney(EconomyParticipator ep)
+	{
+		if (ep instanceof Faction && MConf.get().useNewMoneySystem)
+		{
+			return ((Faction) ep).getMoney();
+		}
+		else
+		{
+			return Money.get(ep);
+		}
+	}
+
+	public static boolean moveMoney(EconomyParticipator from, EconomyParticipator to, EconomyParticipator by, double amount)
+	{
+		final boolean fromFaction = from instanceof Faction;
+		final boolean toFaction = to instanceof Faction;
+
+		// If the old money system is used just do that
+		if (!MConf.get().useNewMoneySystem)
+		{
+			return Money.move(from, to, by, amount, "Factions");
+		}
+
+		// Or if neither to or from is a faction
+		if (!fromFaction && !toFaction)
+		{
+			return Money.move(from, to, by, amount, "Factions");
+		}
+
+		// Handle from
+		if (fromFaction)
+		{
+			Faction faction = (Faction) from;
+			double money = faction.getMoney();
+			if (amount > money) return false;
+			faction.setMoney(money - amount);
+		}
+		else if (from != null)
+		{
+			Money.despawn(from, by, amount);
+		}
+
+		// Handle to
+		if (toFaction)
+		{
+			Faction faction = (Faction) to;
+			double money = faction.getMoney();
+			faction.setMoney(money + amount);
+		}
+		else if (to != null)
+		{
+			Money.spawn(to, by, amount);
+		}
+
+		return true;
 	}
 	
 }

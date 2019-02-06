@@ -135,12 +135,10 @@ public class Faction extends Entity<Faction> implements FactionsParticipator, MP
 	// The powerBoost is a custom increase/decrease to default and maximum power.
 	// Null means the faction has powerBoost (0).
 	private Double powerBoost = null;
-	
-	// Can anyone join the Faction?
-	// If the faction is open they can.
-	// If the faction is closed an invite is required.
-	// Null means default.
-	// private Boolean open = null;
+
+	// The money a Faction has
+	// null means 0.0
+	private Double money = null;
 	
 	// This is the ids of the invited players.
 	// They are actually "senderIds" since you can invite "@console" to your faction.
@@ -424,6 +422,28 @@ public class Faction extends Entity<Faction> implements FactionsParticipator, MP
 		
 		// Mark as changed
 		this.changed();
+	}
+
+	// -------------------------------------------- //
+	// FIELD: money
+	// -------------------------------------------- //
+
+	public double getMoney()
+	{
+		if (!MConf.get().econEnabled) throw new UnsupportedOperationException("econ not enabled");
+		if (!MConf.get().bankEnabled) throw new UnsupportedOperationException("bank not enabled");
+		if (!MConf.get().useNewMoneySystem) throw new UnsupportedOperationException("this server does not use the new econ system");
+
+		return this.convertGet(this.money, 0D);
+	}
+
+	public void setMoney(Double money)
+	{
+		if (!MConf.get().econEnabled) throw new UnsupportedOperationException("econ not enabled");
+		if (!MConf.get().bankEnabled) throw new UnsupportedOperationException("bank not enabled");
+		if (!MConf.get().useNewMoneySystem) throw new UnsupportedOperationException("this server does not use the new econ system");
+
+		this.money = this.convertSet(money, this.money, 0D);
 	}
 	
 	// -------------------------------------------- //

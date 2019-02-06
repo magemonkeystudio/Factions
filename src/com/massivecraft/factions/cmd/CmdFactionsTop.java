@@ -76,7 +76,7 @@ public class CmdFactionsTop extends FactionsCommand
 	{
 		switch(category)
 		{
-			case MONEY: return Money.get(faction);
+			case MONEY: return Econ.getMoney(faction);
 			case MEMBERS: return faction.getMPlayers().size();
 			case TERRITORY: return faction.getLandCount();
 			case AGE: return faction.getAge();
@@ -89,7 +89,7 @@ public class CmdFactionsTop extends FactionsCommand
 		String ret = Txt.parse("%s<i>: ", faction.getName(mplayer));
 		switch(category)
 		{
-			case MONEY: ret += Money.format(Money.get(faction), true); break;
+			case MONEY: ret += Money.format(Econ.getMoney(faction), true); break;
 			case MEMBERS: ret += faction.getMPlayers().size() + " members"; break;
 			case TERRITORY: ret += faction.getLandCount() + " chunks"; break;
 			case AGE:
