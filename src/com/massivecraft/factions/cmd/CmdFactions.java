@@ -60,6 +60,7 @@ public class CmdFactions extends FactionsCommand
 	public CmdFactionsDisband cmdFactionsDisband = new CmdFactionsDisband();
 	public CmdFactionsPowerBoost cmdFactionsPowerBoost = new CmdFactionsPowerBoost();
 	public CmdFactionsSetpower cmdFactionsSetpower = new CmdFactionsSetpower();
+	public CmdFactionsMoneyconvert cmdFactionsMoneyconvert = new CmdFactionsMoneyconvert();
 	public CmdFactionsConfig cmdFactionsConfig = new CmdFactionsConfig();
 	public CmdFactionsClean cmdFactionsClean = new CmdFactionsClean();
 	public MassiveCommandVersion cmdFactionsVersion = new MassiveCommandVersion(Factions.get()).setAliases("v", "version").addRequirements(RequirementHasPerm.get(Perm.VERSION));

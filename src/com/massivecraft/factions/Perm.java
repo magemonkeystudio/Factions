@@ -60,6 +60,7 @@ public enum Perm implements Identified
 	MONEY_F2P,
 	MONEY_P2F,
 	MONEY_WITHDRAW,
+	MONEYCONVERT,
 	MOTD,
 	OPEN,
 	PERM,

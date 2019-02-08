@@ -60,6 +60,7 @@ permissions:
   factions.money.f2p: {description: transfer f --> p, default: false}
   factions.money.p2f: {description: transfer p --> f, default: false}
   factions.money.withdraw: {description: withdraw from faction, default: false}
+  factions.moneyconvert: {description: convert to the new money system, default: false}
   factions.motd: {description: faction motd, default: false}
   factions.open: {description: set if invitation is required to join, default: false}
   factions.perm: {description: change faction permissions, default: false}
@@ -170,6 +171,7 @@ permissions:
       factions.money.f2p: true
       factions.money.p2f: true
       factions.money.withdraw: true
+      factions.moneyconvert: true
       factions.motd: true
       factions.officer: true
       factions.officer.any: true
@@ -238,6 +240,7 @@ permissions:
     default: false
     children:
       factions.kit.rank2: true
+      factions.moneyconvert: true
       factions.config: true
       factions.clean: true
   factions.kit.rank2:
