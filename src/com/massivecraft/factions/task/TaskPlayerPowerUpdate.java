@@ -11,6 +11,7 @@ import com.massivecraft.massivecore.ModuloRepeatTask;
 import com.massivecraft.massivecore.ps.PS;
 import com.massivecraft.massivecore.util.MUtil;
 import com.massivecraft.massivecore.util.TimeUnit;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 public class TaskPlayerPowerUpdate extends ModuloRepeatTask
@@ -40,7 +41,7 @@ public class TaskPlayerPowerUpdate extends ModuloRepeatTask
 		MFlag flagPowerGain = MFlag.getFlagPowergain();
 		
 		// For each player ...
-		for (Player player : MUtil.getOnlinePlayers())
+		for (Player player : Bukkit.getOnlinePlayers())
 		{
 			// ... that is a living player ...
 			if (MUtil.isntPlayer(player)) continue;

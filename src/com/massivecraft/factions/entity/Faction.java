@@ -28,6 +28,7 @@ import com.massivecraft.massivecore.store.SenderColl;
 import com.massivecraft.massivecore.util.IdUtil;
 import com.massivecraft.massivecore.util.MUtil;
 import com.massivecraft.massivecore.util.Txt;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -1118,7 +1119,7 @@ public class Faction extends Entity<Faction> implements FactionsParticipator, MP
 		List<Player> ret = new MassiveList<>();
 		
 		// Fill Ret
-		for (Player player : MUtil.getOnlinePlayers())
+		for (Player player : Bukkit.getOnlinePlayers())
 		{
 			if (MUtil.isntPlayer(player)) continue;
 			
