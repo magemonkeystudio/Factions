@@ -63,7 +63,7 @@ public class CmdFactions extends FactionsCommand
 	public CmdFactionsMoneyconvert cmdFactionsMoneyconvert = new CmdFactionsMoneyconvert();
 	public CmdFactionsConfig cmdFactionsConfig = new CmdFactionsConfig();
 	public CmdFactionsClean cmdFactionsClean = new CmdFactionsClean();
-	public MassiveCommandVersion cmdFactionsVersion = new MassiveCommandVersion(Factions.get()).setAliases("v", "version").addRequirements(RequirementHasPerm.get(Perm.VERSION));
+	public MassiveCommandVersion cmdFactionsVersion = new MassiveCommandVersion(Factions.get()).addRequirements(RequirementHasPerm.get(Perm.VERSION));
 	
 	// -------------------------------------------- //
 	// CONSTRUCT

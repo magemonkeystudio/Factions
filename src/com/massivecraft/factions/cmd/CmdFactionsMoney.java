@@ -11,9 +11,9 @@ public class CmdFactionsMoney extends FactionsCommand
 	public CmdFactionsMoneyBalance cmdMoneyBalance = new CmdFactionsMoneyBalance();
 	public CmdFactionsMoneyDeposit cmdMoneyDeposit = new CmdFactionsMoneyDeposit();
 	public CmdFactionsMoneyWithdraw cmdMoneyWithdraw = new CmdFactionsMoneyWithdraw();
-	public CmdFactionsMoneyTransferFf cmdMoneyTransferFf = new CmdFactionsMoneyTransferFf();
-	public CmdFactionsMoneyTransferFp cmdMoneyTransferFp = new CmdFactionsMoneyTransferFp();
-	public CmdFactionsMoneyTransferPf cmdMoneyTransferPf = new CmdFactionsMoneyTransferPf();
+	public CmdFactionsMoneyTransferF2f cmdMoneyTransferFf = new CmdFactionsMoneyTransferF2f();
+	public CmdFactionsMoneyTransferF2p cmdMoneyTransferFp = new CmdFactionsMoneyTransferF2p();
+	public CmdFactionsMoneyTransferP2f cmdMoneyTransferPf = new CmdFactionsMoneyTransferP2f();
 	
 	// -------------------------------------------- //
 	// CONSTRUCT

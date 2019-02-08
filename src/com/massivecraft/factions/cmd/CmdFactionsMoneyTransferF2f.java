@@ -1,26 +1,24 @@
 package com.massivecraft.factions.cmd;
 
 import com.massivecraft.factions.Factions;
-import com.massivecraft.factions.Perm;
 import com.massivecraft.factions.cmd.req.ReqBankCommandsEnabled;
 import com.massivecraft.factions.cmd.type.TypeFaction;
 import com.massivecraft.factions.entity.Faction;
 import com.massivecraft.factions.entity.MConf;
 import com.massivecraft.factions.integration.Econ;
 import com.massivecraft.massivecore.MassiveException;
-import com.massivecraft.massivecore.command.requirement.RequirementHasPerm;
 import com.massivecraft.massivecore.command.type.primitive.TypeDouble;
 import com.massivecraft.massivecore.money.Money;
 import com.massivecraft.massivecore.util.Txt;
 import org.bukkit.ChatColor;
 
-public class CmdFactionsMoneyTransferFf extends FactionsCommand
+public class CmdFactionsMoneyTransferF2f extends FactionsCommand
 {
 	// -------------------------------------------- //
 	// CONSTRUCT
 	// -------------------------------------------- //
 	
-	public CmdFactionsMoneyTransferFf()
+	public CmdFactionsMoneyTransferF2f()
 	{
 		// Fields
 		this.setSetupEnabled(false);
@@ -34,7 +32,6 @@ public class CmdFactionsMoneyTransferFf extends FactionsCommand
 		this.addParameter(TypeFaction.get(), "faction").setDesc("the faction to transfer money to");
 
 		// Requirements
-		this.addRequirements(RequirementHasPerm.get(Perm.MONEY_F2F));
 		this.addRequirements(ReqBankCommandsEnabled.get());
 	}
 
