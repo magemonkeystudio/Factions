@@ -66,10 +66,13 @@ public class TypeFaction extends TypeAbstract<Faction>
 		
 		// MPlayer Name Exact
 		String id = IdUtil.getId(str);
-		MPlayer mplayer = MPlayerColl.get().get(id, false);
-		if (mplayer != null)
+		if (id != null)
 		{
-			return mplayer.getFaction();
+			MPlayer mplayer = MPlayerColl.get().get(id, false);
+			if (mplayer != null)
+			{
+				return mplayer.getFaction();
+			}
 		}
 		
 		throw new MassiveException().addMsg("<b>No faction or player matching \"<p>%s<b>\".", str);
