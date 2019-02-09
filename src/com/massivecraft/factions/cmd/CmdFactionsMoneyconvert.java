@@ -31,7 +31,8 @@ public class CmdFactionsMoneyconvert extends FactionsCommand
 	@Override
 	public Visibility getVisibility()
 	{
-		return MConf.get().useNewMoneySystem ? Visibility.INVISIBLE : Visibility.SECRET;
+		return Visibility.INVISIBLE;
+		//return MConf.get().useNewMoneySystem ? Visibility.INVISIBLE : Visibility.SECRET;
 	}
 
 	@Override
