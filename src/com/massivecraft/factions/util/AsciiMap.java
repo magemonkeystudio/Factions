@@ -9,7 +9,6 @@ import com.massivecraft.massivecore.mson.Mson;
 import com.massivecraft.massivecore.ps.PS;
 import com.massivecraft.massivecore.util.Txt;
 import org.bukkit.ChatColor;
-import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -18,9 +17,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import static com.massivecraft.massivecore.mson.Mson.EMPTY;
-import static com.massivecraft.massivecore.mson.Mson.SPACE;
-import static com.massivecraft.massivecore.mson.Mson.mson;
+import static com.massivecraft.massivecore.mson.Mson.*;
 
 public class AsciiMap
 {
@@ -81,13 +78,18 @@ public class AsciiMap
 	// -------------------------------------------- //
 	// CONSTRUCT
 	// -------------------------------------------- //
-	
+
+	@Deprecated
 	public AsciiMap(RelationParticipator relationParticipator, Player player, boolean extraHeight)
 	{
+		this(relationParticipator, PS.valueOf(player), extraHeight);
+	}
+
+	public AsciiMap(RelationParticipator relationParticipator, PS ps, boolean extraHeight)
+	{
 		this.relationParticipator = relationParticipator;
-		Location location = player.getLocation();
-		this.angle = location.getYaw();
-		this.center = PS.valueOf(location).getChunk(true);
+		this.angle = ps.getYaw();
+		this.center = ps.getChunk(true);
 		this.height = extraHeight ? HEIGHT_EXTRA : HEIGHT;
 		this.heightHalf = extraHeight ? HEIGHT_EXTRA_HALF : HEIGHT_HALF;
 		this.topLeft = this.center.plusChunkCoords(-WIDTH_HALF, -this.heightHalf);

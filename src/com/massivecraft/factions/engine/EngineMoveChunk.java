@@ -43,36 +43,36 @@ public class EngineMoveChunk extends Engine
 		// ... gather info on the player and the move ...
 		MPlayer mplayer = MPlayer.get(player);
 
-		PS chunkFrom = PS.valueOf(event.getFrom()).getChunk(true);
-		PS chunkTo = PS.valueOf(event.getTo()).getChunk(true);
+		PS psFrom = PS.valueOf(event.getFrom());
+		PS psTo = PS.valueOf(event.getTo());
 
 		// ... send info onwards and try auto-claiming.
-		sendChunkInfo(mplayer, player, chunkFrom, chunkTo);
-		tryAutoClaim(mplayer, chunkTo);
+		sendChunkInfo(mplayer, player, psFrom, psTo);
+		tryAutoClaim(mplayer, psTo);
 	}
 
 	// -------------------------------------------- //
 	// MOVE CHUNK: SEND CHUNK INFO
 	// -------------------------------------------- //
 
-	private static void sendChunkInfo(MPlayer mplayer, Player player, PS chunkFrom, PS chunkTo)
+	private static void sendChunkInfo(MPlayer mplayer, Player player, PS psFrom, PS psTo)
 	{
-		sendAutoMapUpdate(mplayer, player);
-		sendFactionTerritoryInfo(mplayer, player, chunkFrom, chunkTo);
-		sendTerritoryAccessMessage(mplayer, chunkFrom, chunkTo);
+		sendAutoMapUpdate(mplayer, psTo);
+		sendFactionTerritoryInfo(mplayer, player, psFrom, psTo);
+		sendTerritoryAccessMessage(mplayer, psFrom, psTo);
 	}
 	
-	private static void sendAutoMapUpdate(MPlayer mplayer, Player player)
+	private static void sendAutoMapUpdate(MPlayer mplayer, PS ps)
 	{
 		if (!mplayer.isMapAutoUpdating()) return;
-		AsciiMap map = new AsciiMap(mplayer, player, false);
+		AsciiMap map = new AsciiMap(mplayer, ps, false);
 		mplayer.message(map.render());
 	}
 	
-	private static void sendFactionTerritoryInfo(MPlayer mplayer, Player player, PS chunkFrom, PS chunkTo)
+	private static void sendFactionTerritoryInfo(MPlayer mplayer, Player player, PS psFrom, PS psTo)
 	{
-		Faction factionFrom = BoardColl.get().getFactionAt(chunkFrom);
-		Faction factionTo = BoardColl.get().getFactionAt(chunkTo);
+		Faction factionFrom = BoardColl.get().getFactionAt(psFrom);
+		Faction factionTo = BoardColl.get().getFactionAt(psTo);
 		
 		if (factionFrom == factionTo) return;
 		
@@ -105,11 +105,11 @@ public class EngineMoveChunk extends Engine
 		return string;
 	}
 	
-	private static void sendTerritoryAccessMessage(MPlayer mplayer, PS chunkFrom, PS chunkTo)
+	private static void sendTerritoryAccessMessage(MPlayer mplayer, PS psFrom, PS psTo)
 	{
 		// Get TerritoryAccess for from & to chunks
-		TerritoryAccess accessFrom = BoardColl.get().getTerritoryAccessAt(chunkFrom);
-		TerritoryAccess accessTo = BoardColl.get().getTerritoryAccessAt(chunkTo);
+		TerritoryAccess accessFrom = BoardColl.get().getTerritoryAccessAt(psFrom);
+		TerritoryAccess accessTo = BoardColl.get().getTerritoryAccessAt(psTo);
 		
 		// See if the status has changed
 		AccessStatus statusFrom = accessFrom.getTerritoryAccess(mplayer);
