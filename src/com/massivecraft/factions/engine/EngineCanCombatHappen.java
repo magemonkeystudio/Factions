@@ -110,8 +110,11 @@ public class EngineCanCombatHappen extends Engine
 		Faction defenderPsFaction = BoardColl.get().getFactionAt(defenderPs);
 
 		// ... fast evaluate if the attacker is overriding ...
-		MPlayer mplayer = MPlayer.get(eattacker);
-		if (mplayer != null && mplayer.isOverriding()) return true;
+		if (MUtil.isPlayer(eattacker))
+		{
+			MPlayer mplayer = MPlayer.get(eattacker);
+			if (mplayer != null && mplayer.isOverriding()) return true;
+		}
 		
 		// ... PVP flag may cause a damage block ...
 		if (defenderPsFaction.getFlag(MFlag.getFlagPvp()) == false)

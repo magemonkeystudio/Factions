@@ -43,7 +43,8 @@ public class MPlayer extends SenderEntity<MPlayer> implements FactionsParticipat
 	// META
 	// -------------------------------------------- //
 
-	public static MPlayer get(Object oid) {
+	public static MPlayer get(Object oid)
+	{
 		return MPlayerColl.get().get(oid);
 	}
 
