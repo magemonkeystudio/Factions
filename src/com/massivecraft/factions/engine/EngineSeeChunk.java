@@ -3,11 +3,8 @@ package com.massivecraft.factions.engine;
 import com.massivecraft.factions.entity.MPlayer;
 import com.massivecraft.massivecore.Engine;
 import com.massivecraft.massivecore.event.EventMassiveCorePlayerLeave;
-import com.massivecraft.massivecore.particleeffect.ParticleEffect;
 import com.massivecraft.massivecore.ps.PS;
 import com.massivecraft.massivecore.util.MUtil;
-import com.massivecraft.massivecore.util.PeriodUtil;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -65,7 +62,7 @@ public class EngineSeeChunk extends Engine
 	@Override
 	public void run()
 	{
-		// Do we have a new period?
+		/*// Do we have a new period?
 		final long now = System.currentTimeMillis();
 		final long length = 500;
 		if ( ! PeriodUtil.isNewPeriod(this, length, now)) return;
@@ -100,7 +97,7 @@ public class EngineSeeChunk extends Engine
 			{
 				ParticleEffect.EXPLOSION_NORMAL.display(location, offsetX, offsetY, offsetZ, speed, amount, player);
 			}
-		}
+		}*/
 	}
 	
 	public static List<Location> getLocations(Player player, int steps, int step)
