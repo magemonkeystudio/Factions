@@ -30,6 +30,8 @@ public class CmdFactionsSeeChunk extends FactionsCommand
 	@Override
 	public void perform() throws MassiveException
 	{
+		msg("<b>Seechunk might not work on Minecraft 1.13, perhaps try: ");
+		message(CmdFactions.get().cmdFactionsSeeChunkOld.getTemplate());
 		// Args
 		boolean old = msender.isSeeingChunk();
 		boolean targetDefault = !old;
