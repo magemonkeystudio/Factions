@@ -9,6 +9,7 @@ import com.massivecraft.factions.entity.Rank;
 import com.massivecraft.massivecore.MassiveException;
 import com.massivecraft.massivecore.collections.MassiveList;
 import com.massivecraft.massivecore.command.type.TypeAbstract;
+import com.massivecraft.massivecore.util.MUtil;
 import org.bukkit.command.CommandSender;
 
 import java.util.Collection;
@@ -53,6 +54,30 @@ public class TypeMPermable extends TypeAbstract<MPerm.MPermable>
 	@Override
 	public MPerm.MPermable read(String arg, CommandSender sender) throws MassiveException
 	{
+		if (arg.toLowerCase().startsWith("rank-"))
+		{
+			String subArg = arg.substring("rank-".length());
+			return new TypeRank(this.getFaction()).read(subArg, sender);
+		}
+
+		if (arg.toLowerCase().startsWith("relation-"))
+		{
+			String subArg = arg.substring("relation-".length());
+			return TypeRelation.get().read(subArg, sender);
+		}
+
+		if (arg.toLowerCase().startsWith("player-"))
+		{
+			String subArg = arg.substring("player-".length());
+			return TypeMPlayer.get().read(subArg, sender);
+		}
+
+		if (arg.toLowerCase().startsWith("faction-"))
+		{
+			String subArg = arg.substring("faction-".length());
+			return TypeFaction.get().read(subArg, sender);
+		}
+
 		TypeRank typeRank = new TypeRank(this.getFaction());
 		try
 		{
@@ -113,11 +138,14 @@ public class TypeMPermable extends TypeAbstract<MPerm.MPermable>
 		List<String> ret = new MassiveList<>();
 		Faction faction = this.getFaction();
 		if (faction == null) faction = MPlayer.get(sender).getFaction();
+
+		// Always add ranks, relations, other factions and other players
 		ret.addAll(faction.getRanks().getAll().stream().map(Rank::getName).collect(Collectors.toList()));
 		ret.addAll(TypeRelation.get().getTabList(sender, arg));
 		ret.addAll(TypeFaction.get().getTabList(sender, arg));
+		ret.addAll(TypeMPlayer.get().getTabList(sender, arg));
 
-		// Faction specific ranks
+		// If something has been specified, then suggest factin specific ranks
 		if (arg.length() >= 2)
 		{
 			for (Faction f : FactionColl.get().getAll())
@@ -128,6 +156,42 @@ public class TypeMPermable extends TypeAbstract<MPerm.MPermable>
 
 				ret.addAll(f.getRanks().getAll().stream().map(r -> name + "-" + r.getName()).collect(Collectors.toList()));
 			}
+		}
+
+		// Also add the cases for when type is specified
+		if (arg.length() >= 2)
+		{
+			String compArg = arg.toLowerCase();
+			if (compArg.startsWith("rank-") || "rank-".startsWith(compArg))
+			{
+				ret.addAll(faction.getRanks().getAll().stream()
+							   .map(Rank::getName)
+							   .map(n -> "rank-" + n)
+							   .collect(Collectors.toList()));
+			}
+			if (compArg.startsWith("relation-") || "relation-".startsWith(compArg))
+			{
+				ret.addAll(TypeRelation.get().getTabList(sender, arg).stream()
+							   .map(s -> "relation-" + s)
+							   .collect(Collectors.toList()));
+			}
+			if (compArg.startsWith("faction-") || "faction-".startsWith(compArg))
+			{
+				ret.addAll(TypeFaction.get().getTabList(sender, arg).stream()
+							   .map(s -> "faction-" + s)
+							   .collect(Collectors.toList()));
+			}
+			if (compArg.startsWith("player-") || "player-".startsWith(compArg))
+			{
+				ret.addAll(TypeMPlayer.get().getTabList(sender, arg).stream()
+							   .map(s -> "player-" + s)
+							   .collect(Collectors.toList()));
+			}
+		}
+		else
+		{
+			// Or at least add the beginning
+			ret.addAll(MUtil.list("rank-", "relation-", "faction-", "player-"));
 		}
 
 		return ret;
