@@ -5,7 +5,10 @@ import com.massivecraft.massivecore.Engine;
 import com.massivecraft.massivecore.event.EventMassiveCorePlayerLeave;
 import com.massivecraft.massivecore.ps.PS;
 import com.massivecraft.massivecore.util.MUtil;
+import com.massivecraft.massivecore.util.PeriodUtil;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Particle;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -62,7 +65,7 @@ public class EngineSeeChunk extends Engine
 	@Override
 	public void run()
 	{
-		/*// Do we have a new period?
+		// Do we have a new period?
 		final long now = System.currentTimeMillis();
 		final long length = 500;
 		if ( ! PeriodUtil.isNewPeriod(this, length, now)) return;
@@ -95,9 +98,10 @@ public class EngineSeeChunk extends Engine
 			List<Location> locations = getLocations(player, steps, step);
 			for (Location location : locations)
 			{
-				ParticleEffect.EXPLOSION_NORMAL.display(location, offsetX, offsetY, offsetZ, speed, amount, player);
+				location.getWorld().spawnParticle(Particle.EXPLOSION_NORMAL, location, amount, offsetX, offsetY, offsetZ, speed);
+				//ParticleEffect.EXPLOSION_NORMAL.display(location, offsetX, offsetY, offsetZ, speed, amount, player);
 			}
-		}*/
+		}
 	}
 	
 	public static List<Location> getLocations(Player player, int steps, int step)
