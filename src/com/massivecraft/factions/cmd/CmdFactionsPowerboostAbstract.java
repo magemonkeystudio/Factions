@@ -2,26 +2,33 @@ package com.massivecraft.factions.cmd;
 
 import com.massivecraft.factions.Factions;
 import com.massivecraft.factions.FactionsParticipator;
-import com.massivecraft.factions.Perm;
 import com.massivecraft.massivecore.MassiveException;
 import com.massivecraft.massivecore.command.type.Type;
-import com.massivecraft.massivecore.command.type.TypeNullable;
 import com.massivecraft.massivecore.command.type.primitive.TypeDouble;
 import com.massivecraft.massivecore.util.Txt;
 
-public abstract class CmdFactionsPowerBoostAbstract extends FactionsCommand
+public abstract class CmdFactionsPowerboostAbstract extends FactionsCommand
 {
 	// -------------------------------------------- //
 	// CONSTRUCT
 	// -------------------------------------------- //
 	
-	protected CmdFactionsPowerBoostAbstract(Type<? extends FactionsParticipator> parameterType, String parameterName)
+	protected CmdFactionsPowerboostAbstract(Type<? extends FactionsParticipator> parameterType, String parameterName)
 	{
 		// Parameters
 		this.addParameter(parameterType, parameterName);
-		this.addParameter(TypeNullable.get(TypeDouble.get()), "amount", "show");
+		if (!this.getClass().getSimpleName().contains("Show"))
+		{
+			this.addParameter(TypeDouble.get(), "amount");
+		}
 	}
-	
+
+	// -------------------------------------------- //
+	// ABSTRACT
+	// -------------------------------------------- //
+
+	public abstract double calcNewPowerboost(double current, double d);
+
 	// -------------------------------------------- //
 	// OVERRIDE
 	// -------------------------------------------- //
@@ -31,35 +38,32 @@ public abstract class CmdFactionsPowerBoostAbstract extends FactionsCommand
 	{
 		// Parameters
 		FactionsParticipator factionsParticipator = this.readArg();
-		Double powerBoost = this.readArg(factionsParticipator.getPowerBoost());
-		
+
+		boolean updated = false;
 		// Try set the powerBoost
-		boolean updated = this.trySet(factionsParticipator, powerBoost);
+		if (this.argIsSet(1))
+		{
+			// Yes updated
+			updated = true;
+
+			// Calc powerboost
+			double current = factionsParticipator.getPowerBoost();
+			double number = this.readArg();
+			double powerBoost = this.calcNewPowerboost(current, number);
+
+			// Set
+			factionsParticipator.setPowerBoost(powerBoost);
+		}
 		
 		// Inform
-		this.informPowerBoost(factionsParticipator, powerBoost, updated);
+		this.informPowerBoost(factionsParticipator, updated);
 	}
-	
-	private boolean trySet(FactionsParticipator factionsParticipator, Double powerBoost) throws MassiveException
-	{
-		// Trying to set?
-		if (!this.argIsSet(1)) return false;
-		
-		// Check set permissions
-		if (!Perm.POWERBOOST_SET.has(sender, true)) throw new MassiveException();
-		
-		// Set
-		factionsParticipator.setPowerBoost(powerBoost);
-		
-		// Return
-		return true;
-	}
-	
-	private void informPowerBoost(FactionsParticipator factionsParticipator, Double powerBoost, boolean updated)
+
+	private void informPowerBoost(FactionsParticipator factionsParticipator, boolean updated)
 	{
 		// Prepare
+		Double powerBoost = factionsParticipator.getPowerBoost();
 		String participatorDescribe = factionsParticipator.describeTo(msender, true);
-		powerBoost = powerBoost == null ? factionsParticipator.getPowerBoost() : powerBoost;
 		String powerDescription = Txt.parse(Double.compare(powerBoost, 0D) >= 0 ? "<g>bonus" : "<b>penalty");
 		String when = updated ? "now " : "";
 		String verb = factionsParticipator.equals(msender) ? "have" : "has";

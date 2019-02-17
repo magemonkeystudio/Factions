@@ -2,15 +2,15 @@ package com.massivecraft.factions.cmd;
 
 import com.massivecraft.factions.cmd.type.TypeMPlayer;
 
-public class CmdFactionsPowerBoostPlayer extends CmdFactionsPowerBoostAbstract
+public abstract class CmdFactionsPowerboostPlayerAbstract extends CmdFactionsPowerboostAbstract
 {
 	// -------------------------------------------- //
 	// CONSTRUCT
 	// -------------------------------------------- //
-	
-	public CmdFactionsPowerBoostPlayer()
+
+	public CmdFactionsPowerboostPlayerAbstract()
 	{
 		super(TypeMPlayer.get(), "player");
 	}
-	
+
 }

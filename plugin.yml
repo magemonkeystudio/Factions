@@ -71,9 +71,18 @@ permissions:
   factions.perm.viewall: {description: view all perms held by, default: false}
   factions.player: {description: show player information}
   factions.powerboost: {description: manage powerboost, default: false}
-  factions.powerboost.faction: {description: show faction powerboost, default: false}
-  factions.powerboost.player: {description: show player powerboost, default: false}
-  factions.powerboost.set: {description: set powerboost, default: false}
+  factions.powerboost.faction: {description: manage faction powerboost, default: false}
+  factions.powerboost.faction.add: {description: add to faction powerboost, default: false}
+  factions.powerboost.faction.multiply: {description: multiply faction powerboost, default: false}
+  factions.powerboost.faction.set: {description: set faction powerboost, default: false}
+  factions.powerboost.faction.show: {description: show faction powerboost, default: false}
+  factions.powerboost.faction.take: {description: take faction powerboost, default: false}
+  factions.powerboost.player: {description: manage player powerboost, default: false}
+  factions.powerboost.player.add: {description: add to player powerboost, default: false}
+  factions.powerboost.player.multiply: {description: multiply player powerboost, default: false}
+  factions.powerboost.player.set: {description: set player powerboost, default: false}
+  factions.powerboost.player.show: {description: show player powerboost, default: false}
+  factions.powerboost.player.take: {description: take player powerboost, default: false}
   factions.rank: {description: manage/show ranks, default: false}
   factions.rank.show: {description: show rank, default: false}
   factions.rank.set: {description: set rank, default: false}
@@ -185,8 +194,17 @@ permissions:
       factions.player: true
       factions.powerboost: true
       factions.powerboost.faction: true
+      factions.powerboost.faction.add: true
+      factions.powerboost.faction.multiply: true
+      factions.powerboost.faction.set: true
+      factions.powerboost.faction.show: true
+      factions.powerboost.faction.take: true
       factions.powerboost.player: true
-      factions.powerboost.set: true
+      factions.powerboost.player.add: true
+      factions.powerboost.player.multiply: true
+      factions.powerboost.player.set: true
+      factions.powerboost.player.show: true
+      factions.powerboost.player.take: true
       factions.rank: true
       factions.rank.show: true
       factions.rank.set: true
@@ -247,7 +265,14 @@ permissions:
     default: false
     children:
       factions.kit.rank1: true
-      factions.powerboost.set: true
+      factions.powerboost.faction.add: true
+      factions.powerboost.faction.multiply: true
+      factions.powerboost.faction.set: true
+      factions.powerboost.faction.take: true
+      factions.powerboost.player.add: true
+      factions.powerboost.player.multiply: true
+      factions.powerboost.player.set: true
+      factions.powerboost.player.take: true
       factions.join.others: true
       factions.leader.any: true
       factions.officer.any: true
@@ -324,7 +349,9 @@ permissions:
       factions.promote: true
       factions.powerboost: true
       factions.powerboost.faction: true
+      factions.powerboost.faction.show: true
       factions.powerboost.player: true
+      factions.powerboost.player.show: true
       factions.rank: true
       factions.rank.show: true
       factions.rank.set: true

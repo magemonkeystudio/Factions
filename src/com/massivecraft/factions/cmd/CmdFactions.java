@@ -58,7 +58,7 @@ public class CmdFactions extends FactionsCommand
 	public CmdFactionsUnstuck cmdFactionsUnstuck = new CmdFactionsUnstuck();
 	public CmdFactionsOverride cmdFactionsOverride = new CmdFactionsOverride();
 	public CmdFactionsDisband cmdFactionsDisband = new CmdFactionsDisband();
-	public CmdFactionsPowerBoost cmdFactionsPowerBoost = new CmdFactionsPowerBoost();
+	public CmdFactionsPowerboost cmdFactionsPowerBoost = new CmdFactionsPowerboost();
 	public CmdFactionsSetpower cmdFactionsSetpower = new CmdFactionsSetpower();
 	public CmdFactionsMoneyconvert cmdFactionsMoneyconvert = new CmdFactionsMoneyconvert();
 	public CmdFactionsConfig cmdFactionsConfig = new CmdFactionsConfig();

@@ -1,6 +1,7 @@
 package com.massivecraft.factions;
 
 import com.massivecraft.massivecore.Identified;
+import com.massivecraft.massivecore.MassiveException;
 import com.massivecraft.massivecore.util.PermissionUtil;
 import org.bukkit.permissions.Permissible;
 
@@ -64,6 +65,11 @@ public enum Perm implements Identified
 	public boolean has(Permissible permissible)
 	{
 		return PermissionUtil.hasPermission(permissible, this);
+	}
+
+	public void hasOrThrow(Permissible permissible) throws MassiveException
+	{
+		PermissionUtil.hasPermissionOrThrow(permissible, this);
 	}
 	
 }

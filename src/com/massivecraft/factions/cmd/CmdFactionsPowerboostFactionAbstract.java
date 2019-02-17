@@ -2,15 +2,15 @@ package com.massivecraft.factions.cmd;
 
 import com.massivecraft.factions.cmd.type.TypeFaction;
 
-public class CmdFactionsPowerBoostFaction extends CmdFactionsPowerBoostAbstract
+public abstract class CmdFactionsPowerboostFactionAbstract extends CmdFactionsPowerboostAbstract
 {
 	// -------------------------------------------- //
 	// CONSTRUCT
 	// -------------------------------------------- //
-	
-	public CmdFactionsPowerBoostFaction()
+
+	public CmdFactionsPowerboostFactionAbstract()
 	{
 		super(TypeFaction.get(), "faction");
 	}
-	
+
 }
