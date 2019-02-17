@@ -46,8 +46,8 @@ public class MPerm extends Entity<MPerm> implements Prioritized, Registerable, N
 	public final static transient String ID_KICK = "kick";
 	public final static transient String ID_RANK = "rank";
 	public final static transient String ID_TITLE = "title";
-	public final static transient String ID_WARP = "home";
-	public final static transient String ID_SETWARP = "sethome";
+	public final static transient String ID_WARP = "warp";
+	public final static transient String ID_SETWARP = "setwarp";
 	public final static transient String ID_DEPOSIT = "deposit";
 	public final static transient String ID_WITHDRAW = "withdraw";
 	public final static transient String ID_TERRITORY = "territory";
@@ -149,8 +149,8 @@ public class MPerm extends Entity<MPerm> implements Prioritized, Registerable, N
 	public static MPerm getPermKick() { return getCreative(PRIORITY_KICK, ID_KICK, ID_KICK, "kick members", MUtil.set("LEADER", "OFFICER"), false, true, true); }
 	public static MPerm getPermRank() { return getCreative(PRIORITY_RANK, ID_RANK, ID_RANK, "change ranks", MUtil.set("LEADER", "OFFICER"), false, true, true); }
 	public static MPerm getPermTitle() { return getCreative(PRIORITY_TITLE, ID_TITLE, ID_TITLE, "set titles", MUtil.set("LEADER", "OFFICER"), false, true, true); }
-	public static MPerm getPermWarp() { return getCreative(PRIORITY_WARP, ID_WARP, "warp", "teleport to warp", MUtil.set("LEADER", "OFFICER", "MEMBER", "RECRUIT", "ALLY"), false, true, true); }
-	public static MPerm getPermSetwarp() { return getCreative(PRIORITY_SETWARP, ID_SETWARP, "setwarp", "set warps", MUtil.set("LEADER", "OFFICER"), false, true, true); }
+	public static MPerm getPermWarp() { return getCreative(PRIORITY_WARP, ID_WARP, ID_WARP, "teleport to warp", MUtil.set("LEADER", "OFFICER", "MEMBER", "RECRUIT", "ALLY"), false, true, true); }
+	public static MPerm getPermSetwarp() { return getCreative(PRIORITY_SETWARP, ID_SETWARP, ID_SETWARP, "set warps", MUtil.set("LEADER", "OFFICER"), false, true, true); }
 	public static MPerm getPermDeposit() { return getCreative(PRIORITY_DEPOSIT, ID_DEPOSIT, ID_DEPOSIT, "deposit money", MUtil.set("LEADER", "OFFICER", "MEMBER", "RECRUIT", "ALLY", "TRUCE", "NEUTRAL", "ENEMY"), false, false, false); } // non editable, non visible.
 	public static MPerm getPermWithdraw() { return getCreative(PRIORITY_WITHDRAW, ID_WITHDRAW, ID_WITHDRAW, "withdraw money", MUtil.set("LEADER"), false, true, true); }
 	public static MPerm getPermTerritory() { return getCreative(PRIORITY_TERRITORY, ID_TERRITORY, ID_TERRITORY, "claim or unclaim", MUtil.set("LEADER", "OFFICER"), false, true, true); }
@@ -208,7 +208,6 @@ public class MPerm extends Entity<MPerm> implements Prioritized, Registerable, N
 	// -------------------------------------------- //
 
 	public int version = 1;
-
 
 	// -------------------------------------------- //
 	// FIELDS

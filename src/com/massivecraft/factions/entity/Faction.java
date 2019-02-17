@@ -157,8 +157,7 @@ public class Faction extends Entity<Faction> implements FactionsParticipator, MP
 	// Null means default.
 	private MassiveMapDef<String, Boolean> flags = new MassiveMapDef<>();
 
-	// The perm overrides are modifications to the default values.
-	// Null means default.
+
 	private Map<String, Set<String>> perms = this.createNewPermMap();
 	
 	// -------------------------------------------- //
