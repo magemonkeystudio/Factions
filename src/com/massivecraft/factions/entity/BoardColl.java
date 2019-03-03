@@ -8,12 +8,10 @@ import com.massivecraft.massivecore.store.Coll;
 import com.massivecraft.massivecore.util.MUtil;
 
 import java.util.Collection;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class BoardColl extends Coll<Board> implements BoardInterface
 {
@@ -60,7 +58,7 @@ public class BoardColl extends Coll<Board> implements BoardInterface
 	@Override
 	public TerritoryAccess getTerritoryAccessAt(PS ps)
 	{
-		if (ps == null) return null;
+		if (ps == null) throw new NullPointerException("ps");
 		Board board = this.get(ps.getWorld());
 		if (board == null) return null;
 		return board.getTerritoryAccessAt(ps);
@@ -69,7 +67,7 @@ public class BoardColl extends Coll<Board> implements BoardInterface
 	@Override
 	public Faction getFactionAt(PS ps)
 	{
-		if (ps == null) return null;
+		if (ps == null) throw new NullPointerException("ps");
 		Board board = this.get(ps.getWorld());
 		if (board == null) return null;
 		return board.getFactionAt(ps);
@@ -80,7 +78,7 @@ public class BoardColl extends Coll<Board> implements BoardInterface
 	@Override
 	public void setTerritoryAccessAt(PS ps, TerritoryAccess territoryAccess)
 	{
-		if (ps == null) return;
+		if (ps == null) throw new NullPointerException("ps");
 		Board board = this.get(ps.getWorld());
 		if (board == null) return;
 		board.setTerritoryAccessAt(ps, territoryAccess);
@@ -89,7 +87,7 @@ public class BoardColl extends Coll<Board> implements BoardInterface
 	@Override
 	public void setFactionAt(PS ps, Faction faction)
 	{
-		if (ps == null) return;
+		if (ps == null) throw new NullPointerException("ps");
 		Board board = this.get(ps.getWorld());
 		if (board == null) return;
 		board.setFactionAt(ps, faction);
@@ -100,7 +98,7 @@ public class BoardColl extends Coll<Board> implements BoardInterface
 	@Override
 	public void removeAt(PS ps)
 	{
-		if (ps == null) return;
+		if (ps == null) throw new NullPointerException("ps");
 		Board board = this.get(ps.getWorld());
 		if (board == null) return;
 		board.removeAt(ps);
@@ -120,37 +118,28 @@ public class BoardColl extends Coll<Board> implements BoardInterface
 	@Override
 	public Set<PS> getChunks(Faction faction)
 	{
-		// Create
-		Set<PS> ret = new HashSet<>();
-		
-		// Fill
-		for (Board board : this.getAll())
-		{
-			ret.addAll(board.getChunks(faction));
-		}
-		
-		// Return
-		return ret;
+		return this.getAll().stream()
+			.flatMap(board -> board.getChunks(faction).stream())
+			.collect(Collectors.toSet());
 	}
 	
 	@Override
 	public Set<PS> getChunks(String factionId)
 	{
-		// Create
-		Set<PS> ret = new HashSet<>();
-		
-		// Fill
-		for (Board board : this.getAll())
-		{
-			ret.addAll(board.getChunks(factionId));
-		}
-		
-		// Return
-		return ret;
+		return this.getAll().stream()
+			.flatMap(board -> board.getChunks(factionId).stream())
+			.collect(Collectors.toSet());
+	}
+
+	@Override
+	@Deprecated
+	public Map<Faction, Set<PS>> getFactionToChunks()
+	{
+		return this.getFactionToChunks(false);
 	}
 	
 	@Override
-	public Map<Faction, Set<PS>> getFactionToChunks()
+	public Map<Faction, Set<PS>> getFactionToChunks(boolean withWorld)
 	{
 		// Create
 		Map<Faction, Set<PS>> ret = null;
@@ -159,7 +148,7 @@ public class BoardColl extends Coll<Board> implements BoardInterface
 		for (Board board : this.getAll())
 		{
 			// Use the first board directly
-			Map<Faction, Set<PS>> factionToChunks = board.getFactionToChunks();
+			Map<Faction, Set<PS>> factionToChunks = board.getFactionToChunks(withWorld);
 			if (ret == null)
 			{
 				ret = factionToChunks;
@@ -188,6 +177,13 @@ public class BoardColl extends Coll<Board> implements BoardInterface
 		// Return
 		return ret;
 	}
+
+	@Override
+	public Map<String, Map<Faction, Set<PS>>> getWorldToFactionToChunks(boolean withWorld)
+	{
+		return this.getAll().stream()
+			.collect(Collectors.toMap(Board::getId, board -> board.getFactionToChunks(withWorld)));
+	}
 	
 	// COUNT
 	
@@ -200,46 +196,25 @@ public class BoardColl extends Coll<Board> implements BoardInterface
 	@Override
 	public int getCount(String factionId)
 	{
-		int ret = 0;
-		for (Board board : this.getAll())
-		{
-			ret += board.getCount(factionId);
-		}
-		return ret;
+		return this.getAll().stream()
+			.mapToInt(board -> board.getCount(factionId))
+			.sum();
 	}
 	
 	@Override
-	public Map<Faction, Integer> getFactionToCount()
+	public Map<Faction, Long> getFactionToCount()
 	{
-		Map<Faction, Integer> ret = null;
-		for (Board board : this.getAll())
-		{
-			// Use the first board directly
-			Map<Faction, Integer> factionToCount = board.getFactionToCount();
-			if (ret == null)
-			{
-				ret = factionToCount;
-				continue;
-			}
-			
-			// Merge the following boards
-			for (Entry<Faction, Integer> entry : factionToCount.entrySet())
-			{
-				Faction faction = entry.getKey();
-				Integer count = ret.get(faction);
-				if (count == null)
-				{
-					ret.put(faction, entry.getValue());
-				}
-				else
-				{
-					ret.put(faction, count + entry.getValue());
-				}
-			}
-		}
-		
-		if (ret == null) ret = new MassiveMap<>();
-		return ret;
+		// Get them all and map them to sets of entries
+		return this.getAll().stream()
+			.map(Board::getFactionToCount)
+			.map(Map::entrySet)
+			.flatMap(Set::stream)
+		// Collect the entries in a map of <Faction, Long> by summing the values
+			.collect(Collectors.groupingBy(
+				Entry::getKey,
+				Collectors.summingLong(Entry::getValue)
+			))
+		;
 	}
 	
 	// COUNT
@@ -253,11 +228,8 @@ public class BoardColl extends Coll<Board> implements BoardInterface
 	@Override
 	public boolean hasClaimed(String factionId)
 	{
-		for (Board board : this.getAll())
-		{
-			if (board.hasClaimed(factionId)) return true;
-		}
-		return false;
+		return this.getAll().stream()
+			.anyMatch(board -> board.hasClaimed(factionId));
 	}
 	
 	// NEARBY DETECTION
@@ -265,7 +237,7 @@ public class BoardColl extends Coll<Board> implements BoardInterface
 	@Override
 	public boolean isBorderPs(PS ps)
 	{
-		if (ps == null) return false;
+		if (ps == null) throw new NullPointerException("ps");
 		Board board = this.get(ps.getWorld());
 		if (board == null) return false;
 		return board.isBorderPs(ps);
@@ -274,17 +246,13 @@ public class BoardColl extends Coll<Board> implements BoardInterface
 	@Override
 	public boolean isAnyBorderPs(Set<PS> pss)
 	{
-		for (PS ps : pss)
-		{
-			if (this.isBorderPs(ps)) return true;
-		}
-		return false;
+		return pss.stream().anyMatch(this::isBorderPs);
 	}
 	
 	@Override
 	public boolean isConnectedPs(PS ps, Faction faction)
 	{
-		if (ps == null) return false;
+		if (ps == null) throw new NullPointerException("ps");
 		Board board = this.get(ps.getWorld());
 		if (board == null) return false;
 		return board.isConnectedPs(ps, faction);
@@ -311,17 +279,11 @@ public class BoardColl extends Coll<Board> implements BoardInterface
 	
 	public Set<String> getClaimedWorlds(String factionId)
 	{
-		// Create
-		Set<String> ret = new MassiveSet<>();
-		
-		// Fill
-		for (Board board : this.getAll())
-		{
-			if (board.hasClaimed(factionId)) ret.add(board.getId());
-		}
-		
-		// Return
-		return ret;
+		if (factionId == null) throw new NullPointerException("factionId");
+		return this.getAll().stream()
+			.filter(board -> board.hasClaimed(factionId))
+			.map(Board::getId)
+			.collect(Collectors.toSet());
 	}
 	
 	// -------------------------------------------- //

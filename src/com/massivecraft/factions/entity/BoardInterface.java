@@ -23,12 +23,14 @@ public interface BoardInterface
 	// CHUNKS
 	Set<PS> getChunks(Faction faction);
 	Set<PS> getChunks(String factionId);
-	Map<Faction, Set<PS>> getFactionToChunks();
+	@Deprecated Map<Faction, Set<PS>> getFactionToChunks();
+	Map<Faction, Set<PS>> getFactionToChunks(boolean withWorld);
+	Map<String, Map<Faction, Set<PS>>> getWorldToFactionToChunks(boolean withWorld);
 	
 	// COUNT
 	int getCount(Faction faction);
 	int getCount(String factionId);
-	Map<Faction, Integer> getFactionToCount();
+	Map<Faction, Long> getFactionToCount();
 	
 	// CLAIMED
 	boolean hasClaimed(Faction faction);

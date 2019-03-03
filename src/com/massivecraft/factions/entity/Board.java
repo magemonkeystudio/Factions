@@ -3,18 +3,17 @@ package com.massivecraft.factions.entity;
 import com.google.gson.reflect.TypeToken;
 import com.massivecraft.factions.Factions;
 import com.massivecraft.factions.TerritoryAccess;
-import com.massivecraft.massivecore.collections.MassiveMap;
-import com.massivecraft.massivecore.collections.MassiveSet;
 import com.massivecraft.massivecore.ps.PS;
 import com.massivecraft.massivecore.store.Entity;
 
 import java.lang.reflect.Type;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.ConcurrentSkipListMap;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class Board extends Entity<Board> implements BoardInterface
 {
@@ -82,7 +81,8 @@ public class Board extends Entity<Board> implements BoardInterface
 	@Override
 	public TerritoryAccess getTerritoryAccessAt(PS ps)
 	{
-		if (ps == null) return null;
+		if (ps == null) throw new NullPointerException("ps");
+
 		ps = ps.getChunkCoords(true);
 		TerritoryAccess ret = this.map.get(ps);
 		if (ret == null || ret.getHostFaction() == null) ret = TerritoryAccess.valueOf(Factions.ID_NONE);
@@ -92,9 +92,7 @@ public class Board extends Entity<Board> implements BoardInterface
 	@Override
 	public Faction getFactionAt(PS ps)
 	{
-		if (ps == null) return null;
-		TerritoryAccess ta = this.getTerritoryAccessAt(ps);
-		return ta.getHostFaction();
+		return this.getTerritoryAccessAt(ps).getHostFaction();
 	}
 	
 	// SET
@@ -138,16 +136,7 @@ public class Board extends Entity<Board> implements BoardInterface
 	@Override
 	public void removeAll(Faction faction)
 	{
-		String factionId = faction.getId();
-		
-		for (Entry<PS, TerritoryAccess> entry : this.map.entrySet())
-		{
-			TerritoryAccess territoryAccess = entry.getValue();
-			if ( ! territoryAccess.getHostFactionId().equals(factionId)) continue;
-			
-			PS ps = entry.getKey();
-			this.removeAt(ps);
-		}
+		this.getChunks(faction).forEach(this::removeAt);
 	}
 	
 	// CHUNKS
@@ -161,46 +150,36 @@ public class Board extends Entity<Board> implements BoardInterface
 	@Override
 	public Set<PS> getChunks(String factionId)
 	{
-		Set<PS> ret = new HashSet<>();
-		for (Entry<PS, TerritoryAccess> entry : this.map.entrySet())
-		{
-			TerritoryAccess ta = entry.getValue();
-			if (!ta.getHostFactionId().equals(factionId)) continue;
-			
-			PS ps = entry.getKey();
-			ps = ps.withWorld(this.getId());
-			ret.add(ps);
-		}
-		return ret;
+		return this.map.entrySet().stream()
+			.filter(e -> e.getValue().getHostFactionId().equals(factionId))
+			.map(Entry::getKey)
+			.map(ps -> ps.withWorld(this.getId()))
+			.collect(Collectors.toSet());
+	}
+
+	@Override
+	@Deprecated
+	public Map<Faction, Set<PS>> getFactionToChunks()
+	{
+		return this.getFactionToChunks(true);
 	}
 	
 	@Override
-	public Map<Faction, Set<PS>> getFactionToChunks()
+	public Map<Faction, Set<PS>> getFactionToChunks(boolean withWorld)
 	{
-		Map<Faction, Set<PS>> ret = new MassiveMap<>();
-		
-		for (Entry<PS, TerritoryAccess> entry : this.map.entrySet())
-		{
-			// Get Faction
-			TerritoryAccess ta = entry.getValue();
-			Faction faction = ta.getHostFaction();
-			if (faction == null) continue;
-			
-			// Get Chunks
-			Set<PS> chunks = ret.get(faction);
-			if (chunks == null)
-			{
-				chunks = new MassiveSet<>();
-				ret.put(faction, chunks);
-			}
-			
-			// Add Chunk
-			PS chunk = entry.getKey();
-			chunk = chunk.withWorld(this.getId());
-			chunks.add(chunk);
-		}
-		
-		return ret;
+		Function<Entry<PS, TerritoryAccess>, PS> mapper = Entry::getKey;
+		if (withWorld) mapper = mapper.andThen(ps -> ps.withWorld(this.getId()));
+
+		return map.entrySet().stream().collect(Collectors.groupingBy(
+			entry -> entry.getValue().getHostFaction(), // This specifies how to get the key
+			Collectors.mapping(mapper, Collectors.toSet()) // This maps the entries and puts them in the collection
+		));
+	}
+
+	@Override
+	public Map<String, Map<Faction, Set<PS>>> getWorldToFactionToChunks(boolean withWorld)
+	{
+		return Collections.singletonMap(this.getId(), this.getFactionToChunks(withWorld));
 	}
 	
 	// COUNT
@@ -208,45 +187,30 @@ public class Board extends Entity<Board> implements BoardInterface
 	@Override
 	public int getCount(Faction faction)
 	{
+		if (faction == null) throw new NullPointerException("faction");
+
 		return this.getCount(faction.getId());
 	}
 	
 	@Override
 	public int getCount(String factionId)
 	{
-		int ret = 0;
-		for (TerritoryAccess ta : this.map.values())
-		{
-			if (!ta.getHostFactionId().equals(factionId)) continue;
-			ret += 1;
-		}
-		return ret;
+		if (factionId == null) throw new NullPointerException("factionId");
+
+		return (int) this.map.values().stream()
+				   .map(TerritoryAccess::getHostFactionId)
+				   .filter(factionId::equals)
+				   .count();
 	}
 	
 	@Override
-	public Map<Faction, Integer> getFactionToCount()
+	public Map<Faction, Long> getFactionToCount()
 	{
-		Map<Faction, Integer> ret = new MassiveMap<>();
-		
-		for (Entry<PS, TerritoryAccess> entry : this.map.entrySet())
-		{
-			// Get Faction
-			TerritoryAccess ta = entry.getValue();
-			Faction faction = ta.getHostFaction();
-			if (faction == null) continue;
-			
-			// Get Count
-			Integer count = ret.get(faction);
-			if (count == null)
-			{
-				count = 0;
-			}
-			
-			// Add Chunk
-			ret.put(faction, count + 1);
-		}
-		
-		return ret;
+		return this.map.entrySet().stream()
+			.collect(Collectors.groupingBy(
+				e -> e.getValue().getHostFaction(),
+				Collectors.counting()
+			));
 	}
 	
 	// CLAIMED
@@ -260,12 +224,9 @@ public class Board extends Entity<Board> implements BoardInterface
 	@Override
 	public boolean hasClaimed(String factionId)
 	{
-		for (TerritoryAccess ta : this.map.values())
-		{
-			if ( ! ta.getHostFactionId().equals(factionId)) continue;
-			return true;
-		}
-		return false;
+		return this.map.values().stream()
+			.map(TerritoryAccess::getHostFactionId)
+			.anyMatch(factionId::equals);
 	}
 	
 	// NEARBY DETECTION
@@ -298,11 +259,7 @@ public class Board extends Entity<Board> implements BoardInterface
 	@Override
 	public boolean isAnyBorderPs(Set<PS> pss)
 	{
-		for (PS ps : pss)
-		{
-			if (this.isBorderPs(ps)) return true;
-		}
-		return false;
+		return pss.stream().anyMatch(this::isBorderPs);
 	}
 
 	// Is this coord connected to any coord claimed by the specified faction?
@@ -331,11 +288,7 @@ public class Board extends Entity<Board> implements BoardInterface
 	@Override
 	public boolean isAnyConnectedPs(Set<PS> pss, Faction faction)
 	{
-		for (PS ps : pss)
-		{
-			if (this.isConnectedPs(ps, faction)) return true;
-		}
-		return false;
+		return pss.stream().anyMatch(ps -> this.isConnectedPs(ps, faction));
 	}
 	
 }

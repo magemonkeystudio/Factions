@@ -96,7 +96,7 @@ public class CmdFactionsWarpGo extends FactionsCommandWarp
 			{
 				if (MUtil.isntPlayer(p)) continue;
 				
-				if (p == null || !p.isOnline() || p.isDead() || p == me || p.getWorld() != w) continue;
+				if (!p.isOnline() || p.isDead() || p == me || p.getWorld() != w) continue;
 
 				MPlayer fp = MPlayer.get(p);
 				if (msender.getRelationTo(fp) != Rel.ENEMY) continue;

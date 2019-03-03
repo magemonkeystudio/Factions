@@ -1091,7 +1091,12 @@ public class Faction extends Entity<Faction> implements FactionsParticipator, MP
 		if (ret.size() == 0) return null;
 		return ret.get(0);
 	}
-	
+
+	public Set<String> getMPlayerIds()
+	{
+		return this.getMPlayers().stream().map(MPlayer::getId).collect(Collectors.toSet());
+	}
+
 	public List<CommandSender> getOnlineCommandSenders()
 	{
 		// Create Ret
@@ -1141,7 +1146,7 @@ public class Faction extends Entity<Faction> implements FactionsParticipator, MP
 		MPlayer oldLeader = this.getLeader();
 		Rank leaderRank = oldLeader.getRank();
 
-		List<MPlayer> replacements = Collections.<MPlayer>emptyList();
+		List<MPlayer> replacements = Collections.emptyList();
 		for (Rank rank = leaderRank; rank != null; rank = rank.getRankBelow())
 		{
 			//Skip first
