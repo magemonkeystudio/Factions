@@ -3,9 +3,9 @@ package com.massivecraft.factions.entity;
 import com.massivecraft.massivecore.store.EntityInternal;
 import com.massivecraft.massivecore.store.EntityInternalMap;
 import com.massivecraft.massivecore.util.Txt;
+import org.apache.commons.lang.ObjectUtils.Null;
 import org.bukkit.ChatColor;
 
-import java.util.Iterator;
 import java.util.Map.Entry;
 import java.util.Set;
 
@@ -28,10 +28,10 @@ public class Rank extends EntityInternal<Rank> implements MPerm.MPermable
 	{
 		for (Faction f : FactionColl.get().getAll())
 		{
-			for (Iterator<Entry<String, Set<String>>> it = f.getPerms().entrySet().iterator(); it.hasNext();)
+			for (Entry<String, Set<String>> entry : f.getPerms().entrySet())
 			{
-				Entry<String, Set<String>> entry = it.next();
 				Set<String> value = entry.getValue();
+				if (value == null) throw new NullPointerException(entry.getKey());
 				value.remove(id);
 			}
 		}
