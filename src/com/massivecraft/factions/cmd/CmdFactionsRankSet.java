@@ -105,7 +105,7 @@ public class CmdFactionsRankSet extends FactionsCommand
 	private void registerFields() throws MassiveException
 	{
 		// Getting the target and faction.
-		target = this.readArg(msender);
+		target = this.readArg();
 		targetFaction = target.getFaction();
 		
 		
@@ -117,7 +117,7 @@ public class CmdFactionsRankSet extends FactionsCommand
 		factionChange = (endFaction != targetFaction);
 		
 		// Rank if any passed.
-		TypeRank typeRank = new TypeRank(endFaction);
+		TypeRank typeRank = new TypeRank(endFaction, target.getRank());
 		rank = typeRank.read(this.argAt(1), sender);
 
 	}
