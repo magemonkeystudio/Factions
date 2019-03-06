@@ -48,8 +48,7 @@ public class CmdFactionsSetpower extends FactionsCommand
 		double maxDifference = 0.1d;
 		if (difference < maxDifference)
 		{
-			msg("%s's <i>power is already <h>%.2f<i>.", mplayer.getDisplayName(msender), newPower);
-			return;
+			throw new MassiveException().addMsg("%s's <i>power is already <h>%.2f<i>.", mplayer.getDisplayName(msender), newPower);
 		}
 
 		// Event

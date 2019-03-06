@@ -74,8 +74,7 @@ public class CmdFactionsSetAll extends CmdFactionsSetXAll
 				}
 				else
 				{
-					msg("<b>You must specify which map from console.");
-					return null;
+					throw new MassiveException().addMsg("<b>You must specify which map from console.");
 				}
 			}
 			else

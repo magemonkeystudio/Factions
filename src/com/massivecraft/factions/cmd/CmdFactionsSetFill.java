@@ -4,13 +4,13 @@ import com.massivecraft.factions.Perm;
 import com.massivecraft.factions.entity.BoardColl;
 import com.massivecraft.factions.entity.Faction;
 import com.massivecraft.factions.entity.MConf;
+import com.massivecraft.massivecore.MassiveException;
 import com.massivecraft.massivecore.collections.MassiveSet;
 import com.massivecraft.massivecore.command.requirement.RequirementHasPerm;
 import com.massivecraft.massivecore.command.requirement.RequirementIsPlayer;
 import com.massivecraft.massivecore.ps.PS;
 import com.massivecraft.massivecore.util.MUtil;
 
-import java.util.LinkedHashSet;
 import java.util.Set;
 
 
@@ -43,7 +43,7 @@ public class CmdFactionsSetFill extends CmdFactionsSetXSimple
 	// -------------------------------------------- //
 	
 	@Override
-	public Set<PS> getChunks()
+	public Set<PS> getChunks() throws MassiveException
 	{
 		// Common Startup
 		final PS chunk = PS.valueOf(me.getLocation()).getChunk(true);
@@ -63,8 +63,7 @@ public class CmdFactionsSetFill extends CmdFactionsSetXSimple
 		// Limit Reached?
 		if (chunks.size() >= max)
 		{
-			msg("<b>Fill limit of <h>%d <b>reached.", max);
-			return null;
+			throw new MassiveException().addMsg("<b>Fill limit of <h>%d <b>reached.", max);
 		}
 		
 		// OK!

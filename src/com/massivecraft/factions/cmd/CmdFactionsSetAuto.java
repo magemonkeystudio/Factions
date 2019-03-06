@@ -71,8 +71,7 @@ public class CmdFactionsSetAuto extends FactionsCommand
 		if (newFaction == null || newFaction == msender.getAutoClaimFaction())
 		{
 			msender.setAutoClaimFaction(null);
-			msg("<i>Disabled auto-setting as you walk around.");
-			return;
+			throw new MassiveException().addMsg("<i>Disabled auto-setting as you walk around.");
 		}
 		
 		// MPerm Preemptive Check

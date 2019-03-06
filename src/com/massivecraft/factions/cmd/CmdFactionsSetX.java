@@ -49,7 +49,8 @@ public abstract class CmdFactionsSetX extends FactionsCommand
 		// Args
 		final Faction newFaction = this.getNewFaction();
 		final Set<PS> chunks = this.getChunks();
-		
+		if (chunks == null) throw new NullPointerException("chunks");
+
 		// Apply / Inform
 		msender.tryClaim(newFaction, chunks, this.getFormatOne(), this.getFormatMany());
 	}
