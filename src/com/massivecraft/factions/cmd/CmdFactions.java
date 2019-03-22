@@ -63,7 +63,7 @@ public class CmdFactions extends FactionsCommand
 	public CmdFactionsMoneyconvert cmdFactionsMoneyconvert = new CmdFactionsMoneyconvert();
 	public CmdFactionsConfig cmdFactionsConfig = new CmdFactionsConfig();
 	public CmdFactionsClean cmdFactionsClean = new CmdFactionsClean();
-	public MassiveCommandVersion cmdFactionsVersion = new MassiveCommandVersion(Factions.get()).addRequirements(RequirementHasPerm.get(Perm.VERSION));
+	public MassiveCommandVersion cmdFactionsVersion = new MassiveCommandVersion(Factions.get());
 	
 	// -------------------------------------------- //
 	// CONSTRUCT
@@ -71,8 +71,12 @@ public class CmdFactions extends FactionsCommand
 	
 	public CmdFactions()
 	{
+		// Old rank stuff
+		this.addChild(new CmdFactionsRankOld("demote"));
+		this.addChild(new CmdFactionsRankOld("promote"));
+
 		// Deprecated Commands
-		this.addChild(new MassiveCommandDeprecated(this.cmdFactionsRank, "leader", "owner", "officer", "moderator", "demote", "promote"));
+		this.addChild(new MassiveCommandDeprecated(this.cmdFactionsRank, "leader", "owner", "officer", "moderator", "coleader"));
 		this.addChild(new MassiveCommandDeprecated(this.cmdFactionsWarp, "home"));
 		this.addChild(new MassiveCommandDeprecated(this.cmdFactionsWarp.cmdFactionWarpAdd, "sethome"));
 		this.addChild(new MassiveCommandDeprecated(this.cmdFactionsWarp.cmdFactionWarpRemove, "unsethome"));
