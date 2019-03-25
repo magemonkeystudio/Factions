@@ -37,6 +37,7 @@ public class EngineFlagSpawn extends Engine
 		"NETHER_PORTAL",
 		"MOUNT",
 		"REINFORCEMENTS",
+		"VILLAGE_DEFENSE",
 		"VILLAGE_INVASION"
 	);
 
@@ -52,7 +53,6 @@ public class EngineFlagSpawn extends Engine
 
 		// ... get the spawn location ...
 		Location location = event.getLocation();
-		if (location == null) return;
 		PS ps = PS.valueOf(location);
 
 		// ... get the faction there ...
