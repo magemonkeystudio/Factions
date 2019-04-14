@@ -29,13 +29,13 @@ public class CmdFactionsAccessPlayer extends CmdFactionsAccessAbstract
 	{
 		// Args
 		MPlayer mplayer = this.readArg();
-		boolean newValue = this.readArg(!ta.isMPlayerGranted(mplayer));
+		boolean newValue = this.readArg(!ta.isGranted(mplayer));
 		
 		// MPerm
 		if (!MPerm.getPermAccess().has(msender, hostFaction, true)) return;
 		
 		// Apply
-		ta = ta.withPlayerId(mplayer.getId(), newValue);
+		ta = ta.withGrantedId(mplayer.getId(), newValue);
 		BoardColl.get().setTerritoryAccessAt(chunk, ta);
 		
 		// Inform

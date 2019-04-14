@@ -52,8 +52,6 @@ public class Board extends Entity<Board> implements BoardInterface
 	// FIELDS
 	// -------------------------------------------- //
 	
-	// TODO: Make TerritoryAccess immutable.
-	
 	private ConcurrentSkipListMap<PS, TerritoryAccess> map;
 	public Map<PS, TerritoryAccess> getMap() { return Collections.unmodifiableMap(this.map); }
 	public Map<PS, TerritoryAccess> getMapRaw() { return this.map; }

@@ -7,6 +7,7 @@ import com.massivecraft.factions.entity.BoardColl;
 import com.massivecraft.factions.entity.Faction;
 import com.massivecraft.factions.entity.FactionColl;
 import com.massivecraft.factions.entity.Invitation;
+import com.massivecraft.factions.entity.MPerm;
 import com.massivecraft.factions.entity.MPlayer;
 import com.massivecraft.factions.entity.MPlayerColl;
 import com.massivecraft.massivecore.MassiveException;
@@ -144,11 +145,11 @@ public class CmdFactionsClean extends FactionsCommand
 				TerritoryAccess territoryAccess = entry.getValue();
 				boolean changed = false;
 				
-				for (String factionId : territoryAccess.getFactionIds())
+				for (String grantedIds : territoryAccess.getGrantedIds())
 				{
-					if (FactionColl.get().containsId(factionId)) continue;
+					if (MPerm.idToMPermableOptional(grantedIds).isPresent()) continue;
 					
-					territoryAccess = territoryAccess.withFactionId(factionId, false);
+					territoryAccess = territoryAccess.withGrantedId(grantedIds, false);
 					ret += 1;
 					changed = true;
 				}

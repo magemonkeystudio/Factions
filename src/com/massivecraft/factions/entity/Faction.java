@@ -6,7 +6,6 @@ import com.massivecraft.factions.FactionsIndex;
 import com.massivecraft.factions.FactionsParticipator;
 import com.massivecraft.factions.Rel;
 import com.massivecraft.factions.RelationParticipator;
-import com.massivecraft.factions.cmd.CmdFactionsPermShow;
 import com.massivecraft.factions.entity.MPerm.MPermable;
 import com.massivecraft.factions.predicate.PredicateCommandSenderFaction;
 import com.massivecraft.factions.predicate.PredicateMPlayerRank;
@@ -867,9 +866,7 @@ public class Faction extends Entity<Faction> implements FactionsParticipator, MP
 
 	public Set<MPermable> getPermittedPermables(String permId)
 	{
-		return getPermitted(permId).stream()
-			.map(CmdFactionsPermShow::idToMPermable)
-			.collect(Collectors.toSet());
+		return MPerm.idsToMPermables(getPermitted(permId));
 	}
 
 	public Set<MPermable> getPermittedPermables(MPerm mperm)
@@ -882,6 +879,7 @@ public class Faction extends Entity<Faction> implements FactionsParticipator, MP
 		if (permableId == null) throw new NullPointerException("permableId");
 		if (permId == null) throw new NullPointerException("permId");
 
+		// TODO: Isn't this section redundant and just a copy of that from getPermitted?
 		Set<String> permables = this.perms.get(permId);
 		if (permables == null)
 		{

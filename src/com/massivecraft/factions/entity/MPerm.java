@@ -16,15 +16,19 @@ import com.massivecraft.massivecore.comparator.ComparatorSmart;
 import com.massivecraft.massivecore.predicate.PredicateIsRegistered;
 import com.massivecraft.massivecore.ps.PS;
 import com.massivecraft.massivecore.store.Entity;
+import com.massivecraft.massivecore.util.IdUtil;
 import com.massivecraft.massivecore.util.MUtil;
 import com.massivecraft.massivecore.util.Txt;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class MPerm extends Entity<MPerm> implements Prioritized, Registerable, Named
 {
@@ -414,7 +418,7 @@ public class MPerm extends Entity<MPerm> implements Prioritized, Registerable, N
 	}
 
 	// -------------------------------------------- //
-	// UTIL: ASCII
+	// PERMABLES
 	// -------------------------------------------- //
 
 	public static List<MPermable> getPermables(Faction faction)
@@ -430,60 +434,6 @@ public class MPerm extends Entity<MPerm> implements Prioritized, Registerable, N
 
 		return list;
 	}
-	
-	/*public static String getStateHeaders(Faction faction)
-	{
-		if (faction == null) throw new NullPointerException("faction");
-
-		String ret = "";
-		for (MPermable permable : getPermables(faction))
-		{
-			ret += permable.getColor().toString();
-			ret += permable.getShortName().toUpperCase();
-			ret += " ";
-		}
-		
-		return ret;
-	}
-	
-	public String getStateInfo(Faction faction, boolean withDesc)
-	{
-		if (faction == null) throw new NullPointerException("faction");
-
-		String ret = "";
-
-		for (MPermable permable : getPermables(faction))
-		{
-			if (faction.isPermablePermitted(permable, this))
-			{
-				ret += "<g>YES";
-			}
-			else
-			{
-				ret += "<b>NOO";
-			}
-			ret += " ";
-		}
-		
-		String color = "<aqua>";
-		if (!this.isVisible())
-		{
-			color = "<silver>";
-		}
-		else if (this.isEditable())
-		{
-			color = "<pink>";
-		}
-		
-		ret += color;
-		ret += this.getName();
-		
-		ret = Txt.parse(ret);
-		
-		if (withDesc) ret += " <i>" + this.getDesc();
-		
-		return ret;
-	}*/
 
 	public interface MPermable extends Named, Identified
 	{
@@ -503,6 +453,44 @@ public class MPerm extends Entity<MPerm> implements Prioritized, Registerable, N
 		}
 
 		String getDisplayName(Object senderObject);
+	}
+
+	public static Set<MPermable> idsToMPermables(Collection<String> ids)
+	{
+		return ids.stream()
+			.map(MPerm::idToMPermable)
+			.collect(Collectors.toSet());
+	}
+
+	public static MPermable idToMPermable(String id)
+	{
+		return idToMPermableOptional(id).orElseThrow(() -> new RuntimeException(id));
+	}
+
+	public static Optional<MPermable> idToMPermableOptional(String id)
+	{
+		MPlayer mplayer = MPlayerColl.get().get(id, false);
+		if (mplayer != null) return Optional.of(mplayer);
+
+		// Workaround for registered senders
+		// Players ussually have a power, which makes sure they are in the coll
+		if (IdUtil.getRegistryIdToSender().containsKey(id)) return Optional.of(MPlayerColl.get().get(id, true));
+
+		Faction faction = Faction.get(id);
+		if (faction != null) return Optional.of(faction);
+
+		for (Faction f : FactionColl.get().getAll())
+		{
+			Rank rank = f.getRank(id);
+			if (rank != null) return Optional.of(rank);
+		}
+
+		if (Rel.ALLY.name().equalsIgnoreCase(id)) return Optional.of(Rel.ALLY);
+		if (Rel.TRUCE.name().equalsIgnoreCase(id)) return Optional.of(Rel.TRUCE);
+		if (Rel.NEUTRAL.name().equalsIgnoreCase(id)) return Optional.of(Rel.NEUTRAL);
+		if (Rel.ENEMY.name().equalsIgnoreCase(id)) return Optional.of(Rel.ENEMY);
+
+		return Optional.empty();
 	}
 	
 }

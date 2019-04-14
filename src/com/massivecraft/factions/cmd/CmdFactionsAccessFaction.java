@@ -29,13 +29,13 @@ public class CmdFactionsAccessFaction extends CmdFactionsAccessAbstract
 	{
 		// Args
 		Faction faction = this.readArg();
-		boolean newValue = this.readArg(!ta.isFactionGranted(faction));
+		boolean newValue = this.readArg(!ta.isGranted(faction));
 		
 		// MPerm
 		if (!MPerm.getPermAccess().has(msender, hostFaction, true)) return;
 		
 		// Apply
-		ta = ta.withFactionId(faction.getId(), newValue);
+		ta = ta.withGrantedId(faction.getId(), newValue);
 		BoardColl.get().setTerritoryAccessAt(chunk, ta);
 		
 		// Inform

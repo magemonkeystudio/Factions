@@ -64,6 +64,7 @@ import com.massivecraft.factions.entity.migrator.MigratorMConf005Warps;
 import com.massivecraft.factions.entity.migrator.MigratorMPerm001Warps;
 import com.massivecraft.factions.entity.migrator.MigratorMPlayer001Ranks;
 import com.massivecraft.factions.entity.migrator.MigratorMPlayer002UsingAdminMode;
+import com.massivecraft.factions.entity.migrator.MigratorTerritoryAccess001Restructure;
 import com.massivecraft.factions.event.EventFactionsChunkChangeType;
 import com.massivecraft.factions.integration.V18.IntegrationV18;
 import com.massivecraft.factions.integration.V19.IntegrationV19;
@@ -131,6 +132,7 @@ public class Factions extends MassivePlugin
 		MUtil.registerExtractor(String.class, "accountId", ExtractorFactionAccountId.get());
 
 		MigratorUtil.addJsonRepresentation(Board.class, Board.MAP_TYPE);
+		MigratorUtil.setTargetVersion(TerritoryAccess.class, 1);
 
 		// Activate
 		this.activateAuto();
@@ -154,7 +156,8 @@ public class Factions extends MassivePlugin
 			MigratorMConf005Warps.class,
 			MigratorMPerm001Warps.class,
 			MigratorMPlayer001Ranks.class,
-			MigratorMPlayer002UsingAdminMode.class
+			MigratorMPlayer002UsingAdminMode.class,
+			MigratorTerritoryAccess001Restructure.class
 		);
 	}
 

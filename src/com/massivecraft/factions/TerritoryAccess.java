@@ -1,7 +1,10 @@
 package com.massivecraft.factions;
 
 import com.massivecraft.factions.entity.Faction;
+import com.massivecraft.factions.entity.MPerm;
+import com.massivecraft.factions.entity.MPerm.MPermable;
 import com.massivecraft.factions.entity.MPlayer;
+import com.massivecraft.factions.util.RelationUtil;
 import com.massivecraft.massivecore.collections.MassiveSet;
 
 import java.util.Collection;
@@ -21,60 +24,46 @@ public class TerritoryAccess
 	// default is true
 	private final boolean hostFactionAllowed;
 	public boolean isHostFactionAllowed() { return this.hostFactionAllowed; }
-	
+
 	// default is empty
-	private final Set<String> factionIds;
-	public Set<String> getFactionIds() { return this.factionIds; }
-	
-	// default is empty
-	private final Set<String> playerIds;
-	public Set<String> getPlayerIds() { return this.playerIds; }
-	
+	private final Set<String> grantedIds;
+	public Set<String> getGrantedIds() { return this.grantedIds; }
+
+	// -------------------------------------------- //
+	// FIELDS: VERSION
+	// -------------------------------------------- //
+
+	public int version = 1;
+
 	// -------------------------------------------- //
 	// FIELDS: DELTA
 	// -------------------------------------------- //
 	
 	// The simple ones
-	public TerritoryAccess withHostFactionId(String hostFactionId) { return valueOf(hostFactionId, hostFactionAllowed, factionIds, playerIds); }
-	public TerritoryAccess withHostFactionAllowed(Boolean hostFactionAllowed) { return valueOf(hostFactionId, hostFactionAllowed, factionIds, playerIds); }
-	public TerritoryAccess withFactionIds(Collection<String> factionIds) { return valueOf(hostFactionId, hostFactionAllowed, factionIds, playerIds); }
-	public TerritoryAccess withPlayerIds(Collection<String> playerIds) { return valueOf(hostFactionId, hostFactionAllowed, factionIds, playerIds); }
+	public TerritoryAccess withHostFactionId(String hostFactionId) { return valueOf(hostFactionId, hostFactionAllowed, grantedIds); }
+	public TerritoryAccess withHostFactionAllowed(Boolean hostFactionAllowed) { return valueOf(hostFactionId, hostFactionAllowed, grantedIds); }
+	public TerritoryAccess withGrantedIds(Collection<String> factionIds) { return valueOf(hostFactionId, hostFactionAllowed, grantedIds); }
 	
 	// The intermediate ones
-	public TerritoryAccess withFactionId(String factionId, boolean with)
+	public TerritoryAccess withGrantedId(String grantedId, boolean with)
 	{
-		if (this.getHostFactionId().equals(factionId))
+		if (this.getHostFactionId().equals(grantedId))
 		{
-			return valueOf(hostFactionId, with, factionIds, playerIds);
+			return valueOf(hostFactionId, with, grantedIds);
 		}
 		
-		Set<String> factionIds = new MassiveSet<>(this.getFactionIds());
+		Set<String> grantedIds = new MassiveSet<>(this.getGrantedIds());
 		if (with)
 		{
-			factionIds.add(factionId);
+			grantedIds.add(grantedId);
 		}
 		else
 		{
-			factionIds.remove(factionId);
+			grantedIds.remove(grantedId);
 		}
-		return valueOf(hostFactionId, hostFactionAllowed, factionIds, playerIds);
+		return valueOf(hostFactionId, hostFactionAllowed, grantedIds);
 	}
-	
-	public TerritoryAccess withPlayerId(String playerId, boolean with)
-	{
-		playerId = playerId.toLowerCase();
-		Set<String> playerIds = new MassiveSet<>(this.getPlayerIds());
-		if (with)
-		{
-			playerIds.add(playerId);
-		}
-		else
-		{
-			playerIds.remove(playerId);
-		}
-		return valueOf(hostFactionId, hostFactionAllowed, factionIds, playerIds);
-	}
-	
+
 	// -------------------------------------------- //
 	// FIELDS: DIRECT
 	// -------------------------------------------- //
@@ -86,67 +75,36 @@ public class TerritoryAccess
 		return Faction.get(this.getHostFactionId());
 	}
 	
-	public Set<MPlayer> getGrantedMPlayers()
+	public Set<MPermable> getGranteds()
 	{
-		// Create
-		Set<MPlayer> ret = new MassiveSet<>();
-		
-		// Fill
-		for (String playerId : this.getPlayerIds())
-		{
-			ret.add(MPlayer.get(playerId));
-		}
-		
-		// Return
-		return ret;
-	}
-	
-	public Set<Faction> getGrantedFactions()
-	{
-		// Create
-		Set<Faction> ret = new MassiveSet<>();
-		
-		// Fill
-		for (String factionId : this.getFactionIds())
-		{
-			Faction faction = Faction.get(factionId);
-			if (faction == null) continue;
-			ret.add(faction);
-		}
-		
-		// Return
-		return ret;
+		return MPerm.idsToMPermables(this.getGrantedIds());
 	}
 
 	// -------------------------------------------- //
 	// PRIVATE CONSTRUCTOR
 	// -------------------------------------------- //
-	
-	private TerritoryAccess(String hostFactionId, Boolean hostFactionAllowed, Collection<String> factionIds, Collection<String> playerIds)
+
+	// Strictly for GSON only
+	private TerritoryAccess()
 	{
-		if (hostFactionId == null) throw new IllegalArgumentException("hostFactionId was null");
+		this.hostFactionId = null;
+		this.hostFactionAllowed = true;
+		this.grantedIds = null;
+	}
+	
+	private TerritoryAccess(String hostFactionId, Boolean hostFactionAllowed, Collection<String> grantedIds)
+	{
+		if (hostFactionId == null) throw new NullPointerException("hostFactionId");
+		if (grantedIds == null) throw new NullPointerException("grantedIds");
 		this.hostFactionId = hostFactionId;
 		
-		Set<String> factionIdsInner = new MassiveSet<>();
-		if (factionIds != null)
+		Set<String> grantedIdsInner = new MassiveSet<>();
+		grantedIdsInner.addAll(grantedIds);
+		if (grantedIdsInner.remove(hostFactionId))
 		{
-			factionIdsInner.addAll(factionIds);
-			if (factionIdsInner.remove(hostFactionId))
-			{
-				hostFactionAllowed = true;
-			}
+			hostFactionAllowed = true;
 		}
-		this.factionIds = Collections.unmodifiableSet(factionIdsInner);
-		
-		Set<String> playerIdsInner = new MassiveSet<>();
-		if (playerIds != null)
-		{
-			for (String playerId : playerIds)
-			{
-				playerIdsInner.add(playerId.toLowerCase());
-			}
-		}
-		this.playerIds = Collections.unmodifiableSet(playerIdsInner);
+		this.grantedIds = Collections.unmodifiableSet(grantedIdsInner);
 		
 		this.hostFactionAllowed = (hostFactionAllowed == null || hostFactionAllowed);
 	}
@@ -155,45 +113,35 @@ public class TerritoryAccess
 	// FACTORY: VALUE OF
 	// -------------------------------------------- //
 	
-	public static TerritoryAccess valueOf(String hostFactionId, Boolean hostFactionAllowed, Collection<String> factionIds, Collection<String> playerIds)
+	public static TerritoryAccess valueOf(String hostFactionId, Boolean hostFactionAllowed, Collection<String> grantedIds)
 	{
-		return new TerritoryAccess(hostFactionId, hostFactionAllowed, factionIds, playerIds);
+		return new TerritoryAccess(hostFactionId, hostFactionAllowed, grantedIds);
 	}
 	
 	public static TerritoryAccess valueOf(String hostFactionId)
 	{
-		return valueOf(hostFactionId, null, null, null);
+		return valueOf(hostFactionId, null, Collections.emptySet());
 	}
 	
 	// -------------------------------------------- //
 	// INSTANCE METHODS
 	// -------------------------------------------- //
-	
-	public boolean isFactionGranted(Faction faction)
+
+	public boolean isGranted(MPermable permable)
 	{
-		String factionId = faction.getId();
-		
-		if (this.getHostFactionId().equals(factionId))
-		{
-			return this.isHostFactionAllowed();
-		}
-		
-		return this.getFactionIds().contains(factionId);
+		return isGranted(permable.getId());
 	}
-	
-	// Note that the player can have access without being specifically granted.
-	// The player could for example be a member of a granted faction. 
-	public boolean isMPlayerGranted(MPlayer mplayer)
+
+	public boolean isGranted(String permableId)
 	{
-		String mplayerId = mplayer.getId();
-		return this.getPlayerIds().contains(mplayerId);
+		return this.getGrantedIds().contains(permableId);
 	}
 	
 	// A "default" TerritoryAccess could be serialized as a simple string only.
 	// The host faction is still allowed (default) and no faction or player has been granted explicit access (default).
 	public boolean isDefault()
 	{
-		return this.isHostFactionAllowed() && this.getFactionIds().isEmpty() && this.getPlayerIds().isEmpty(); 
+		return this.isHostFactionAllowed() && this.getGrantedIds().isEmpty();
 	}
 
 	// -------------------------------------------- //
@@ -202,20 +150,14 @@ public class TerritoryAccess
 	
 	public AccessStatus getTerritoryAccess(MPlayer mplayer)
 	{
-		if (this.isMPlayerGranted(mplayer)) return AccessStatus.ELEVATED;
+		if (isGranted(mplayer.getId())) return AccessStatus.ELEVATED;
+		if (isGranted(mplayer.getFaction().getId())) return AccessStatus.ELEVATED;
+		if (isGranted(mplayer.getRank().getId())) return AccessStatus.ELEVATED;
+		if (isGranted(RelationUtil.getRelationOfThatToMe(mplayer, this.getHostFaction()).toString())) return AccessStatus.ELEVATED;
 		
-		String factionId = mplayer.getFaction().getId();
-		if (this.getFactionIds().contains(factionId)) return AccessStatus.ELEVATED;
-		
-		if (this.getHostFactionId().equals(factionId) && !this.isHostFactionAllowed()) return AccessStatus.DECREASED;
+		if (this.getHostFactionId().equals(mplayer.getFaction().getId()) && !this.isHostFactionAllowed()) return AccessStatus.DECREASED;
 		
 		return AccessStatus.STANDARD;
 	}
-	
-	@Deprecated
-	public Boolean hasTerritoryAccess(MPlayer mplayer)
-	{
-		return this.getTerritoryAccess(mplayer).hasAccess();
-	}
-	
+
 }

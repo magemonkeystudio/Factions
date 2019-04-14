@@ -11,6 +11,7 @@ import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 import com.google.gson.reflect.TypeToken;
 import com.massivecraft.factions.TerritoryAccess;
+import com.massivecraft.massivecore.store.migrator.MigratorUtil;
 
 import java.lang.reflect.Type;
 import java.util.Set;
@@ -23,8 +24,9 @@ public class TerritoryAccessAdapter implements JsonDeserializer<TerritoryAccess>
 
 	public static final String HOST_FACTION_ID = "hostFactionId";
 	public static final String HOST_FACTION_ALLOWED = "hostFactionAllowed";
-	public static final String FACTION_IDS = "factionIds";
-	public static final String PLAYER_IDS = "playerIds";
+	/*public static final String FACTION_IDS = "factionIds";
+	public static final String PLAYER_IDS = "playerIds";*/
+	public static final String GRANTED_IDS = "grantedIds";
 	
 	public static final Type SET_OF_STRING_TYPE = new TypeToken<Set<String>>(){}.getType();
 			
@@ -55,8 +57,7 @@ public class TerritoryAccessAdapter implements JsonDeserializer<TerritoryAccess>
 		// Prepare variables
 		String hostFactionId = null;
 		Boolean hostFactionAllowed = null;
-		Set<String> factionIds = null;
-		Set<String> playerIds = null;
+		Set<String> grantedIds = null;
 		
 		// Read variables (test old values first)
 		JsonElement element = null;
@@ -68,16 +69,11 @@ public class TerritoryAccessAdapter implements JsonDeserializer<TerritoryAccess>
 		element = obj.get("open");
 		if (element == null) element = obj.get(HOST_FACTION_ALLOWED);
 		if (element != null) hostFactionAllowed = element.getAsBoolean();
+
+		element = obj.get(GRANTED_IDS);
+		if (element != null) grantedIds = context.deserialize(element, SET_OF_STRING_TYPE);
 		
-		element = obj.get("factions");
-		if (element == null) element = obj.get(FACTION_IDS);
-		if (element != null) factionIds = context.deserialize(element, SET_OF_STRING_TYPE);
-		
-		element = obj.get("fplayers");
-		if (element == null) element = obj.get(PLAYER_IDS);
-		if (element != null) playerIds = context.deserialize(element, SET_OF_STRING_TYPE);
-		
-		return TerritoryAccess.valueOf(hostFactionId, hostFactionAllowed, factionIds, playerIds);
+		return TerritoryAccess.valueOf(hostFactionId, hostFactionAllowed, grantedIds);
 	}
 
 	@Override
@@ -101,15 +97,12 @@ public class TerritoryAccessAdapter implements JsonDeserializer<TerritoryAccess>
 			obj.addProperty(HOST_FACTION_ALLOWED, src.isHostFactionAllowed());
 		}
 		
-		if (!src.getFactionIds().isEmpty())
+		if (!src.getGrantedIds().isEmpty())
 		{
-			obj.add(FACTION_IDS, context.serialize(src.getFactionIds(), SET_OF_STRING_TYPE));
+			obj.add(GRANTED_IDS, context.serialize(src.getGrantedIds(), SET_OF_STRING_TYPE));
 		}
-		
-		if (!src.getPlayerIds().isEmpty())
-		{
-			obj.add(PLAYER_IDS, context.serialize(src.getPlayerIds(), SET_OF_STRING_TYPE));
-		}
+
+		obj.add(MigratorUtil.VERSION_FIELD_NAME, new JsonPrimitive(src.version));
 
 		return obj;
 	}

@@ -1,15 +1,11 @@
 package com.massivecraft.factions.cmd;
 
-import com.massivecraft.factions.Rel;
 import com.massivecraft.factions.cmd.type.TypeFaction;
 import com.massivecraft.factions.cmd.type.TypeMPerm;
 import com.massivecraft.factions.entity.Faction;
-import com.massivecraft.factions.entity.FactionColl;
 import com.massivecraft.factions.entity.MPerm;
 import com.massivecraft.factions.entity.MPerm.MPermable;
 import com.massivecraft.factions.entity.MPlayer;
-import com.massivecraft.factions.entity.MPlayerColl;
-import com.massivecraft.factions.entity.Rank;
 import com.massivecraft.massivecore.MassiveException;
 import com.massivecraft.massivecore.collections.MassiveList;
 import com.massivecraft.massivecore.util.Txt;
@@ -62,26 +58,10 @@ public class CmdFactionsPermShow extends FactionsCommand
 		msg("<i>In <reset>%s <i>permission <reset>%s <i>is granted to <reset>%s<i>.", faction.describeTo(msender), mperm.getDesc(true, false), permableNames);
 	}
 
+	@Deprecated
 	public static MPerm.MPermable idToMPermable(String id)
 	{
-		MPlayer mplayer = MPlayerColl.get().get(id, false);
-		if (mplayer != null) return mplayer;
-
-		Faction faction = Faction.get(id);
-		if (faction != null) return faction;
-
-		for (Faction f : FactionColl.get().getAll())
-		{
-			Rank rank = f.getRank(id);
-			if (rank != null) return rank;
-		}
-
-		if (Rel.ALLY.name().equalsIgnoreCase(id)) return Rel.ALLY;
-		if (Rel.TRUCE.name().equalsIgnoreCase(id)) return Rel.TRUCE;
-		if (Rel.NEUTRAL.name().equalsIgnoreCase(id)) return Rel.NEUTRAL;
-		if (Rel.ENEMY.name().equalsIgnoreCase(id)) return Rel.ENEMY;
-
-		throw new RuntimeException(id);
+		return MPerm.idToMPermable(id);
 	}
 
 	public static String permablesToDisplayString(Collection<MPermable> permables, Object watcherObject)
