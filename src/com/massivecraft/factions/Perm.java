@@ -11,6 +11,7 @@ public enum Perm implements Identified
 	// ENUM
 	// -------------------------------------------- //
 
+	// All of these are referenced in the code
 	ACCESS_GRANT_ONE,
 	ACCESS_GRANT_FILL,
 	ACCESS_GRANT_SQUARE,
@@ -19,7 +20,6 @@ public enum Perm implements Identified
 	ACCESS_DENY_FILL,
 	ACCESS_DENY_SQUARE,
 	ACCESS_DENY_CIRCLE,
-
 	CLAIM_ONE,
 	CLAIM_AUTO,
 	CLAIM_FILL,
@@ -42,6 +42,10 @@ public enum Perm implements Identified
 	SETPOWER,
 	CONFIG,
 	VERSION,
+
+	// These are just here to tell the system that it is seechunk rather than see.chunk
+	SEECHUNK,
+	SEECHUNKOLD,
 	
 	// END OF LIST
 	;
