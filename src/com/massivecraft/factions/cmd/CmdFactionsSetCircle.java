@@ -2,12 +2,11 @@ package com.massivecraft.factions.cmd;
 
 import com.massivecraft.factions.Perm;
 import com.massivecraft.massivecore.MassiveException;
-import com.massivecraft.massivecore.collections.MassiveSet;
 import com.massivecraft.massivecore.command.requirement.RequirementHasPerm;
 import com.massivecraft.massivecore.command.requirement.RequirementIsPlayer;
 import com.massivecraft.massivecore.ps.PS;
+import com.massivecraft.massivecore.util.ChunkUtil;
 
-import java.util.LinkedHashSet;
 import java.util.Set;
 
 
@@ -44,27 +43,7 @@ public class CmdFactionsSetCircle extends CmdFactionsSetXRadius
 	{
 		// Common Startup
 		final PS chunk = PS.valueOf(me.getLocation()).getChunk(true);
-		final Set<PS> chunks = new MassiveSet<>();
-		
-		chunks.add(chunk); // The center should come first for pretty messages
-		
-		Integer radiusZero = this.getRadiusZero();
-		double radiusSquared = radiusZero * radiusZero;
-		
-		for (int dx = -radiusZero; dx <= radiusZero; dx++)
-		{
-			for (int dz = -radiusZero; dz <= radiusZero; dz++)
-			{
-				if (dx*dx + dz*dz > radiusSquared) continue;
-				
-				int x = chunk.getChunkX() + dx;
-				int z = chunk.getChunkZ() + dz;
-				
-				chunks.add(chunk.withChunkX(x).withChunkZ(z));
-			}
-		}
-		
-		return chunks;
+		return ChunkUtil.getChunksCircle(chunk, this.getRadius());
 	}
 	
 }

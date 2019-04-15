@@ -12,8 +12,17 @@ permissions:
   # THE REAL NODES
   # -------------------------------------------- #
   factions.access: {description: manage access, with the proper fperm, default: false}
-  factions.access.faction: {description: grant faction access, with the proper fperm, default: false}
-  factions.access.player: {description: grant player access, with the proper fperm, default: false}
+  factions.access.deny: {description: deny faction access, default: false}
+  factions.access.deny.one: {description: deny access in a single chunk, default: false}
+  factions.access.deny.fill: {description: deny access by filling, default: false}
+  factions.access.deny.square: {description: deny access by square and radius, default: false}
+  factions.access.deny.circle: {description: deny access by circle and radius, default: false}
+  factions.access.grant: {description: grant faction access, default: false}
+  factions.access.grant.one: {description: grant access in a single chunk, default: false}
+  factions.access.grant.fill: {description: grant access by filling, default: false}
+  factions.access.grant.square: {description: grant access by square and radius, default: false}
+  factions.access.grant.circle: {description: grant access by circle and radius, default: false}
+  factions.access.inspect: {description: inspect where someone has access, default: false}
   factions.access.view: {description: view access, default: false}
   factions.override: {description: enable override mode, default: false}
   factions.basecommand: {description: use factions base command, default: false}
@@ -134,8 +143,17 @@ permissions:
   factions.*:
     children:
       factions.access: true
-      factions.access.faction: true
-      factions.access.player: true
+      factions.access.deny: true
+      factions.access.deny.one: true
+      factions.access.deny.fill: true
+      factions.access.deny.square: true
+      factions.access.deny.circle: true
+      factions.access.grant: true
+      factions.access.grant.one: true
+      factions.access.grant.fill: true
+      factions.access.grant.square: true
+      factions.access.grant.circle: true
+      factions.access.inspect: true
       factions.access.view: true
       factions.override: true
       factions.basecommand: true
@@ -301,8 +319,17 @@ permissions:
     default: false
     children:
       factions.access: true
-      factions.access.faction: true
-      factions.access.player: true
+      factions.access.deny: true
+      factions.access.deny.one: true
+      factions.access.deny.fill: true
+      factions.access.deny.square: true
+      factions.access.deny.circle: true
+      factions.access.grant: true
+      factions.access.grant.one: true
+      factions.access.grant.fill: true
+      factions.access.grant.square: true
+      factions.access.grant.circle: true
+      factions.access.inspect: true
       factions.access.view: true
       factions.basecommand: true
       factions.claim: true

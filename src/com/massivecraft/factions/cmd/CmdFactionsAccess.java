@@ -9,8 +9,9 @@ public class CmdFactionsAccess extends FactionsCommand
 	// -------------------------------------------- //
 	
 	public CmdFactionsAccessView cmdFactionsAccessView = new CmdFactionsAccessView();
-	public CmdFactionsAccessPlayer cmdFactionsAccessPlayer = new CmdFactionsAccessPlayer();
-	public CmdFactionsAccessFaction cmdFactionsAccessFaction = new CmdFactionsAccessFaction();
+	public CmdFactionsAccessGrant cmdFactionsAccessGrant = new CmdFactionsAccessGrant();
+	public CmdFactionsAccessDeny cmdFactionsAccessDeny = new CmdFactionsAccessDeny();
+	public CmdFactionsAccessInspect cmdFactionsAccessInspect = new CmdFactionsAccessInspect();
 	
 	// -------------------------------------------- //
 	// CONSTRUCT

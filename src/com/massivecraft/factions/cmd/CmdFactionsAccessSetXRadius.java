@@ -1,29 +1,28 @@
 package com.massivecraft.factions.cmd;
 
-import com.massivecraft.factions.cmd.type.TypeFaction;
+import com.massivecraft.factions.cmd.type.TypeMPermable;
 import com.massivecraft.factions.entity.MConf;
 import com.massivecraft.massivecore.MassiveException;
 import com.massivecraft.massivecore.command.type.primitive.TypeInteger;
 
 
-public abstract class CmdFactionsSetXRadius extends CmdFactionsSetX
+public abstract class CmdFactionsAccessSetXRadius extends CmdFactionsAccessSetX
 {
 	// -------------------------------------------- //
 	// CONSTRUCT
 	// -------------------------------------------- //
-	
-	public CmdFactionsSetXRadius(boolean claim)
+
+	public CmdFactionsAccessSetXRadius(boolean claim)
 	{
 		// Super
 		super(claim);
 		
 		// Parameters
-		this.addParameter(1, TypeInteger.get(), "radius");
-		if (claim)
-		{
-			this.addParameter(TypeFaction.get(), "faction", "you");
-			this.setFactionArgIndex(1);
-		}
+		this.addParameter(TypeInteger.get(), "radius");
+
+		this.addParameter(TypeMPermable.get(), "rank/rel/faction/player");
+		this.setMPermableArgIndex(1);
+
 	}
 	
 	// -------------------------------------------- //

@@ -7,7 +7,7 @@ public class CmdFactionsAccessView extends CmdFactionsAccessAbstract
 	// -------------------------------------------- //
 	
 	@Override
-	public void innerPerform()
+	public void perform()
 	{
 		this.sendAccessInfo();
 	}

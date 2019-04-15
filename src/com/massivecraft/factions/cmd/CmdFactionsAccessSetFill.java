@@ -14,27 +14,23 @@ import com.massivecraft.massivecore.util.ChunkUtil;
 import java.util.Set;
 
 
-public class CmdFactionsSetFill extends CmdFactionsSetXSimple
+public class CmdFactionsAccessSetFill extends CmdFactionsAccessSetXSimple
 {
 	// -------------------------------------------- //
 	// CONSTRUCT
 	// -------------------------------------------- //
-	
-	public CmdFactionsSetFill(boolean claim)
+
+	public CmdFactionsAccessSetFill(boolean claim)
 	{
 		// Super
 		super(claim);
 		
 		// Aliases
 		this.addAliases("fill");
-
-		// Format
-		this.setFormatOne("<h>%s<i> %s <h>%d <i>chunk %s<i> using fill.");
-		this.setFormatMany("<h>%s<i> %s <h>%d <i>chunks near %s<i> using fill.");
 		
 		// Requirements
 		this.addRequirements(RequirementIsPlayer.get());
-		Perm perm = claim ? Perm.CLAIM_FILL : Perm.UNCLAIM_FILL;
+		Perm perm = claim ? Perm.ACCESS_GRANT_FILL : Perm.ACCESS_DENY_FILL;
 		this.addRequirements(RequirementHasPerm.get(perm));
 	}
 

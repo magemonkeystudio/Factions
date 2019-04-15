@@ -11,6 +11,15 @@ public enum Perm implements Identified
 	// ENUM
 	// -------------------------------------------- //
 
+	ACCESS_GRANT_ONE,
+	ACCESS_GRANT_FILL,
+	ACCESS_GRANT_SQUARE,
+	ACCESS_GRANT_CIRCLE,
+	ACCESS_DENY_ONE,
+	ACCESS_DENY_FILL,
+	ACCESS_DENY_SQUARE,
+	ACCESS_DENY_CIRCLE,
+
 	CLAIM_ONE,
 	CLAIM_AUTO,
 	CLAIM_FILL,

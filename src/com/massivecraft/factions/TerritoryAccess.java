@@ -45,6 +45,11 @@ public class TerritoryAccess
 	public TerritoryAccess withGrantedIds(Collection<String> factionIds) { return valueOf(hostFactionId, hostFactionAllowed, grantedIds); }
 	
 	// The intermediate ones
+	public TerritoryAccess withGranted(MPermable mpermable, boolean with)
+	{
+		return withGrantedId(mpermable.getId(), with);
+	}
+
 	public TerritoryAccess withGrantedId(String grantedId, boolean with)
 	{
 		if (this.getHostFactionId().equals(grantedId))

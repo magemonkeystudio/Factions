@@ -1,49 +1,44 @@
 package com.massivecraft.factions.cmd;
 
 import com.massivecraft.factions.Perm;
-import com.massivecraft.massivecore.MassiveException;
 import com.massivecraft.massivecore.command.requirement.RequirementHasPerm;
 import com.massivecraft.massivecore.command.requirement.RequirementIsPlayer;
 import com.massivecraft.massivecore.ps.PS;
-import com.massivecraft.massivecore.util.ChunkUtil;
 
+import java.util.Collections;
 import java.util.Set;
 
 
-public class CmdFactionsSetSquare extends CmdFactionsSetXRadius
+public class CmdFactionsAccessSetOne extends CmdFactionsAccessSetXSimple
 {
 	// -------------------------------------------- //
 	// CONSTRUCT
 	// -------------------------------------------- //
-	
-	public CmdFactionsSetSquare(boolean claim)
+
+	public CmdFactionsAccessSetOne(boolean claim)
 	{
 		// Super
 		super(claim);
 		
 		// Aliases
-		this.addAliases("square");
+		this.addAliases("one");
 
-		// Format
-		this.setFormatOne("<h>%s<i> %s <h>%d <i>chunk %s<i> using square.");
-		this.setFormatMany("<h>%s<i> %s <h>%d <i>chunks near %s<i> using square.");
-		
 		// Requirements
 		this.addRequirements(RequirementIsPlayer.get());
-		Perm perm = claim ? Perm.CLAIM_SQUARE : Perm.UNCLAIM_SQUARE;
-		this.addRequirements(RequirementHasPerm.get(perm));		
+		Perm perm = claim ? Perm.ACCESS_GRANT_ONE : Perm.ACCESS_DENY_ONE;
+		this.addRequirements(RequirementHasPerm.get(perm));
 	}
 
 	// -------------------------------------------- //
 	// OVERRIDE
 	// -------------------------------------------- //
-	
+
 	@Override
-	public Set<PS> getChunks() throws MassiveException
+	public Set<PS> getChunks()
 	{
-		// Common Startup
 		final PS chunk = PS.valueOf(me.getLocation()).getChunk(true);
-		return ChunkUtil.getChunksSquare(chunk, this.getRadius());
+		final Set<PS> chunks = Collections.singleton(chunk);
+		return chunks;
 	}
 	
 }
