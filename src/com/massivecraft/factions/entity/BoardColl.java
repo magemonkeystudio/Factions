@@ -3,6 +3,7 @@ package com.massivecraft.factions.entity;
 import com.massivecraft.factions.TerritoryAccess;
 import com.massivecraft.massivecore.collections.MassiveMap;
 import com.massivecraft.massivecore.collections.MassiveSet;
+import com.massivecraft.massivecore.entity.MassiveCoreMConf;
 import com.massivecraft.massivecore.ps.PS;
 import com.massivecraft.massivecore.store.Coll;
 import com.massivecraft.massivecore.util.MUtil;
@@ -47,8 +48,14 @@ public class BoardColl extends Coll<Board> implements BoardInterface
 		if (oid == null) return null;
 		if (oid instanceof String) return (String)oid;
 		if (oid instanceof Board) return ((Board)oid).getId();
-		
-		return MUtil.extract(String.class, "worldName", oid);
+
+		boolean debug = MassiveCoreMConf.get().debugEnabled;
+		String ret = MUtil.extract(String.class, "worldName", oid);
+		if (ret != null && debug)
+		{
+			System.out.println("extracted world name from " + oid);
+		}
+		return ret;
 	}
 	
 	// -------------------------------------------- //
