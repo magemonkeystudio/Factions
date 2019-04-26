@@ -9,6 +9,7 @@ import com.massivecraft.massivecore.comparator.ComparatorSmart;
 import com.massivecraft.massivecore.predicate.PredicateIsRegistered;
 import com.massivecraft.massivecore.store.Entity;
 import com.massivecraft.massivecore.util.Txt;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 
 import java.util.List;
@@ -64,13 +65,13 @@ public class MFlag extends Entity<MFlag> implements Prioritized, Registerable, N
 	
 	public static List<MFlag> getAll()
 	{
-		return getAll(false);
+		return getAll(Bukkit.isPrimaryThread());
 	}
 	
-	public static List<MFlag> getAll(boolean isAsync)
+	public static List<MFlag> getAll(boolean sync)
 	{
 		setupStandardFlags();
-		new EventFactionsCreateFlags(isAsync).run();
+		new EventFactionsCreateFlags(!sync).run();
 		return MFlagColl.get().getAll(PredicateIsRegistered.get(), ComparatorSmart.get());
 	}
 	
