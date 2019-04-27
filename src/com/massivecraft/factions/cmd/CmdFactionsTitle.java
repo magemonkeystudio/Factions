@@ -48,7 +48,7 @@ public class CmdFactionsTitle extends FactionsCommand
 		{
 			throw new MassiveException().addMsg("<b>You can not edit titles for higher ranks.");
 		}
-		if (!msender.isOverriding() && you.getRank() == msender.getRank())
+		if (!msender.isOverriding() && you.getRank() == msender.getRank() && msender != you)
 		{
 			throw new MassiveException().addMsg("<b>You can't edit titles of people with the same rank as yourself.");
 		}
