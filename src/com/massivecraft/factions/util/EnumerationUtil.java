@@ -212,7 +212,9 @@ public class EnumerationUtil
 		"ILLUSIONER", // Minecraft 1.12
 		"PHANTOM", // Minecraft 1.13
 		"DOLPHIN", // Minecraft 1.13
-		"DROWNED" // Minecraft 1.13
+		"DROWNED", // Minecraft 1.13
+		"PILLAGER", // Minecraft 1.14
+		"RAVAGER" // Minercraft 1.14
 	);
 	
 	public static boolean isEntityTypeMonster(EntityType entityType)
@@ -246,7 +248,12 @@ public class EnumerationUtil
     	"SALMON", // Minecraft 1.13
     	"PUFFERFISH", // Minecraft 1.13
     	"TROPICAL_FISH", // Minecraft 1.13
-		"TURTLE" // Minecraft 1.13
+		"TURTLE", // Minecraft 1.13
+		"CAT", // Minecraft 1.14
+		"FOX", // Minecraft 1.14
+		"PANDA", // Minecraft 1.14
+		"LLAMA", // Minecraft 1.14
+		"LLAMA_SPIT" // Minecraft 1.14
 	);
 	
 	public static boolean isEntityTypeAnimal(EntityType entityType)
