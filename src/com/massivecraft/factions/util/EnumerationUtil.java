@@ -106,6 +106,8 @@ public class EnumerationUtil
 		"BEACON",
 		"HOPPER",
 		"DROPPER",
+		"BARREL", // Minecraft 1.14
+		"BLAST_FURNACE", // Minecraft 1.14
 		
 		// The various shulker boxes, they had to make each one a different material -.-
 		"BLACK_SHULKER_BOX",
