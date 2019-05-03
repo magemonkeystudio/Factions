@@ -78,11 +78,8 @@ public class FactionsIndex
 	public synchronized void updateAll()
 	{
 		if (!MPlayerColl.get().isActive()) throw new IllegalStateException("The MPlayerColl is not yet fully activated.");
-		
-		for (MPlayer mplayer : MPlayerColl.get().getAll())
-		{
-			this.update(mplayer);
-		}
+
+		MPlayerColl.get().getAll().forEach(this::update);
 	}
 	
 	public synchronized void update(MPlayer mplayer)
@@ -117,11 +114,8 @@ public class FactionsIndex
 	public synchronized void update(Faction faction)
 	{
 		if (faction == null) throw new NullPointerException("faction");
-		
-		for (MPlayer mplayer : this.getMPlayers(faction))
-		{
-			this.update(mplayer);
-		}
+
+		this.getMPlayers(faction).forEach(this::update);
 	}
 	
 	// -------------------------------------------- //

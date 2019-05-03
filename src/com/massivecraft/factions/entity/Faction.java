@@ -17,7 +17,6 @@ import com.massivecraft.massivecore.collections.MassiveMapDef;
 import com.massivecraft.massivecore.collections.MassiveSet;
 import com.massivecraft.massivecore.mixin.MixinMessage;
 import com.massivecraft.massivecore.money.Money;
-import com.massivecraft.massivecore.predicate.Predicate;
 import com.massivecraft.massivecore.predicate.PredicateAnd;
 import com.massivecraft.massivecore.predicate.PredicateVisibleTo;
 import com.massivecraft.massivecore.ps.PS;
@@ -1079,12 +1078,12 @@ public class Faction extends Entity<Faction> implements FactionsParticipator, MP
 		return new MassiveList<>(FactionsIndex.get().getMPlayers(this));
 	}
 	
-	public List<MPlayer> getMPlayers(Predicate<? super MPlayer> where, Comparator<? super MPlayer> orderby, Integer limit, Integer offset)
+	public List<MPlayer> getMPlayers(java.util.function.Predicate<? super MPlayer> where, Comparator<? super MPlayer> orderby, Integer limit, Integer offset)
 	{
 		return MUtil.transform(this.getMPlayers(), where, orderby, limit, offset);
 	}
 	
-	public List<MPlayer> getMPlayersWhere(Predicate<? super MPlayer> predicate)
+	public List<MPlayer> getMPlayersWhere(java.util.function.Predicate<? super MPlayer> predicate)
 	{
 		return this.getMPlayers(predicate, null, null, null);
 	}
