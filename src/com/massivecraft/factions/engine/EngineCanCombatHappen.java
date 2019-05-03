@@ -48,7 +48,6 @@ public class EngineCanCombatHappen extends Engine
 	}
 
 	// mainly for flaming arrows; don't want allies or people in safe zones to be ignited even after damage event is cancelled
-	@SuppressWarnings("deprecation")
 	@EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
 	public void canCombatDamageHappen(EntityCombustByEntityEvent event)
 	{
@@ -57,7 +56,6 @@ public class EngineCanCombatHappen extends Engine
 		event.setCancelled(true);
 	}
 
-	@SuppressWarnings("deprecation")
 	@EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
 	public void canCombatDamageHappen(PotionSplashEvent event)
 	{

@@ -39,20 +39,15 @@ public class CmdFactionsPermList extends FactionsCommand
 		final Pager<MPerm> pager = new Pager<>(this, title, page, (Stringifier<MPerm>) (mp, i) -> mp.getDesc(true, true));
 		final Predicate<MPerm> predicate = msender.isOverriding() ? null : MPerm::isVisible;
 		
-		Bukkit.getScheduler().runTaskAsynchronously(Factions.get(), new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				// Get items
-				List<MPerm> items = MPermColl.get().getAll(predicate);
-				
-				// Pager items
-				pager.setItems(items);
-				
-				// Pager message
-				pager.message();
-			}
+		Bukkit.getScheduler().runTaskAsynchronously(Factions.get(), () -> {
+			// Get items
+			List<MPerm> items = MPermColl.get().getAll(predicate);
+
+			// Pager items
+			pager.setItems(items);
+
+			// Pager message
+			pager.message();
 		});
 	}
 

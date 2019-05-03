@@ -46,53 +46,48 @@ public class CmdFactionsStatus extends FactionsCommand
 		
 		// Sort list
 		final List<MPlayer> mplayers = faction.getMPlayers();
-		Collections.sort(mplayers, sortedBy);
+		mplayers.sort(sortedBy);
 		
 		// Pager Create
 		String title = Txt.parse("<i>Status of %s<i>.", faction.describeTo(msender, true));
-		final Pager<MPlayer> pager = new Pager<>(this, title, page, mplayers, new Stringifier<MPlayer>()
-		{
-			@Override
-			public String toString(MPlayer mplayer, int index)
+		final Pager<MPlayer> pager = new Pager<>(this, title, page, mplayers, (Stringifier<MPlayer>) (mplayer, index) -> {
+			// Name
+			String displayName = mplayer.getNameAndSomething(msender.getColorTo(mplayer).toString(), "");
+			int length = 15 - displayName.length();
+			length = length <= 0 ? 1 : length;
+			String whiteSpace = Txt.repeat(" ", length);
+
+			// Power
+			double currentPower = mplayer.getPower();
+			double maxPower = mplayer.getPowerMax();
+			String color;
+			double percent = currentPower / maxPower;
+
+			if (percent > 0.75)
 			{
-				// Name
-				String displayName = mplayer.getNameAndSomething(msender.getColorTo(mplayer).toString(), "");
-				int length = 15 - displayName.length();
-				length = length <= 0 ? 1 : length;
-				String whiteSpace = Txt.repeat(" ", length);
-				
-				// Power
-				double currentPower = mplayer.getPower();
-				double maxPower = mplayer.getPowerMax();
-				String color;
-				double percent = currentPower / maxPower;
-				
-				if (percent > 0.75)
-				{
-					color = "<green>";
-				}
-				else if (percent > 0.5)
-				{
-					color = "<yellow>";
-				}
-				else if (percent > 0.25)
-				{
-					color = "<rose>";
-				}
-				else
-				{
-					color = "<red>";
-				}
-				
-				String power = Txt.parse("<art>Power: %s%.0f<gray>/<green>%.0f", Txt.parse(color), currentPower, maxPower);
-				
-				// Time
-				long lastActiveMillis = mplayer.getLastActivityMillis() - System.currentTimeMillis();
-				LinkedHashMap<TimeUnit, Long> activeTimes = TimeDiffUtil.limit(TimeDiffUtil.unitcounts(lastActiveMillis, TimeUnit.getAllButMillis()), 3);
-				String lastActive = mplayer.isOnline(msender) ? Txt.parse("<lime>Online right now.") : Txt.parse("<i>Last active: " + TimeDiffUtil.formatedMinimal(activeTimes, "<i>"));
-				
-				return Txt.parse("%s%s %s %s", displayName, whiteSpace, power, lastActive);
+				color = "<green>";
 			}
+			else if (percent > 0.5)
+			{
+				color = "<yellow>";
+			}
+			else if (percent > 0.25)
+			{
+				color = "<rose>";
+			}
+			else
+			{
+				color = "<red>";
+			}
+
+			String power = Txt.parse("<art>Power: %s%.0f<gray>/<green>%.0f", Txt.parse(color), currentPower, maxPower);
+
+			// Time
+			long lastActiveMillis = mplayer.getLastActivityMillis() - System.currentTimeMillis();
+			LinkedHashMap<TimeUnit, Long> activeTimes = TimeDiffUtil.limit(TimeDiffUtil.unitcounts(lastActiveMillis, TimeUnit.getAllButMillis()), 3);
+			String lastActive = mplayer.isOnline(msender) ? Txt.parse("<lime>Online right now.") : Txt.parse("<i>Last active: " + TimeDiffUtil.formatedMinimal(activeTimes, "<i>"));
+
+			return Txt.parse("%s%s %s %s", displayName, whiteSpace, power, lastActive);
 		});
 		
 		

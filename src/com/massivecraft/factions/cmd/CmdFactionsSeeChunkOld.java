@@ -60,8 +60,7 @@ public class CmdFactionsSeeChunkOld extends FactionsCommand
 		// Inform
 		msg("<i>Visualized %s", chunk.toString(PSFormatHumanSpace.get()));
 	}
-	
-	@SuppressWarnings("deprecation")
+
 	public static void showPillar(Player player, World world, int blockX, int blockZ)
 	{
 		for (int blockY = 0; blockY < world.getMaxHeight(); blockY++)

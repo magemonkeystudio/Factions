@@ -39,25 +39,20 @@ public class CmdFactionsFaction extends FactionsCommand
 		final Faction faction = this.readArg(msenderFaction);
 		final CommandSender sender = this.sender;
 		
-		Bukkit.getScheduler().runTaskAsynchronously(Factions.get(), new Runnable()
-		{
-			@Override
-			public void run()
+		Bukkit.getScheduler().runTaskAsynchronously(Factions.get(), () -> {
+			// Event
+			EventFactionsFactionShowAsync event = new EventFactionsFactionShowAsync(sender, faction);
+			event.run();
+			if (event.isCancelled()) return;
+
+			// Title
+			MixinMessage.get().messageOne(sender, Txt.titleize("Faction " + faction.getName(msender)));
+
+			// Lines
+			TreeSet<PriorityLines> priorityLiness = new TreeSet<>(event.getIdPriorityLiness().values());
+			for (PriorityLines priorityLines : priorityLiness)
 			{
-				// Event
-				EventFactionsFactionShowAsync event = new EventFactionsFactionShowAsync(sender, faction);
-				event.run();
-				if (event.isCancelled()) return;
-				
-				// Title
-				MixinMessage.get().messageOne(sender, Txt.titleize("Faction " + faction.getName(msender)));
-				
-				// Lines
-				TreeSet<PriorityLines> priorityLiness = new TreeSet<>(event.getIdPriorityLiness().values());
-				for (PriorityLines priorityLines : priorityLiness)
-				{
-					MixinMessage.get().messageOne(sender, priorityLines.getLines());
-				}
+				MixinMessage.get().messageOne(sender, priorityLines.getLines());
 			}
 		});
 		

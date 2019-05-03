@@ -56,14 +56,7 @@ public class EngineMotd extends Engine
 		}
 		else
 		{
-			Bukkit.getScheduler().scheduleSyncDelayedTask(Factions.get(), new Runnable()
-			{
-				@Override
-				public void run()
-				{
-					MixinMessage.get().messageOne(player, messages);
-				}
-			}, MConf.get().motdDelayTicks);
+			Bukkit.getScheduler().scheduleSyncDelayedTask(Factions.get(), () -> MixinMessage.get().messageOne(player, messages), MConf.get().motdDelayTicks);
 		}
 	}
 

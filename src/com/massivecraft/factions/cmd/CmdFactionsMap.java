@@ -4,6 +4,7 @@ import com.massivecraft.factions.util.AsciiMap;
 import com.massivecraft.massivecore.MassiveException;
 import com.massivecraft.massivecore.command.requirement.RequirementIsPlayer;
 import com.massivecraft.massivecore.command.type.primitive.TypeBooleanYes;
+import com.massivecraft.massivecore.ps.PS;
 import com.massivecraft.massivecore.util.Txt;
 
 public class CmdFactionsMap extends FactionsCommand
@@ -37,7 +38,7 @@ public class CmdFactionsMap extends FactionsCommand
 		if (!showMap) return;
 		
 		// Show Map
-		AsciiMap map = new AsciiMap(msender, me, !argSet);
+		AsciiMap map = new AsciiMap(msender, PS.valueOf(me), !argSet);
 		message(map.render());
 	}
 	

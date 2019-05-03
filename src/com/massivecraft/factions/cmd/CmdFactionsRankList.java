@@ -37,7 +37,7 @@ public class CmdFactionsRankList extends FactionsCommand
 		List<Rank> ranks = faction.getRanks().getAll(Comparator.comparingInt(Rank::getPriority).reversed());
 
 		String title = "Rank list for " + faction.describeTo(msender);
-		Pager<Rank> pager = new Pager(this, title, page, ranks, (Stringifier<Rank>) (r, i) -> r.getVisual());
+		Pager<Rank> pager = new Pager<>(this, title, page, ranks, (Stringifier<Rank>) (r, i) -> r.getVisual());
 		pager.message();
 	}
 	

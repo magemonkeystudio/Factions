@@ -10,7 +10,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.event.HandlerList;
 
 import java.util.Collections;
-import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;

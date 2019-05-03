@@ -37,8 +37,7 @@ public class CmdFactionsSetOne extends CmdFactionsSetXSimple
 	public Set<PS> getChunks()
 	{
 		final PS chunk = PS.valueOf(me.getLocation()).getChunk(true);
-		final Set<PS> chunks = Collections.singleton(chunk);
-		return chunks;
+		return Collections.singleton(chunk);
 	}
 	
 }

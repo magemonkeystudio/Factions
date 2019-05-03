@@ -9,7 +9,6 @@ import com.massivecraft.factions.entity.FactionColl;
 import com.massivecraft.factions.entity.MConf;
 import com.massivecraft.factions.entity.MPerm;
 import com.massivecraft.factions.entity.MPlayer;
-import com.massivecraft.factions.integration.spigot.IntegrationSpigot;
 import com.massivecraft.factions.util.EnumerationUtil;
 import com.massivecraft.massivecore.Engine;
 import com.massivecraft.massivecore.ps.PS;
@@ -18,6 +17,7 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.event.Cancellable;
@@ -38,10 +38,12 @@ import org.bukkit.event.hanging.HangingBreakByEntityEvent;
 import org.bukkit.event.hanging.HangingPlaceEvent;
 import org.bukkit.event.player.PlayerBucketEmptyEvent;
 import org.bukkit.event.player.PlayerBucketFillEvent;
+import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.projectiles.ProjectileSource;
 
+import java.util.List;
 import java.util.Map;
 
 public class EnginePermBuild extends Engine
@@ -192,7 +194,30 @@ public class EnginePermBuild extends Engine
 		if (isOffHand(event)) return;
 		useEntity(event.getPlayer(), event.getRightClicked(), true, event);
 	}
-	
+
+	// This is a special Spigot event that fires for Minecraft 1.8 armor stands.
+	// It also fires for other entity types but for those the event is buggy.
+	// It seems we can only cancel interaction with armor stands from here.
+	// Thus we only handle armor stands from here and handle everything else in EngineMain.
+	@EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
+	public void handleArmorStand(PlayerInteractAtEntityEvent event)
+	{
+		// Ignore Off Hand
+		if (isOffHand(event)) return;
+
+		// Gather Info
+		final Player player = event.getPlayer();
+		if (MUtil.isntPlayer(player)) return;
+		final Entity entity = event.getRightClicked();
+		final boolean verboose = true;
+
+		// Only care for armor stands.
+		if (entity.getType() != EntityType.ARMOR_STAND) return;
+
+		// If we can't use, block it
+		EnginePermBuild.useEntity(player, entity, verboose, event);
+	}
+
 	// -------------------------------------------- //
 	// BUILD > ENTITY
 	// -------------------------------------------- //
@@ -237,61 +262,67 @@ public class EnginePermBuild extends Engine
 	// BUILD > PISTON
 	// -------------------------------------------- //
 	
-	/*
-	* NOTE: These piston listeners are only called on 1.7 servers.
-	*
-	* Originally each affected block in the territory was tested, but since we found that pistons can only push
-	* up to 12 blocks and the width of any territory is 16 blocks, it should be safe (and much more lightweight) to test
-	* only the final target block as done below.
-	*/
+		/*
+	 * Note: With 1.8 and the slime blocks, retracting and extending pistons
+	 * became more of a problem. Blocks located on the border of a chunk
+	 * could have easily been stolen. That is the reason why every block
+	 * needs to be checked now, whether he moved into a territory which
+	 * he actually may not move into.
+	 */
 	@EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
-	public void buildPiston(BlockPistonExtendEvent event)
+	public void blockBuild(BlockPistonExtendEvent event)
 	{
-		// Is using Spigot or is checking deactivated by MConf?
-		if (IntegrationSpigot.get().isIntegrationActive() || !MConf.get().handlePistonProtectionThroughDenyBuild) return;
-		
-		// Targets end-of-the-line empty (air) block which is being pushed into, including if piston itself would extend into air
-		Block block = event.getBlock();
-		Block targetBlock = block.getRelative(event.getDirection(), event.getLength() + 1);
-		
-		// Factions involved
-		Faction pistonFaction = BoardColl.get().getFactionAt(PS.valueOf(block));
-		Faction targetFaction = BoardColl.get().getFactionAt(PS.valueOf(targetBlock));
-		
-		// Members of a faction might not have build rights in their own territory, but pistons should still work regardless
-		if (targetFaction == pistonFaction) return;
-		
-		// If potentially pushing into air/water/lava in another territory, we need to check it out
-		if (!targetBlock.isEmpty() && !targetBlock.isLiquid()) return;
-		if (MPerm.getPermBuild().has(pistonFaction, targetFaction)) return;
-		
-		event.setCancelled(true);
-	}
-	
-	@EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
-	public void buildPiston(BlockPistonRetractEvent event)
-	{
-		// Is using Spigot or is checking deactivated by MConf?
-		if (IntegrationSpigot.get().isIntegrationActive() || ! MConf.get().handlePistonProtectionThroughDenyBuild) return;
-		
-		// If not a sticky piston, retraction should be fine
-		if ( ! event.isSticky()) return;
-		
-		Block retractBlock = event.getRetractLocation().getBlock();
-		PS retractPs = PS.valueOf(retractBlock);
-		
-		// if potentially retracted block is just air/water/lava, no worries
-		if (retractBlock.isEmpty() || retractBlock.isLiquid()) return;
-		
-		// Factions involved
+		// Is checking deactivated by MConf?
+		if ( ! MConf.get().handlePistonProtectionThroughDenyBuild) return;
+
 		Faction pistonFaction = BoardColl.get().getFactionAt(PS.valueOf(event.getBlock()));
-		Faction targetFaction = BoardColl.get().getFactionAt(retractPs);
-		
-		// Members of a faction might not have build rights in their own territory, but pistons should still work regardless
-		if (targetFaction == pistonFaction) return;
-		if (MPerm.getPermBuild().has(pistonFaction, targetFaction)) return;
-		
-		event.setCancelled(true);
+
+		List<Block> blocks = event.getBlocks();
+
+		// Check for all extended blocks
+		for (Block block : blocks)
+		{
+			// Block which is being pushed into
+			Block targetBlock = block.getRelative(event.getDirection());
+
+			// Members of a faction might not have build rights in their own territory, but pistons should still work regardless
+			Faction targetFaction = BoardColl.get().getFactionAt(PS.valueOf(targetBlock));
+			if (targetFaction == pistonFaction) continue;
+
+			// Perm check
+			if (MPerm.getPermBuild().has(pistonFaction, targetFaction)) continue;
+
+			event.setCancelled(true);
+			return;
+		}
+	}
+
+	@EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
+	public void blockBuild(BlockPistonRetractEvent event)
+	{
+		// Is checking deactivated by MConf?
+		if ( ! MConf.get().handlePistonProtectionThroughDenyBuild) return;
+
+		Faction pistonFaction = BoardColl.get().getFactionAt(PS.valueOf(event.getBlock()));
+
+		List<Block> blocks = event.getBlocks();
+
+		// Check for all retracted blocks
+		for (Block block : blocks)
+		{
+			// Is the retracted block air/water/lava? Don't worry about it
+			if (block.isEmpty() || block.isLiquid()) return;
+
+			// Members of a faction might not have build rights in their own territory, but pistons should still work regardless
+			Faction targetFaction = BoardColl.get().getFactionAt(PS.valueOf(block));
+			if (targetFaction == pistonFaction) continue;
+
+			// Perm check
+			if (MPerm.getPermBuild().has(pistonFaction, targetFaction)) continue;
+
+			event.setCancelled(true);
+			return;
+		}
 	}
 	
 	// -------------------------------------------- //

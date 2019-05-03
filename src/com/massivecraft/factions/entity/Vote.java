@@ -95,8 +95,7 @@ public class Vote extends EntityInternal<Vote> implements Named
 	public Faction getFaction()
 	{
 		EntityInternalMap<Vote> internalMap = (EntityInternalMap<Vote>) this.getContainer();
-		Faction faction = (Faction) internalMap.getEntity();
-		return faction;
+		return (Faction) internalMap.getEntity();
 	}
 
 	public void clean()

@@ -81,8 +81,7 @@ public class TypeMPermable extends TypeAbstract<MPerm.MPermable>
 		TypeRank typeRank = new TypeRank(this.getFaction());
 		try
 		{
-			Rank rank = typeRank.read(arg, sender);
-			return rank;
+			return typeRank.read(arg, sender);
 		}
 		catch (MassiveException ex)
 		{
@@ -91,8 +90,7 @@ public class TypeMPermable extends TypeAbstract<MPerm.MPermable>
 
 		try
 		{
-			Rel rel = TypeRelation.get().read(arg, sender);
-			return rel;
+			return TypeRelation.get().read(arg, sender);
 		}
 		catch (MassiveException ex)
 		{
@@ -101,8 +99,7 @@ public class TypeMPermable extends TypeAbstract<MPerm.MPermable>
 
 		try
 		{
-			MPlayer mplayer = TypeMPlayer.get().read(arg, sender);
-			return mplayer;
+			return TypeMPlayer.get().read(arg, sender);
 		}
 		catch (MassiveException ex)
 		{
@@ -111,8 +108,7 @@ public class TypeMPermable extends TypeAbstract<MPerm.MPermable>
 
 		try
 		{
-			Faction faction = TypeFaction.get().read(arg, sender);
-			return faction;
+			return TypeFaction.get().read(arg, sender);
 		}
 		catch (MassiveException ex)
 		{
@@ -126,8 +122,7 @@ public class TypeMPermable extends TypeAbstract<MPerm.MPermable>
 			String rankName = arg.substring(idx+1);
 
 			Faction faction = TypeFaction.get().read(factionName, sender);
-			Rank rank = TypeRank.get(faction).read(rankName, sender);
-			return rank;
+			return TypeRank.get(faction).read(rankName, sender);
 		}
 
 		throw new MassiveException().addMsg("<b>No rank, relation, player or faction matches: <h>%s<b>.", arg);

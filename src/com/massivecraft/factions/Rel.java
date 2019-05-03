@@ -150,7 +150,8 @@ public enum Rel implements Colorized, Named, MPerm.MPermable
 	{
 		return this.isAtLeast(TRUCE);
 	}
-	
+
+	@Deprecated
 	public String getPrefix()
 	{
 		return "";

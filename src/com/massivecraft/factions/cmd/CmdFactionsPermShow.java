@@ -44,7 +44,7 @@ public class CmdFactionsPermShow extends FactionsCommand
 
 		for (String permitted : permittedIds)
 		{
-			permables.add(idToMPermable(permitted));
+			permables.add(MPerm.idToMPermable(permitted));
 		}
 
 		String removeString = Txt.parse(" of ") + faction.getDisplayName(msender);

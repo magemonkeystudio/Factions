@@ -90,7 +90,7 @@ public class FactionColl extends Coll<Faction>
 		faction.setPermittedRelations(MPerm.getPermDoor(), MPerm.getPermables(faction));
 		faction.setPermittedRelations(MPerm.getPermContainer(), MPerm.getPermables(faction));
 		faction.setPermittedRelations(MPerm.getPermButton(), MPerm.getPermables(faction));
-		faction.setPermittedRelations(MPerm.getPermLever(), MPerm.getPermables(faction));;
+		faction.setPermittedRelations(MPerm.getPermLever(), MPerm.getPermables(faction));
 		faction.setPermittedRelations(MPerm.getPermDeposit(), Collections.singleton(faction.getLeaderRank())); // Wilderness deposit should be limited as an anti spam meassure.
 		
 		return faction;
@@ -233,7 +233,7 @@ public class FactionColl extends Coll<Faction>
 		boolean peaceful = faction.getFlag(flagPeaceful);
 		for (Rel rel : rels)
 		{
-			ret.put(rel, new ArrayList<String>());
+			ret.put(rel, new ArrayList<>());
 		}
 
 		// Fill

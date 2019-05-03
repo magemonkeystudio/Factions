@@ -39,8 +39,7 @@ public class Warp extends EntityInternal<Warp> implements Named
 	public Faction getFaction()
 	{
 		EntityInternalMap<?> internalMap = (EntityInternalMap<?>) this.getContainer();
-		Faction faction = (Faction) internalMap.getEntity();
-		return faction;
+		return (Faction) internalMap.getEntity();
 	}
 
 	// -------------------------------------------- //

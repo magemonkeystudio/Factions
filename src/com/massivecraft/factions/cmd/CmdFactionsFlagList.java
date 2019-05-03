@@ -1,9 +1,5 @@
 package com.massivecraft.factions.cmd;
 
-import java.util.List;
-
-import org.bukkit.Bukkit;
-
 import com.massivecraft.factions.Factions;
 import com.massivecraft.factions.entity.MFlag;
 import com.massivecraft.factions.entity.MFlagColl;
@@ -12,7 +8,9 @@ import com.massivecraft.massivecore.MassiveException;
 import com.massivecraft.massivecore.command.Parameter;
 import com.massivecraft.massivecore.pager.Pager;
 import com.massivecraft.massivecore.pager.Stringifier;
-import com.massivecraft.massivecore.predicate.Predicate;
+import org.bukkit.Bukkit;
+
+import java.util.List;
 
 public class CmdFactionsFlagList extends FactionsCommand
 {
@@ -39,36 +37,17 @@ public class CmdFactionsFlagList extends FactionsCommand
 		
 		// Pager create
 		String title = "Flag List for " + msenderFaction.describeTo(mplayer);
-		final Pager<MFlag> pager = new Pager<>(this, title, page, new Stringifier<MFlag>()
-		{
-			@Override
-			public String toString(MFlag mflag, int index)
-			{
-				return mflag.getStateDesc(false, false, true, true, true, false);
-			}
-		});
+		final Pager<MFlag> pager = new Pager<>(this, title, page, (Stringifier<MFlag>) (mflag, index) -> mflag.getStateDesc(false, false, true, true, true, false));
 		
-		Bukkit.getScheduler().runTaskAsynchronously(Factions.get(), new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				// Get items
-				List<MFlag> items = MFlagColl.get().getAll(mplayer.isOverriding() ? null : new Predicate<MFlag>()
-				{
-					@Override
-					public boolean apply(MFlag mflag)
-					{
-						return mflag.isVisible();
-					}
-				});
-				
-				// Pager items
-				pager.setItems(items);
-			
-				// Pager message
-				pager.message();
-			}
+		Bukkit.getScheduler().runTaskAsynchronously(Factions.get(), () -> {
+			// Get items
+			List<MFlag> items = MFlagColl.get().getAll(mplayer.isOverriding() ? null : MFlag::isVisible);
+
+			// Pager items
+			pager.setItems(items);
+
+			// Pager message
+			pager.message();
 		});
 	}
 	

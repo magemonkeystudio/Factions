@@ -167,7 +167,7 @@ public class EngineShow extends Engine
 		List<String> followerNamesOffline = new ArrayList<>();
 
 		List<MPlayer> followers = faction.getMPlayers();
-		Collections.sort(followers, ComparatorMPlayerRole.get());
+		followers.sort(ComparatorMPlayerRole.get());
 		for (MPlayer follower : followers)
 		{
 			if (follower.isOnline(sender))

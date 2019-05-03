@@ -42,44 +42,34 @@ public class CmdFactionsRelationWishes extends FactionsCommand
 		final Faction faction = this.readArg(msenderFaction);
 
 		// Pager Create
-		final Pager<Entry<Faction, Rel>> pager = new Pager<>(this, "", page, new Stringifier<Entry<Faction, Rel>>()
-		{
-			@Override
-			public String toString(Entry<Faction, Rel> item, int index)
-			{
-				Rel rel = item.getValue();
-				Faction fac = item.getKey();
-				return rel.getColor().toString() + rel.getName() + CmdFactionsRelationList.SEPERATOR + fac.describeTo(faction, true);
-			}
+		final Pager<Entry<Faction, Rel>> pager = new Pager<>(this, "", page, (Stringifier<Entry<Faction, Rel>>) (item, index) -> {
+			Rel rel = item.getValue();
+			Faction fac = item.getKey();
+			return rel.getColor().toString() + rel.getName() + CmdFactionsRelationList.SEPERATOR + fac.describeTo(faction, true);
 		});
 
-		Bukkit.getScheduler().runTaskAsynchronously(Factions.get(), new Runnable()
-		{
-			@Override
-			public void run()
+		Bukkit.getScheduler().runTaskAsynchronously(Factions.get(), () -> {
+			Map<Faction, Rel> realWishes = new MassiveMap<>();
+
+			for (Entry<String, Rel> entry : faction.getRelationWishes().entrySet())
 			{
-				Map<Faction, Rel> realWishes = new MassiveMap<>();
+				Rel rel = entry.getValue();
+				Faction fac = FactionColl.get().getFixed(entry.getKey());
+				if (fac == null) continue;
 
-				for (Entry<String, Rel> entry : faction.getRelationWishes().entrySet())
-				{
-					Rel rel = entry.getValue();
-					Faction fac = FactionColl.get().getFixed(entry.getKey());
-					if (fac == null) continue;
-
-					// A wish is not a wish anymore if both factions have atleast equal "wishes"
-					if (fac.getRelationTo(faction).isAtLeast(rel)) continue;
-					realWishes.put(fac, rel);
-				}
-
-				// Pager Title
-				pager.setTitle(Txt.parse("<white>%s's <green>Relation wishes <a>(%d)", faction.getName(), realWishes.size()));
-
-				// Pager Items
-				pager.setItems(MUtil.entriesSortedByValues(realWishes));
-
-				// Pager Message
-				pager.message();
+				// A wish is not a wish anymore if both factions have atleast equal "wishes"
+				if (fac.getRelationTo(faction).isAtLeast(rel)) continue;
+				realWishes.put(fac, rel);
 			}
+
+			// Pager Title
+			pager.setTitle(Txt.parse("<white>%s's <green>Relation wishes <a>(%d)", faction.getName(), realWishes.size()));
+
+			// Pager Items
+			pager.setItems(MUtil.entriesSortedByValues(realWishes));
+
+			// Pager Message
+			pager.message();
 		});
 	}
 }

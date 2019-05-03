@@ -123,26 +123,12 @@ public class EngineLwc extends Engine
 	
 	public static void removeAlienProtectionsAsync(final PS chunkPs, final Faction faction)
 	{
-		Bukkit.getScheduler().runTaskAsynchronously(Factions.get(), new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				removeAlienProtectionsRaw(chunkPs, faction);
-			}
-		});
+		Bukkit.getScheduler().runTaskAsynchronously(Factions.get(), () -> removeAlienProtectionsRaw(chunkPs, faction));
 	}
 	
 	public static void removeAlienProtectionsAsyncNextTick(final PS chunkPs, final Faction faction)
 	{
-		Bukkit.getScheduler().runTaskLater(Factions.get(), new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				removeAlienProtectionsAsync(chunkPs, faction);
-			}
-		}, 0);
+		Bukkit.getScheduler().runTaskLater(Factions.get(), () -> removeAlienProtectionsAsync(chunkPs, faction), 0);
 	}
 	
 }

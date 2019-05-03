@@ -153,7 +153,7 @@ public class FactionsIndex
 		@Override
 		public Set<MPlayer> createValue()
 		{
-			return Collections.newSetFromMap(new WeakHashMap<MPlayer, Boolean>());
+			return Collections.newSetFromMap(new WeakHashMap<>());
 		}
 	}
 	

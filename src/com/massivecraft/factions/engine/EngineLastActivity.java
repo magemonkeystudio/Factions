@@ -36,14 +36,7 @@ public class EngineLastActivity extends Engine
 	public static void updateLastActivitySoon(final CommandSender sender)
 	{
 		if (sender == null) throw new RuntimeException("sender");
-		Bukkit.getScheduler().scheduleSyncDelayedTask(Factions.get(), new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				updateLastActivity(sender);
-			}
-		});
+		Bukkit.getScheduler().scheduleSyncDelayedTask(Factions.get(), () -> updateLastActivity(sender));
 	}
 
 	// Can't be cancelled

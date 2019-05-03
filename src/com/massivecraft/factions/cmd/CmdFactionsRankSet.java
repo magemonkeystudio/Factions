@@ -15,6 +15,7 @@ import com.massivecraft.factions.event.EventFactionsMembershipChange;
 import com.massivecraft.factions.event.EventFactionsMembershipChange.MembershipChangeReason;
 import com.massivecraft.factions.event.EventFactionsRankChange;
 import com.massivecraft.massivecore.MassiveException;
+import com.massivecraft.massivecore.collections.MassiveSet;
 import com.massivecraft.massivecore.util.Txt;
 
 import java.util.HashSet;
@@ -317,8 +318,7 @@ public class CmdFactionsRankSet extends FactionsCommand
 		}
 
 		// Create recipients
-		Set<MPlayer> recipients = new HashSet<>();
-		recipients.addAll(targetFaction.getMPlayers());
+		Set<MPlayer> recipients = new MassiveSet<>(targetFaction.getMPlayers());
 		recipients.add(msender);
 		
 		// Were they demoted or promoted?

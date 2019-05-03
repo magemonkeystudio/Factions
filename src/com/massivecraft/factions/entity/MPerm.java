@@ -146,7 +146,7 @@ public class MPerm extends Entity<MPerm> implements Prioritized, Registerable, N
 	}
 	
 	public static MPerm getPermBuild() { return getCreative(PRIORITY_BUILD, ID_BUILD, ID_BUILD, "edit the terrain", MUtil.set("LEADER", "OFFICER", "MEMBER"), true, true, true); }
-	public static MPerm getPermPainbuild() { return getCreative(PRIORITY_PAINBUILD, ID_PAINBUILD, ID_PAINBUILD, "edit, take damage", new MassiveSet<String>(), true, true, true); }
+	public static MPerm getPermPainbuild() { return getCreative(PRIORITY_PAINBUILD, ID_PAINBUILD, ID_PAINBUILD, "edit, take damage", new MassiveSet<>(), true, true, true); }
 	public static MPerm getPermDoor() { return getCreative(PRIORITY_DOOR, ID_DOOR, ID_DOOR, "use doors", MUtil.set("LEADER", "OFFICER", "MEMBER", "RECRUIT", "ALLY"), true, true, true); }
 	public static MPerm getPermButton() { return getCreative(PRIORITY_BUTTON, ID_BUTTON, ID_BUTTON, "use stone buttons", MUtil.set("LEADER", "OFFICER", "MEMBER", "RECRUIT", "ALLY"), true, true, true); }
 	public static MPerm getPermLever() { return getCreative(PRIORITY_LEVER, ID_LEVER, ID_LEVER, "use levers", MUtil.set("LEADER", "OFFICER", "MEMBER", "RECRUIT", "ALLY"), true, true, true); }
@@ -412,9 +412,8 @@ public class MPerm extends Entity<MPerm> implements Prioritized, Registerable, N
 				return accessStatus.hasAccess();
 			}
 		}
-		
-		boolean ret = this.has(mplayer, hostFaction, verboose);
-		return ret;
+
+		return this.has(mplayer, hostFaction, verboose);
 	}
 
 	// -------------------------------------------- //

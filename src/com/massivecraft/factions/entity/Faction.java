@@ -187,9 +187,7 @@ public class Faction extends Entity<Faction> implements FactionsParticipator, MP
 	@Override
 	public String getName()
 	{
-		String ret = this.name;
-		
-		return ret;
+		return this.name;
 	}
 	
 	public void setName(String name)

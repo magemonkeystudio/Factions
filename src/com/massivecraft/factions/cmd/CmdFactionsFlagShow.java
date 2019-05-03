@@ -37,14 +37,7 @@ public class CmdFactionsFlagShow extends FactionsCommand
 		
 		// Pager create
 		String title = "Flags for " + faction.describeTo(msender);
-		Pager<MFlag> pager = new Pager<>(this, title, page, MFlag.getAll(), new Stringifier<MFlag>()
-		{
-			@Override
-			public String toString(MFlag mflag, int index)
-			{
-				return mflag.getStateDesc(faction.getFlag(mflag), true, true, true, true, true);
-			}
-		});
+		Pager<MFlag> pager = new Pager<>(this, title, page, MFlag.getAll(), (Stringifier<MFlag>) (mflag, index) -> mflag.getStateDesc(faction.getFlag(mflag), true, true, true, true, true));
 		
 		// Pager args
 		List<String> pagerArgs = new MassiveList<>(

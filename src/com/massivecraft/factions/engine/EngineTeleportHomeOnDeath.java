@@ -44,7 +44,7 @@ public class EngineTeleportHomeOnDeath extends Engine
 		if (faction.isNone()) return;
 		
 		// ... and the faction has a home ...
-		List<Warp> warps = faction.getWarps().getAll(warp -> warp.getName().equalsIgnoreCase(MConf.get().warpsTeleportToOnDeathName));
+		List<Warp> warps = faction.getWarps().getAll((java.util.function.Predicate<Warp>) (warp -> warp.getName().equalsIgnoreCase(MConf.get().warpsTeleportToOnDeathName)));
 		if (warps.isEmpty()) return;
 
 		Warp warp = warps.get(0);

@@ -54,42 +54,30 @@ public class CmdFactionsRelationList extends FactionsCommand
 		final Set<Rel> relations = this.readArg(RELEVANT_RELATIONS);
 
 		// Pager Create
-		final Pager<String> pager = new Pager<>(this, "", page, new Stringifier<String>()
-		{
-			@Override
-			public String toString(String item, int index)
-			{
-				return item;
-			}
-		});
+		final Pager<String> pager = new Pager<>(this, "", page, (Stringifier<String>) (item, index) -> item);
 
-		Bukkit.getScheduler().runTaskAsynchronously(Factions.get(), new Runnable()
-		{
-			@Override
-			public void run()
+		Bukkit.getScheduler().runTaskAsynchronously(Factions.get(), () -> {
+			// Prepare Items
+			List<String> relNames = new MassiveList<>();
+			for (Entry<Rel, List<String>> entry : FactionColl.get().getRelationNames(faction, relations).entrySet())
 			{
-				// Prepare Items
-				List<String> relNames = new MassiveList<>();
-				for (Entry<Rel, List<String>> entry : FactionColl.get().getRelationNames(faction, relations).entrySet())
+				Rel relation = entry.getKey();
+				String coloredName = relation.getColor().toString() + relation.getName();
+
+				for (String name : entry.getValue())
 				{
-					Rel relation = entry.getKey();
-					String coloredName = relation.getColor().toString() + relation.getName();
-
-					for (String name : entry.getValue())
-					{
-						relNames.add(coloredName + SEPERATOR + name);
-					}
+					relNames.add(coloredName + SEPERATOR + name);
 				}
-
-				// Pager Title
-				pager.setTitle(Txt.parse("<white>%s's <green>Relations <a>(%d)", faction.getName(), relNames.size()));
-
-				// Pager Items
-				pager.setItems(relNames);
-
-				// Pager Message
-				pager.message();
 			}
+
+			// Pager Title
+			pager.setTitle(Txt.parse("<white>%s's <green>Relations <a>(%d)", faction.getName(), relNames.size()));
+
+			// Pager Items
+			pager.setItems(relNames);
+
+			// Pager Message
+			pager.message();
 		});
 	}
 	

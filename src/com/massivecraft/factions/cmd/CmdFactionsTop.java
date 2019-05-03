@@ -57,18 +57,13 @@ public class CmdFactionsTop extends FactionsCommand
 		// NOTE: The faction list is quite slow and mostly thread safe.
 		// We run it asynchronously to spare the primary server thread.
 
-		Bukkit.getScheduler().runTaskAsynchronously(Factions.get(), new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				// Pager Items
-				List<Faction> factions = FactionColl.get().getAll((f1, f2) -> (int) (getNumber(category, f2) - getNumber(category, f1)));
-				pager.setItems(factions);
+		Bukkit.getScheduler().runTaskAsynchronously(Factions.get(), () -> {
+			// Pager Items
+			List<Faction> factions = FactionColl.get().getAll((f1, f2) -> (int) (getNumber(category, f2) - getNumber(category, f1)));
+			pager.setItems(factions);
 
-				// Pager Message
-				pager.message();
-			}
+			// Pager Message
+			pager.message();
 		});
 	}
 

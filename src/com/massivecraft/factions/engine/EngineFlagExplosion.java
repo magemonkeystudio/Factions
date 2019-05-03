@@ -12,6 +12,7 @@ import org.bukkit.entity.Wither;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
+import org.bukkit.event.block.BlockExplodeEvent;
 import org.bukkit.event.entity.EntityChangeBlockEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
@@ -23,7 +24,6 @@ import java.util.Collection;
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -131,6 +131,16 @@ public class EngineFlagExplosion extends Engine
 
 		// ... stop the block alteration.
 		event.setCancelled(true);
+	}
+
+	@EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
+	public void blockExplosion(BlockExplodeEvent event)
+	{
+		Location location = event.getBlock().getLocation();
+		Cancellable cancellable = event;
+		Collection<Block> blocks = event.blockList();
+
+		EngineFlagExplosion.get().blockExplosion(location, cancellable, blocks);
 	}
 
 }

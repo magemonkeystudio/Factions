@@ -7,12 +7,11 @@ import com.massivecraft.factions.entity.MConf;
 import com.massivecraft.massivecore.MassiveException;
 import com.massivecraft.massivecore.command.requirement.RequirementHasPerm;
 import com.massivecraft.massivecore.command.requirement.RequirementIsPlayer;
-import com.massivecraft.massivecore.predicate.Predicate;
 import com.massivecraft.massivecore.ps.PS;
 import com.massivecraft.massivecore.util.ChunkUtil;
 
 import java.util.Set;
-
+import java.util.function.Predicate;
 
 public class CmdFactionsAccessSetFill extends CmdFactionsAccessSetXSimple
 {
