@@ -12,7 +12,7 @@ public abstract class ChatTag extends ChatActive
 	// -------------------------------------------- //
 	
 	private final static Map<String, ChatTag> idToTag = new MassiveMap<>();
-	public static ChatTag getTag(String tagId) { return (ChatTag) idToTag.get(tagId); }
+	public static ChatTag getTag(String tagId) { return idToTag.get(tagId); }
 	
 	// -------------------------------------------- //
 	// CONSTRUCT

@@ -1,6 +1,5 @@
 package com.massivecraft.factions.cmd.type;
 
-import com.massivecraft.factions.Rel;
 import com.massivecraft.factions.entity.Faction;
 import com.massivecraft.factions.entity.FactionColl;
 import com.massivecraft.factions.entity.MPerm;

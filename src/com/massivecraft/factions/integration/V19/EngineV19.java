@@ -36,7 +36,6 @@ public class EngineV19 extends Engine
 	// LISTENER
 	// -------------------------------------------- //
 
-	@SuppressWarnings("deprecation")
 	@EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
 	public void canCombatDamageHappen(AreaEffectCloudApplyEvent event)
 	{

@@ -1,6 +1,5 @@
 package com.massivecraft.factions.cmd.type;
 
-import com.massivecraft.factions.entity.Faction;
 import com.massivecraft.factions.entity.FactionColl;
 import com.massivecraft.factions.entity.MConf;
 import com.massivecraft.factions.entity.MPlayer;
@@ -28,8 +27,7 @@ public class TypeFactionNameAbstract extends TypeNameAbstract
 	public Named getCurrent(CommandSender sender)
 	{
 		MPlayer mplayer = MPlayer.get(sender);
-		Faction faction = mplayer.getFaction();
-		return faction;
+		return mplayer.getFaction();
 	}
 	
 	@Override

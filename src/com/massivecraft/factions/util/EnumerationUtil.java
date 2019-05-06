@@ -209,6 +209,7 @@ public class EnumerationUtil
 		"WITCH", // Minecraft 1.?
 		"WITHER", // Minecraft 1.?
 		"WITHER_SKELETON",
+		"STRAY", // Minecraft 1.?
 		"ZOMBIE", // Minecraft 1.?
 		"ZOMBIE_VILLAGER",
 		"ILLUSIONER", // Minecraft 1.12

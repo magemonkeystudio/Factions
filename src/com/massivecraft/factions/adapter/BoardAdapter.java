@@ -6,12 +6,9 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
-import com.massivecraft.factions.TerritoryAccess;
 import com.massivecraft.factions.entity.Board;
-import com.massivecraft.massivecore.ps.PS;
 
 import java.lang.reflect.Type;
-import java.util.Map;
 
 public class BoardAdapter implements JsonDeserializer<Board>, JsonSerializer<Board>
 {
@@ -30,7 +27,7 @@ public class BoardAdapter implements JsonDeserializer<Board>, JsonSerializer<Boa
 	@Override
 	public Board deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException
 	{
-		return new Board((Map<PS, TerritoryAccess>) context.deserialize(json, Board.MAP_TYPE));
+		return new Board(context.deserialize(json, Board.MAP_TYPE));
 	}
 
 	@Override

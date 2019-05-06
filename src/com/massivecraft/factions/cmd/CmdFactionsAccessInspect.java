@@ -47,7 +47,7 @@ public class CmdFactionsAccessInspect extends FactionsCommand
 		String factionId = faction.getId();
 
 		// Check if they have access perms, unless they are checking for their own access
-		if (mpermable != msender && mpermable != msenderFaction && mpermable != msender.getRank());
+		if (mpermable != msender && mpermable != msenderFaction && mpermable != msender.getRank())
 		{
 			if ( ! MPerm.getPermAccess().has(msender, faction, true)) return;
 		}

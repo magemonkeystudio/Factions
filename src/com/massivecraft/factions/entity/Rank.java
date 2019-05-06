@@ -55,8 +55,7 @@ public class Rank extends EntityInternal<Rank> implements MPerm.MPermable
 	public Faction getFaction()
 	{
 		EntityInternalMap<Rank> internalMap = (EntityInternalMap<Rank>) this.getContainer();
-		Faction faction = (Faction) internalMap.getEntity();
-		return faction;
+		return (Faction) internalMap.getEntity();
 	}
 
 	// -------------------------------------------- //
