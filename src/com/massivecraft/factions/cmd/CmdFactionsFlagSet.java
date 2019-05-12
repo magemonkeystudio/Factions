@@ -41,8 +41,7 @@ public class CmdFactionsFlagSet extends FactionsCommand
 		// Is this flag editable?
 		if (!msender.isOverriding() && ! flag.isEditable())
 		{
-			msg("<b>The flag <h>%s <b>is not editable.", flag.getName());
-			return;
+			throw new MassiveException().addMsg("<b>The flag <h>%s <b>is not editable.", flag.getName());
 		}
 		
 		// Event
@@ -54,8 +53,7 @@ public class CmdFactionsFlagSet extends FactionsCommand
 		// No change 
 		if (faction.getFlag(flag) == value)
 		{
-			msg("%s <i>already has %s <i>set to %s<i>.", faction.describeTo(msender), flag.getStateDesc(value, false, true, true, false, true), flag.getStateDesc(value, true, true, false, false, false));
-			return;
+			throw new MassiveException().addMsg("%s <i>already has %s <i>set to %s<i>.", faction.describeTo(msender), flag.getStateDesc(value, false, true, true, false, true), flag.getStateDesc(value, true, true, false, false, false));
 		}
 		
 		// Apply
