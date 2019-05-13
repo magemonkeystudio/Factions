@@ -14,6 +14,7 @@ import com.massivecraft.factions.TerritoryAccess;
 import com.massivecraft.massivecore.store.migrator.MigratorUtil;
 
 import java.lang.reflect.Type;
+import java.util.Collections;
 import java.util.Set;
 
 public class TerritoryAccessAdapter implements JsonDeserializer<TerritoryAccess>, JsonSerializer<TerritoryAccess>
@@ -57,7 +58,7 @@ public class TerritoryAccessAdapter implements JsonDeserializer<TerritoryAccess>
 		// Prepare variables
 		String hostFactionId = null;
 		Boolean hostFactionAllowed = null;
-		Set<String> grantedIds = null;
+		Set<String> grantedIds = Collections.emptySet();
 		
 		// Read variables (test old values first)
 		JsonElement element = null;

@@ -120,11 +120,14 @@ public class TerritoryAccess
 	
 	public static TerritoryAccess valueOf(String hostFactionId, Boolean hostFactionAllowed, Collection<String> grantedIds)
 	{
+		if (hostFactionId == null) throw new NullPointerException("hostFactionId");
+		if (grantedIds == null) throw new NullPointerException("grantedIds");
 		return new TerritoryAccess(hostFactionId, hostFactionAllowed, grantedIds);
 	}
 	
 	public static TerritoryAccess valueOf(String hostFactionId)
 	{
+		if (hostFactionId == null) throw new NullPointerException("hostFactionId");
 		return valueOf(hostFactionId, null, Collections.emptySet());
 	}
 	
