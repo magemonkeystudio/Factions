@@ -7,10 +7,10 @@ import com.massivecraft.massivecore.MassiveException;
 import com.massivecraft.massivecore.command.Parameter;
 import com.massivecraft.massivecore.pager.Pager;
 import com.massivecraft.massivecore.pager.Stringifier;
-import com.massivecraft.massivecore.predicate.Predicate;
 import org.bukkit.Bukkit;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 public class CmdFactionsPermList extends FactionsCommand
 {

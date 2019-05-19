@@ -3,7 +3,8 @@ package com.massivecraft.factions.predicate;
 import com.massivecraft.factions.entity.Faction;
 import com.massivecraft.factions.entity.MPlayer;
 import com.massivecraft.factions.entity.Rank;
-import com.massivecraft.massivecore.predicate.Predicate;
+
+import java.util.function.Predicate;
 
 public class PredicateMPlayerRank implements Predicate<MPlayer>
 {
@@ -29,7 +30,7 @@ public class PredicateMPlayerRank implements Predicate<MPlayer>
 	// -------------------------------------------- //
 
 	@Override
-	public boolean apply(MPlayer mplayer)
+	public boolean test(MPlayer mplayer)
 	{
 		if (mplayer == null) return false;
 		Faction faction = mplayer.getFaction();

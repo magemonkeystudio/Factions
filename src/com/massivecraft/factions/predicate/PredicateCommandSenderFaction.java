@@ -2,11 +2,11 @@ package com.massivecraft.factions.predicate;
 
 import com.massivecraft.factions.entity.Faction;
 import com.massivecraft.factions.entity.MPlayer;
-import com.massivecraft.massivecore.predicate.Predicate;
 import com.massivecraft.massivecore.util.MUtil;
 import org.bukkit.command.CommandSender;
 
 import java.io.Serializable;
+import java.util.function.Predicate;
 
 public class PredicateCommandSenderFaction implements Predicate<CommandSender>, Serializable
 {
@@ -33,7 +33,7 @@ public class PredicateCommandSenderFaction implements Predicate<CommandSender>, 
 	// -------------------------------------------- //
 	
 	@Override
-	public boolean apply(CommandSender sender)
+	public boolean test(CommandSender sender)
 	{
 		if (MUtil.isntSender(sender)) return false;
 		
