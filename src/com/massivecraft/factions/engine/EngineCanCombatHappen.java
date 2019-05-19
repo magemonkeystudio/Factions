@@ -14,6 +14,7 @@ import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Trident;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityCombustByEntityEvent;
@@ -42,9 +43,12 @@ public class EngineCanCombatHappen extends Engine
 		event.setCancelled(true);
 
 		Entity damager = event.getDamager();
-		if ( ! (damager instanceof Arrow)) return;
+		if (damager instanceof Arrow && !(damager instanceof Trident) )
+		{
+			damager.remove();
+		}
 
-		damager.remove();
+
 	}
 
 	// mainly for flaming arrows; don't want allies or people in safe zones to be ignited even after damage event is cancelled
@@ -110,6 +114,7 @@ public class EngineCanCombatHappen extends Engine
 		// ... fast evaluate if the attacker is overriding ...
 		if (MUtil.isPlayer(eattacker))
 		{
+			
 			MPlayer mplayer = MPlayer.get(eattacker);
 			if (mplayer != null && mplayer.isOverriding()) return true;
 		}
@@ -135,7 +140,7 @@ public class EngineCanCombatHappen extends Engine
 			}
 			return defenderPsFaction.getFlag(MFlag.getFlagMonsters());
 		}
-
+		
 		// ... and if the attacker is a player ...
 		if (MUtil.isntPlayer(eattacker)) return true;
 		Player attacker = (Player)eattacker;
@@ -143,7 +148,7 @@ public class EngineCanCombatHappen extends Engine
 		
 		// ... does this player bypass all protection? ...
 		if (MConf.get().playersWhoBypassAllProtection.contains(attacker.getName())) return true;
-
+		
 		// ... gather attacker PS and faction information ...
 		PS attackerPs = PS.valueOf(attacker.getLocation());
 		Faction attackerPsFaction = BoardColl.get().getFactionAt(attackerPs);
@@ -157,10 +162,10 @@ public class EngineCanCombatHappen extends Engine
 			if (!ret && notify) uattacker.msg("<i>PVP is disabled in %s.", attackerPsFaction.describeTo(uattacker));
 			return ret;
 		}
-
+		
 		// ... are PVP rules completely ignored in this world? ...
 		if (!MConf.get().worldsPvpRulesEnabled.contains(defenderPs.getWorld())) return true;
-
+		
 		Faction defendFaction = mdefender.getFaction();
 		Faction attackFaction = uattacker.getFaction();
 
@@ -189,7 +194,7 @@ public class EngineCanCombatHappen extends Engine
 				return true;
 			}
 		}
-
+		
 		Rel relation = defendFaction.getRelationTo(attackFaction);
 
 		// Check the relation
@@ -213,7 +218,7 @@ public class EngineCanCombatHappen extends Engine
 			}
 			return ret;
 		}
-
+		
 		return true;
 	}
 
