@@ -237,9 +237,13 @@ public class MConf extends Entity<MConf>
 	// -------------------------------------------- //
 	
 	public boolean protectionLiquidFlowEnabled = true;
+
+	// Protects the faction land from piston extending/retracting
+	// through the denying of MPerm build
+	public boolean handlePistonProtectionThroughDenyBuild = true;
 	
 	// -------------------------------------------- //
-	// HOMES
+	// WARPS
 	// -------------------------------------------- //
 	
 	// Is the warps feature enabled?
@@ -313,10 +317,6 @@ public class MConf extends Entity<MConf>
 	// Inside your own faction territory you take less damage.
 	// 0.1 means that you take 10% less damage at home.
 	public double territoryShieldFactor = 0.1D;
-	
-	// Protects the faction land from piston extending/retracting
-	// through the denying of MPerm build
-	public boolean handlePistonProtectionThroughDenyBuild = true;
 
 	// Make faction disbanding a confirmation thing
 	public boolean requireConfirmationForFactionDisbanding = true;

@@ -31,8 +31,8 @@ public class CmdFactionsMoneyconvert extends FactionsCommand
 	@Override
 	public Visibility getVisibility()
 	{
-		return Visibility.INVISIBLE;
-		//return MConf.get().useNewMoneySystem ? Visibility.INVISIBLE : Visibility.SECRET;
+		//return Visibility.INVISIBLE;
+		return MConf.get().useNewMoneySystem ? Visibility.INVISIBLE : Visibility.SECRET;
 	}
 
 	@Override
@@ -51,7 +51,7 @@ public class CmdFactionsMoneyconvert extends FactionsCommand
 					" This command allows to convert to the new system where the money of a Faction" +
 					" is stored within the Factions plugin. Then all economy plugins can be used with Factions.");
 		}
-		String confirmationString = this.readArg(null);
+		
 		ConfirmationUtil.tryConfirm(this);
 
 		MConf.get().useNewMoneySystem = true;
