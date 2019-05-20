@@ -31,7 +31,7 @@ public class TaskPlayerPowerUpdate extends ModuloRepeatTask
 	public long getDelayMillis()
 	{
 		// The interval is determined by the MConf rather than being set with setDelayMillis.
-		return (long) (MConf.get().taskPlayerPowerUpdateMinutes * TimeUnit.MILLIS_PER_MINUTE);
+		return TimeUnit.MILLIS_PER_MINUTE;
 	}
 	
 	@Override

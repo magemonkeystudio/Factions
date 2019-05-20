@@ -17,11 +17,15 @@ import org.bukkit.entity.Player;
 import org.bukkit.entity.Trident;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
+import org.bukkit.event.entity.AreaEffectCloudApplyEvent;
 import org.bukkit.event.entity.EntityCombustByEntityEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.PotionSplashEvent;
 import org.bukkit.projectiles.ProjectileSource;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class EngineCanCombatHappen extends Engine
 {
@@ -80,6 +84,34 @@ public class EngineCanCombatHappen extends Engine
 			// affected entity list doesn't accept modification (iter.remove() is a no-go), but this works
 			event.setIntensity(affectedEntity, 0.0);
 		}
+	}
+
+	@EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
+	public void canCombatDamageHappen(AreaEffectCloudApplyEvent event)
+	{
+		// If a harmful potion effect cloud is present ...
+		if ( ! MUtil.isHarmfulPotion(event.getEntity().getBasePotionData().getType().getEffectType())) return;
+
+		ProjectileSource projectileSource = event.getEntity().getSource();
+		if ( ! (projectileSource instanceof Entity)) return;
+
+		Entity thrower = (Entity)projectileSource;
+
+		// ... create a dummy list to avoid ConcurrentModificationException ...
+		List<LivingEntity> affectedList = new ArrayList<>();
+
+		// ... then scan through affected entities to make sure they're all valid targets ...
+		for (LivingEntity affectedEntity : event.getAffectedEntities())
+		{
+			EntityDamageByEntityEvent sub = new EntityDamageByEntityEvent(thrower, affectedEntity, EntityDamageEvent.DamageCause.CUSTOM, 0D);
+			// Notification disabled due to the iterating nature of effect clouds.
+			if (EngineCanCombatHappen.get().canCombatDamageHappen(sub, false)) continue;
+
+			affectedList.add(affectedEntity);
+		}
+
+		// finally, remove valid targets from the affected list. (Unlike splash potions, area effect cloud's affected entities list is mutable.)
+		event.getAffectedEntities().removeAll(affectedList);
 	}
 
 	// Utility method used in "canCombatDamageHappen" below.

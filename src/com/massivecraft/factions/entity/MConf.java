@@ -95,7 +95,6 @@ public class MConf extends Entity<MConf>
 	// -------------------------------------------- //
 	
 	// Define the time in minutes between certain Factions system tasks is ran.
-	public double taskPlayerPowerUpdateMinutes = 1;
 	public double taskEconLandRewardMinutes = 20;
 	
 	// -------------------------------------------- //

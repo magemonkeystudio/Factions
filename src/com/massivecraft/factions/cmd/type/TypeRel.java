@@ -22,7 +22,7 @@ public class TypeRel extends TypeEnum<Rel>
 	@Override
 	public String getName()
 	{
-		return "role";
+		return "relation";
 	}
 	
 	@Override

@@ -25,8 +25,6 @@ public class TerritoryAccessAdapter implements JsonDeserializer<TerritoryAccess>
 
 	public static final String HOST_FACTION_ID = "hostFactionId";
 	public static final String HOST_FACTION_ALLOWED = "hostFactionAllowed";
-	/*public static final String FACTION_IDS = "factionIds";
-	public static final String PLAYER_IDS = "playerIds";*/
 	public static final String GRANTED_IDS = "grantedIds";
 	
 	public static final Type SET_OF_STRING_TYPE = new TypeToken<Set<String>>(){}.getType();
@@ -63,12 +61,10 @@ public class TerritoryAccessAdapter implements JsonDeserializer<TerritoryAccess>
 		// Read variables (test old values first)
 		JsonElement element = null;
 		
-		element = obj.get("ID");
-		if (element == null) element = obj.get(HOST_FACTION_ID);
+		element = obj.get(HOST_FACTION_ID);
 		hostFactionId = element.getAsString();
 		
-		element = obj.get("open");
-		if (element == null) element = obj.get(HOST_FACTION_ALLOWED);
+		element = obj.get(HOST_FACTION_ALLOWED);
 		if (element != null) hostFactionAllowed = element.getAsBoolean();
 
 		element = obj.get(GRANTED_IDS);
