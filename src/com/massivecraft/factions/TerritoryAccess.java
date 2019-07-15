@@ -142,7 +142,7 @@ public class TerritoryAccess
 
 	public boolean isGranted(String permableId)
 	{
-		if (permableId.equals(this.hostFactionId)) return this.isHostFactionAllowed();
+		//if (permableId.equals(this.hostFactionId)) return this.isHostFactionAllowed();
 		return this.getGrantedIds().contains(permableId);
 	}
 	
