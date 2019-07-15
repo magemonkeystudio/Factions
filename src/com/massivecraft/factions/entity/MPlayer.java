@@ -805,12 +805,7 @@ public class MPlayer extends SenderEntity<MPlayer> implements FactionsParticipat
 		// We clean the chunks further by removing what does not change.
 		// This is also very suggested cleaning of EventFactionsChunksChange input.
 		Iterator<PS> iter = chunks.iterator();
-		while (iter.hasNext())
-		{
-			PS chunk = iter.next();
-			Faction oldFaction = BoardColl.get().getFactionAt(chunk);
-			if (newFaction == oldFaction) iter.remove();
-		}
+		chunks.removeIf(chunk -> BoardColl.get().getFactionAt(chunk) == newFaction);
 		if (chunks.isEmpty())
 		{
 			msg("%s<i> already owns this land.", newFaction.describeTo(this, true));

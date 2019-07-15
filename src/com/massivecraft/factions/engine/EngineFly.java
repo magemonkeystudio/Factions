@@ -16,9 +16,11 @@ import com.massivecraft.massivecore.event.EventMassiveCorePlayerUpdate;
 import com.massivecraft.massivecore.ps.PS;
 import com.massivecraft.massivecore.store.DriverFlatfile;
 import com.massivecraft.massivecore.util.MUtil;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 
 import java.io.File;
@@ -54,7 +56,7 @@ public class EngineFly extends Engine
 		// ... and the player enables flying ...
 		if (!mplayer.isFlying()) return;
 
-		// ... and the player enables flying ...
+		// ... and the player can fly here...
 		if (!canFlyInTerritory(mplayer, PS.valueOf(player))) return;
 
 		// ... set allowed ...
@@ -97,6 +99,40 @@ public class EngineFly extends Engine
 		event.getFaction().getOnlinePlayers().forEach(EngineFly::deactivateForPlayer);
 	}
 
+	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+	public void territoryShield(EntityDamageByEntityEvent event)
+	{
+		// If flying is diabled on PVP ...
+		if (!MConf.get().flyDisableOnPvp) return;
+
+		// ... and the defender is a player ...
+		Entity entity = event.getEntity();
+		if (MUtil.isntPlayer(entity)) return;
+		Player defender = (Player)entity;
+		MPlayer mdefender = MPlayer.get(defender);
+
+		// ... and the attacker is a player ...
+		Entity eattacker = MUtil.getLiableDamager(event);
+		if (! (eattacker instanceof Player)) return;
+		Player attacker = (Player) eattacker;
+		MPlayer mattacker = MPlayer.get(attacker);
+
+		// ... disable flying for both
+		if (mdefender.isFlying())
+		{
+			mdefender.setFlying(false);
+			deactivateForPlayer(defender);
+			mdefender.msg("<i>Flying is disabled in combat.");
+		}
+
+		if (mattacker.isFlying())
+		{
+			mattacker.setFlying(false);
+			deactivateForPlayer(attacker);
+			mattacker.msg("<i>Flying is disabled in combat.");
+		}
+	}
+
 	public static boolean canFlyInTerritory(MPlayer mplayer, PS ps)
 	{
 		try
@@ -114,7 +150,7 @@ public class EngineFly extends Engine
 	{
 		if (!mplayer.isPlayer())
 		{
-			throw new MassiveException().addMsg("<b>Only players can fly");
+			throw new MassiveException().addMsg("<b>Only players can fly.");
 		}
 
 		Faction faction = mplayer.getFaction();
@@ -144,7 +180,7 @@ public class EngineFly extends Engine
 				// ... otherwise ...
 				else {
 					// .. tell them to have someone else edit it ...
-					ex.addMsg("<i>You can ask a faction admin to change the flag");
+					ex.addMsg("<i>You can ask a faction admin to change the flag.");
 				}
 			}
 			// ... or only server admins can change it ...

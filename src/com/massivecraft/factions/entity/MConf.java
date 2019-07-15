@@ -323,7 +323,10 @@ public class MConf extends Entity<MConf>
 
 	// At what speed can players fly with /f fly?
 	public float flySpeed = 0.1f;
-	
+
+	// Will flying be disabled on pvp
+	public boolean flyDisableOnPvp = false;
+
 	// -------------------------------------------- //
 	// DENY COMMANDS
 	// -------------------------------------------- //

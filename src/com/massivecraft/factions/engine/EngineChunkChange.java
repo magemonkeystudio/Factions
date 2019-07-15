@@ -118,7 +118,7 @@ public class EngineChunkChange extends Engine
 					return;
 				}
 
-				// ... ensure the claim would not bypass the global max limit ...
+				// ... ensure the claim would not bypass the global world limit ...
 				if (MConf.get().claimedWorldsMax >= 0)
 				{
 					Set<String> oldWorlds = newFaction.getClaimedWorlds();
