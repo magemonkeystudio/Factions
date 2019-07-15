@@ -36,6 +36,7 @@ public class MFlag extends Entity<MFlag> implements Prioritized, Registerable, N
 	public final static transient String ID_PEACEFUL = "peaceful";
 	public final static transient String ID_INFPOWER = "infpower";
 	public final static transient String ID_FLY = "fly";
+	public final static transient String ID_TAXKICK = "taxkick";
 	
 	public final static transient int PRIORITY_OPEN = 1_000;
 	public final static transient int PRIORITY_MONSTERS = 2_000;
@@ -53,6 +54,7 @@ public class MFlag extends Entity<MFlag> implements Prioritized, Registerable, N
 	public final static transient int PRIORITY_PEACEFUL = 14_000;
 	public final static transient int PRIORITY_INFPOWER = 15_000;
 	public final static transient int PRIORITY_FLY = 16_000;
+	public final static transient int PRIORITY_TAXKICK = 17_000;
 	
 	// -------------------------------------------- //
 	// META: CORE
@@ -93,6 +95,7 @@ public class MFlag extends Entity<MFlag> implements Prioritized, Registerable, N
 		getFlagPeaceful();
 		getFlagInfpower();
 		getFlagFly();
+		getFlagTaxKick();
 	}
 	
 	public static MFlag getFlagOpen() { return getCreative(PRIORITY_OPEN, ID_OPEN, ID_OPEN, "Can the faction be joined without an invite?", "Anyone can join. No invite required.", "An invite is required to join.", false, true, true); }
@@ -111,6 +114,7 @@ public class MFlag extends Entity<MFlag> implements Prioritized, Registerable, N
 	public static MFlag getFlagPeaceful() { return getCreative(PRIORITY_PEACEFUL, ID_PEACEFUL, ID_PEACEFUL, "Is the faction in truce with everyone?", "The faction is in truce with everyone.", "The faction relations work as usual.", false, false, true); }
 	public static MFlag getFlagInfpower() { return getCreative(PRIORITY_INFPOWER, ID_INFPOWER, ID_INFPOWER, "Does the faction have infinite power?", "The faction has infinite power.", "The faction power works as usual.", false, false, true); }
 	public static MFlag getFlagFly() { return getCreative(PRIORITY_FLY, ID_FLY, ID_FLY, "Is flying allowed for members in faction territory?", "Members can fly in faction territory.", "Members can not fly in faction territory.", false, false, true); }
+	public static MFlag getFlagTaxKick() { return getCreative(PRIORITY_TAXKICK, ID_TAXKICK, ID_TAXKICK, "Are players kicked for not paying taxes?", "Members are kicked for not paying taxes.", "Members are not kicked for not paying taxes.",  false, true, true); }
 	
 	public static MFlag getCreative(int priority, String id, String name, String desc, String descYes, String descNo, boolean standard, boolean editable, boolean visible)
 	{

@@ -51,7 +51,7 @@ public class CmdFactionsMoneyconvert extends FactionsCommand
 					" This command allows to convert to the new system where the money of a Faction" +
 					" is stored within the Factions plugin. Then all economy plugins can be used with Factions.");
 		}
-		
+
 		ConfirmationUtil.tryConfirm(this);
 
 		MConf.get().useNewMoneySystem = true;

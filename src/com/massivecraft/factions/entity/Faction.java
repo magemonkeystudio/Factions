@@ -11,6 +11,8 @@ import com.massivecraft.factions.predicate.PredicateCommandSenderFaction;
 import com.massivecraft.factions.predicate.PredicateMPlayerRank;
 import com.massivecraft.factions.util.MiscUtil;
 import com.massivecraft.factions.util.RelationUtil;
+import com.massivecraft.massivecore.Couple;
+import com.massivecraft.massivecore.Identified;
 import com.massivecraft.massivecore.collections.MassiveList;
 import com.massivecraft.massivecore.collections.MassiveMap;
 import com.massivecraft.massivecore.collections.MassiveMapDef;
@@ -38,6 +40,7 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -158,8 +161,13 @@ public class Faction extends Entity<Faction> implements FactionsParticipator, MP
 	// Null means default.
 	private MassiveMapDef<String, Boolean> flags = new MassiveMapDef<>();
 
-
 	private Map<String, Set<String>> perms = this.createNewPermMap();
+
+	// What is the base tax on members of the faction?
+	// Specific taxes on ranks or players.
+	public static String IDENTIFIER_TAX_BASE = "base";
+
+	private Map<String, Double> tax = new MassiveMap<>();
 	
 	// -------------------------------------------- //
 	// FIELD: id
@@ -942,6 +950,62 @@ public class Faction extends Entity<Faction> implements FactionsParticipator, MP
 	private boolean doesPermExist(String permId)
 	{
 		return MPermColl.get().getFixed(permId) != null;
+	}
+
+	// -------------------------------------------- //
+	// FIELD: tax
+	// -------------------------------------------- //
+
+	// RAW
+	public Map<String, Double> getTax() { return this.tax; }
+
+	 // FINER GET
+	public Double getTaxFor(String id)
+	{
+		if (id == null) throw new NullPointerException("id");
+		return this.tax.get(id);
+	}
+
+	public Double getTaxFor(Identified identified)
+	{
+		if (identified == null) throw new NullPointerException("identified");
+		return this.getTaxFor(identified.getId());
+	}
+
+	public double getTaxForPlayer(MPlayer mplayer)
+	{
+		return getTaxAndReasonForPlayer(mplayer).map(Entry::getValue).orElse(0D);
+	}
+
+	public Optional<Entry<String, Double>> getTaxAndReasonForPlayer(MPlayer mplayer)
+	{
+		if (mplayer == null) throw new NullPointerException("mplayer");
+
+		if (mplayer.getFaction() != this) throw new IllegalArgumentException("Player " + mplayer.getId() + " not in " + this.getId());
+
+		Double ret = null;
+
+		ret = this.getTaxFor(mplayer);
+		if (ret != null) return Optional.of(new Couple<>(mplayer.getId(), ret));
+
+		ret = this.getTaxFor(mplayer.getRank());
+		if (ret != null) return Optional.of(new Couple<>(mplayer.getRank().getId(), ret));
+
+		ret = this.getTaxFor(IDENTIFIER_TAX_BASE);
+		if (ret != null) return Optional.of(new Couple<>(IDENTIFIER_TAX_BASE, ret));
+
+		return Optional.empty();
+	}
+
+	// FINER SET
+	public Double setTaxFor(String id, Double value)
+	{
+		return this.tax.put(id, value);
+	}
+
+	public Double setTaxFor(Identified identified, Double value)
+	{
+		return this.setTaxFor(identified.getId(), value);
 	}
 
 	// -------------------------------------------- //

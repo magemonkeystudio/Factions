@@ -2,7 +2,6 @@ package com.massivecraft.factions.entity;
 
 import com.massivecraft.factions.Factions;
 import com.massivecraft.factions.Rel;
-import com.massivecraft.factions.integration.Econ;
 import com.massivecraft.factions.util.MiscUtil;
 import com.massivecraft.massivecore.collections.MassiveMap;
 import com.massivecraft.massivecore.store.Coll;
@@ -165,47 +164,8 @@ public class FactionColl extends Coll<Faction>
 	}
 	
 	// -------------------------------------------- //
-	// LAND REWARD
+	// NAME
 	// -------------------------------------------- //
-	
-	public void econLandRewardRoutine()
-	{
-		// If econ is enabled ...
-		if (!Econ.isEnabled()) return;
-		
-		// ... and the land reward is non zero ...
-		double econLandReward = MConf.get().econLandReward;
-		if (econLandReward == 0.0) return;
-		
-		// ... log initiation ...
-		Factions.get().log("Running econLandRewardRoutine...");
-		MFlag flagPeaceful = MFlag.getFlagPeaceful();
-		
-		// ... and for each faction ...
-		for (Faction faction : this.getAll())
-		{
-			// ... get the land count ...
-			int landCount = faction.getLandCount();
-			
-			// ... and if the faction isn't peaceful and has land ...
-			if (landCount == 0 || faction.getFlag(flagPeaceful)) continue;
-			
-			// ... get the faction's members ...
-			List<MPlayer> players = faction.getMPlayers();
-			
-			// ... calculate the reward ...
-			int playerCount = players.size();
-			double reward = econLandReward * landCount / playerCount;
-			
-			// ... and grant the reward.
-			String description = String.format("own %s faction land divided among %s members", landCount, playerCount);
-			for (MPlayer player : players)
-			{
-				Econ.modifyMoney(player, reward, description);
-			}
-			
-		}
-	}
 	
 	@Override
 	public Faction getByName(String name)

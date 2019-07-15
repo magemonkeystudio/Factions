@@ -56,9 +56,10 @@ public class MPerm extends Entity<MPerm> implements Prioritized, Registerable, N
 	public final static transient String ID_WITHDRAW = "withdraw";
 	public final static transient String ID_TERRITORY = "territory";
 	public final static transient String ID_ACCESS = "access";
-	public final static transient String ID_VOTE = "VOTE";
+	public final static transient String ID_VOTE = "VOTE"; // Why is this capitalised? Can that be easily changed?
 	public final static transient String ID_CREATEVOTE = "createvote";
 	public final static transient String ID_CLAIMNEAR = "claimnear";
+	public final static transient String ID_TAX = "tax";
 	public final static transient String ID_REL = "rel";
 	public final static transient String ID_DISBAND = "disband";
 	public final static transient String ID_FLAGS = "flags";
@@ -87,6 +88,7 @@ public class MPerm extends Entity<MPerm> implements Prioritized, Registerable, N
 	public final static transient int PRIORITY_VOTE = 18200;
 	public final static transient int PRIORITY_CREATEVOTE = 18600;
 	public final static transient int PRIORITY_CLAIMNEAR = 19000;
+	public final static transient int PRIORITY_TAX = 19500;
 	public final static transient int PRIORITY_REL = 20000;
 	public final static transient int PRIORITY_DISBAND = 21000;
 	public final static transient int PRIORITY_FLAGS = 22000;
@@ -139,6 +141,7 @@ public class MPerm extends Entity<MPerm> implements Prioritized, Registerable, N
 		getPermVote();
 		getPermCreateVote();
 		getPermClaimnear();
+		getPermTax();
 		getPermRel();
 		getPermDisband();
 		getPermFlags();
@@ -168,6 +171,7 @@ public class MPerm extends Entity<MPerm> implements Prioritized, Registerable, N
 	public static MPerm getPermVote() { return getCreative(PRIORITY_VOTE, ID_VOTE, ID_VOTE, "vote", MUtil.set("LEADER", "OFFICER", "MEMBER", "RECRUIT"), false, true, true); }
 	public static MPerm getPermCreateVote() { return getCreative(PRIORITY_CREATEVOTE, ID_CREATEVOTE, ID_CREATEVOTE, "manage votes", MUtil.set("LEADER", "OFFICER"), false, true, true); }
 	public static MPerm getPermClaimnear() { return getCreative(PRIORITY_CLAIMNEAR, ID_CLAIMNEAR, ID_CLAIMNEAR, "claim nearby", MUtil.set("LEADER", "OFFICER", "MEMBER", "RECRUIT", "ALLY"), false, false, false); } // non editable, non visible.
+	public static MPerm getPermTax() { return getCreative(PRIORITY_TAX, ID_TAX, ID_TAX, "set taxes", MUtil.set("LEADER"), false, true, true); }
 	public static MPerm getPermRel() { return getCreative(PRIORITY_REL, ID_REL, ID_REL, "change relations", MUtil.set("LEADER", "OFFICER"), false, true, true); }
 	public static MPerm getPermDisband() { return getCreative(PRIORITY_DISBAND, ID_DISBAND, ID_DISBAND, "disband the faction", MUtil.set("LEADER"), false, true, true); }
 	public static MPerm getPermFlags() { return getCreative(PRIORITY_FLAGS, ID_FLAGS, ID_FLAGS, "manage flags", MUtil.set("LEADER"), false, true, true); }

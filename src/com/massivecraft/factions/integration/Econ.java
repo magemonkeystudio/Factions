@@ -215,6 +215,11 @@ public class Econ
 		}
 	}
 
+	public static boolean hasAtLeast(EconomyParticipator ep, double delta)
+	{
+		return hasAtLeast(ep, delta, null);
+	}
+
 	public static boolean hasAtLeast(EconomyParticipator ep, double delta, String toDoThis)
 	{
 		if ( ! isEnabled()) return true;
@@ -288,19 +293,24 @@ public class Econ
 
 	public static boolean moveMoney(EconomyParticipator from, EconomyParticipator to, EconomyParticipator by, double amount)
 	{
+		return moveMoney(from, to, by, amount, "Factions");
+	}
+
+	public static boolean moveMoney(EconomyParticipator from, EconomyParticipator to, EconomyParticipator by, double amount, String category)
+	{
 		final boolean fromFaction = from instanceof Faction;
 		final boolean toFaction = to instanceof Faction;
 
 		// If the old money system is used just do that
 		if (!MConf.get().useNewMoneySystem)
 		{
-			return Money.move(from, to, by, amount, "Factions");
+			return Money.move(from, to, by, amount, category);
 		}
 
 		// Or if neither to or from is a faction
 		if (!fromFaction && !toFaction)
 		{
-			return Money.move(from, to, by, amount, "Factions");
+			return Money.move(from, to, by, amount, category);
 		}
 
 		// Handle from

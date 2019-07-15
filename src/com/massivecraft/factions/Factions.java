@@ -71,7 +71,7 @@ import com.massivecraft.factions.integration.placeholderapi.IntegrationPlacehold
 import com.massivecraft.factions.integration.venturechat.IntegrationVentureChat;
 import com.massivecraft.factions.integration.worldguard.IntegrationWorldGuard;
 import com.massivecraft.factions.mixin.PowerMixin;
-import com.massivecraft.factions.task.TaskEconLandReward;
+import com.massivecraft.factions.task.TaskTax;
 import com.massivecraft.factions.task.TaskFlagPermCreate;
 import com.massivecraft.factions.task.TaskPlayerPowerUpdate;
 import com.massivecraft.massivecore.MassivePlugin;
@@ -203,7 +203,7 @@ public class Factions extends MassivePlugin
 	public List<Class<?>> getClassesActiveTasks()
 	{
 		return MUtil.list(
-			TaskEconLandReward.class,
+			TaskTax.class,
 			TaskFlagPermCreate.class,
 			TaskPlayerPowerUpdate.class
 		);

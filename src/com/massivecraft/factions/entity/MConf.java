@@ -30,7 +30,7 @@ public class MConf extends Entity<MConf>
 	// -------------------------------------------- //
 	// META
 	// -------------------------------------------- //
-	
+
 	protected static transient MConf i;
 	public static MConf get() { return i; }
 	
@@ -487,7 +487,36 @@ public class MConf extends Entity<MConf>
 	public boolean logFactionLeave = true;
 	public boolean logLandClaims = true;
 	public boolean logMoneyTransactions = true;
-	
+
+	// -------------------------------------------- //
+	// TAX
+	// -------------------------------------------- //
+
+	// Should the tax system be enabled?
+	public boolean taxEnabled = false;
+
+	// How much can you tax a player?
+	public double taxPlayerMinimum = -10;
+	public double taxPlayerMaximum = 10;
+
+	// How much should Factions be taxed?
+	//public double taxUpkeepBase = 0;
+	//public double taxUpkeepPerChunk = 1;
+
+	// When is a player inactive?
+	public int taxInactiveDays = 3;
+
+	// When the last run time was (in unix time)
+	// 0 means never
+	public long taxTaskLastMillis = 0;
+
+	// Tax run when?
+	// 0 means at midnight UTC it can be offset by a certain millis
+	public long taxTaskInvocationOffsetMillis = 0;
+
+	// How often should the task be run?
+	public long taxTaskPeriodMillis = TimeUnit.MILLIS_PER_DAY;
+
 	// -------------------------------------------- //
 	// ENUMERATIONS
 	// -------------------------------------------- //
@@ -573,10 +602,6 @@ public class MConf extends Entity<MConf>
 	// Should economy features be enabled?
 	// This requires that you have the external plugin called "Vault" installed.
 	public boolean econEnabled = true;
-	
-	// A money reward per chunk. This reward is divided among the players in the faction.
-	// You set the time inbetween each reward almost at the top of this config file. (taskEconLandRewardMinutes)
-	public double econLandReward = 0.00;
 	
 	// When paying a cost you may specify an account that should receive the money here.
 	// Per default "" the money is just destroyed.

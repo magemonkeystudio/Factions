@@ -51,6 +51,7 @@ public class CmdFactions extends FactionsCommand
 	public CmdFactionsRelationOld cmdFactionsRelationOldTruce = new CmdFactionsRelationOld("truce");
 	public CmdFactionsRelationOld cmdFactionsRelationOldNeutral = new CmdFactionsRelationOld("neutral");
 	public CmdFactionsRelationOld cmdFactionsRelationOldEnemy = new CmdFactionsRelationOld("enemy");
+	public CmdFactionsTax cmdFactionsTax = new CmdFactionsTax();
 	public CmdFactionsPerm cmdFactionsPerm = new CmdFactionsPerm();
 	public CmdFactionsFlag cmdFactionsFlag = new CmdFactionsFlag();
 	public CmdFactionsFly cmdFactionsFly = new CmdFactionsFly();
