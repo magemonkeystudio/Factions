@@ -37,6 +37,12 @@ public class CmdFactionsWarpAdd extends FactionsCommandWarp
 	@Override
 	public void perform() throws MassiveException
 	{
+		if ( ! MConf.get().warpsCommandEnabled)
+		{
+			msender.msg("<b>Sorry, the ability to warp is disabled on this server.");
+			return;
+		}
+
 		// Args
 		String name = this.readArg();
 		Faction faction = this.readArg(msenderFaction);
