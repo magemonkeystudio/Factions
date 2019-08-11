@@ -82,6 +82,7 @@ public class Faction extends Entity<Faction> implements FactionsParticipator, MP
 		this.setRelationWishes(that.relationWishes);
 		this.setFlagIds(that.flags);
 		this.perms = that.perms;
+		this.tax = that.tax;
 		
 		return this;
 	}
@@ -165,7 +166,7 @@ public class Faction extends Entity<Faction> implements FactionsParticipator, MP
 
 	// What is the base tax on members of the faction?
 	// Specific taxes on ranks or players.
-	public static String IDENTIFIER_TAX_BASE = "base";
+	public static transient String IDENTIFIER_TAX_BASE = "base";
 
 	private Map<String, Double> tax = new MassiveMap<>();
 	
@@ -1000,6 +1001,7 @@ public class Faction extends Entity<Faction> implements FactionsParticipator, MP
 	// FINER SET
 	public Double setTaxFor(String id, Double value)
 	{
+		this.changed();
 		return this.tax.put(id, value);
 	}
 

@@ -11,8 +11,7 @@ import com.massivecraft.factions.event.EventFactionsMembershipChange;
 import com.massivecraft.factions.event.EventFactionsMembershipChange.MembershipChangeReason;
 import com.massivecraft.factions.integration.Econ;
 import com.massivecraft.massivecore.Couple;
-import com.massivecraft.massivecore.Engine;
-import com.massivecraft.massivecore.MassiveCore;
+import com.massivecraft.massivecore.Task;
 import com.massivecraft.massivecore.collections.MassiveMap;
 import com.massivecraft.massivecore.mixin.MixinMessage;
 import com.massivecraft.massivecore.money.Money;
@@ -24,18 +23,51 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class TaskTax extends Engine
+public class TaskTax extends Task
 {
 	// -------------------------------------------- //
 	// INSTANCE
 	// -------------------------------------------- //
-	
+
 	private static TaskTax i = new TaskTax();
 	public static TaskTax get() { return i; }
 	public TaskTax()
 	{
 		// Just check once a minute
-		this.setPeriod(60L * 20L);
+		this.setPeriod(10L * 20L); // 10 seconds for testing purposes
+
+		this.setMustBeTaskServer(true);
+		this.setLoggingTimeSpent(true);
+
+		this.addCondition(Econ::isEnabled);
+		this.addCondition(() -> MConf.get().taxEnabled);
+	}
+
+	// -------------------------------------------- //
+	// OVERRIDE: TASK
+	// -------------------------------------------- //
+
+	@Override
+	public long getPreviousMillis()
+	{
+		return MConf.get().taxTaskLastMillis;
+	}
+	@Override
+	public void setPreviousMillis(long millis)
+	{
+		MConf.get().taxTaskLastMillis = millis;
+		MConf.get().changed();
+	}
+
+	@Override
+	public long getPeriodMillis()
+	{
+		return MConf.get().taxTaskPeriodMillis;
+	}
+	@Override
+	public long getOffsetMillis()
+	{
+		return MConf.get().taxTaskInvocationOffsetMillis;
 	}
 
 	// -------------------------------------------- //
@@ -43,34 +75,6 @@ public class TaskTax extends Engine
 	// -------------------------------------------- //
 
 	@Override
-	public void run()
-	{
-		final long now = System.currentTimeMillis();
-		MixinMessage.get().msgAll("<i>Running TaskTax");
-		// If this is the right server ...
-		if ( ! MassiveCore.isTaskServer()) return;
-		MixinMessage.get().msgAll("<i>Task server");
-		// ... and taxing is enabled ...
-		if ( ! this.areTaxesEnabled()) return;
-		MixinMessage.get().msgAll("<i>Taxes enabled");
-		// ... and the current invocation ...
-		final long currentInvocation = getInvocationFromMillis(now);
-		MixinMessage.get().msgAll("<i>currentInvocation: %d", currentInvocation);
-		// ... and the last invocation ...
-		final long lastInvocation = getInvocationFromMillis(MConf.get().taxTaskLastMillis);
-		MixinMessage.get().msgAll("<i>lastInvocation: %d", lastInvocation);
-		// ... are different ...
-		if (currentInvocation == lastInvocation) return;
-
-		// ... then it's time to invoke.
-		invoke(now);
-	}
-
-	public boolean areTaxesEnabled()
-	{
-		return Econ.isEnabled() && MConf.get().taxEnabled;
-	}
-
 	public void invoke(long now)
 	{
 		taxPlayers(now);
@@ -93,7 +97,7 @@ public class TaskTax extends Engine
 
 		String debug = taxes.stream()
 			.map(c -> c.getFirst().getName() + ": " + c.getSecond())
-			.reduce((s1, s2) -> s1 + "\n" + s2).orElse("");
+			.reduce((s1, s2) -> s1 + "\n" + s2).orElse("No players pay tax.");
 		MixinMessage.get().messageAll(debug);
 
 		// Pay the highest taxes first.
@@ -117,7 +121,7 @@ public class TaskTax extends Engine
 		// Inform factions
 		faction2tax.forEach(this::informFactionOfPlayerTax);
 
-		// Infrom of taxation complete
+		// Inform of taxation complete
 		int count = faction2tax.values().stream().mapToInt(Couple::getFirst).sum();
 		MixinMessage.get().msgAll("<i>Taxation of players complete. <h>%d <i>players were taxed.", count);
 
@@ -216,19 +220,6 @@ public class TaskTax extends Engine
 		// TODO
 		String msg = "<i>For the time being factions themselves cannot be taxed. This feature will be added at a later date.";
 		MixinMessage.get().msgOne(IdUtil.CONSOLE_ID, msg);
-	}
-
-	// -------------------------------------------- //
-	// TASK MILLIS AND INVOCATION
-	// -------------------------------------------- //
-	// The invocation is the amount of periods from UNIX time to now.
-	// It will increment by one when a period has passed.
-
-	// Remember to check isDisabled first!
-	// Here we accept millis from inside the period by rounding down.
-	private static long getInvocationFromMillis(long millis)
-	{
-		return (millis - MConf.get().taxTaskInvocationOffsetMillis) / MConf.get().taxTaskPeriodMillis;
 	}
 
 }

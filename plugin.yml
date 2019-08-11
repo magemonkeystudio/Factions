@@ -41,6 +41,7 @@ permissions:
   factions.documentation.power: {description: show power documentation, default: false}
   factions.documentation.perms: {description: show perms documentation, default: false}
   factions.documentation.ranks: {description: show rank documentation, default: false}
+  factions.documentation.tax: {description: show tax documentation, default: false}
   factions.documentation.warps: {description: show warp documentation, default: false}
   factions.expansions: {description: list expansions, default: false}
   factions.faction: {description: show faction information, default: false}
@@ -110,6 +111,11 @@ permissions:
   factions.seechunkold: {description: see the chunk you stand in, default: false}
   factions.setpower: {description: set power, default: false}
   factions.status: {description: show status, default: false}
+  factions.tax: {description: manage taxes, default: false}
+  factions.tax.faction: {description: show faction tax, default: false}
+  factions.tax.player: {description: show player tax, default: false}
+  factions.tax.run: {description: run a tax collection, default: false}
+  factions.tax.set: {description: set taxes, default: false}
   factions.name: {description: set faction name, default: false}
   factions.title: {description: set player title, default: false}
   factions.title.color: {description: set player title with color, default: false}
@@ -173,6 +179,7 @@ permissions:
       factions.documentation.perms: true
       factions.documentation.power: true
       factions.documentation.ranks: true
+      factions.documentation.tax: true
       factions.documentation.warps: true
       factions.expansions: true
       factions.faction: true
@@ -249,6 +256,11 @@ permissions:
       factions.sethome: true
       factions.setpower: true
       factions.status: true
+      factions.tax: true
+      factions.tax.faction: true
+      factions.tax.player: true
+      factions.tax.run: true
+      factions.tax.set: true
       factions.name: true
       factions.title: true
       factions.title.color: true
@@ -409,6 +421,11 @@ permissions:
       factions.seechunkold: true
       factions.sethome: true
       factions.status: true
+      factions.tax: true
+      factions.tax.faction: true
+      factions.tax.player: true
+      factions.tax.run: true
+      factions.tax.set: true
       factions.name: true
       factions.title: true
       factions.title.color: true
