@@ -52,7 +52,10 @@ public class CmdFactionsWarpGo extends FactionsCommandWarp
 		Faction faction = this.readArgAt(1, msenderFaction);
 		Warp warp = TypeWarp.get(faction).read(this.argAt(0), sender);
 		String warpDesc = Txt.parse("<h>%s <i>in <reset>%s<i>.", warp.getName(), faction.describeTo(msender, false));
-		
+
+		// Must be valid
+		if (!warp.verifyIsValid()) return;
+
 		// Any and MPerm
 		if ( ! MPerm.getPermWarp().has(msender, faction, true)) return;
 		
