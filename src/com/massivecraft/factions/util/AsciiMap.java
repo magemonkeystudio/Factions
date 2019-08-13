@@ -9,6 +9,7 @@ import com.massivecraft.massivecore.mson.Mson;
 import com.massivecraft.massivecore.ps.PS;
 import com.massivecraft.massivecore.util.Txt;
 import org.bukkit.ChatColor;
+import org.bukkit.GameRule;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -37,6 +38,7 @@ public class AsciiMap
 	private static final int HEIGHT_EXTRA_HALF = HEIGHT_EXTRA / 2;
 	
 	private static final String TITLE_FORMAT = "(%d,%d) %s";
+	private static final String TITLE_FORMAT_NO_COORDS = "%s";
 	private static final Mson KEY_MIDDLE = mson("+").color(ChatColor.AQUA);
 	private static final Mson KEY_WILDERNESS = mson("-").color(ChatColor.GRAY).tooltip();
 	private static final Mson KEY_OVERFLOW = mson("-").style(ChatColor.MAGIC).add(mson("").style(ChatColor.RESET));
@@ -122,9 +124,16 @@ public class AsciiMap
 		int chunkX = chunk.getChunkX();
 		int chunkZ = chunk.getChunkZ();
 		String factionName = faction.getName(this.getRelationParticipator());
-		
+
+		Boolean reduced = chunk.asBukkitWorld().getGameRuleValue(GameRule.REDUCED_DEBUG_INFO);
+		boolean showCoords = !reduced;
+
+		String title;
+		if (showCoords) title = String.format(TITLE_FORMAT, chunkX, chunkZ, factionName);
+		else title = String.format(TITLE_FORMAT_NO_COORDS, factionName);
+
 		// Titleize
-		return Txt.titleize(String.format(TITLE_FORMAT, chunkX, chunkZ, factionName));
+		return Txt.titleize(title);
 	}
 	
 	private List<Mson> getLines()
