@@ -1,5 +1,6 @@
 package com.massivecraft.factions.cmd;
 
+import com.massivecraft.factions.util.AsciiMap;
 import com.massivecraft.factions.util.VisualizeUtil;
 import com.massivecraft.massivecore.command.requirement.RequirementIsPlayer;
 import com.massivecraft.massivecore.ps.PS;
@@ -58,7 +59,9 @@ public class CmdFactionsSeeChunkOld extends FactionsCommand
 		showPillar(me, world, blockX, blockZ);
 		
 		// Inform
-		msg("<i>Visualized %s", chunk.toString(PSFormatHumanSpace.get()));
+		boolean showCoords = AsciiMap.showChunkCoords(chunk);
+		String chunkDesc = showCoords ? chunk.toString(PSFormatHumanSpace.get()) : "chunk";
+		msg("<i>Visualized %s", chunkDesc);
 	}
 
 	public static void showPillar(Player player, World world, int blockX, int blockZ)

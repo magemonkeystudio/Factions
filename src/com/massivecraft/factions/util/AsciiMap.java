@@ -10,6 +10,7 @@ import com.massivecraft.massivecore.ps.PS;
 import com.massivecraft.massivecore.util.Txt;
 import org.bukkit.ChatColor;
 import org.bukkit.GameRule;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -125,8 +126,7 @@ public class AsciiMap
 		int chunkZ = chunk.getChunkZ();
 		String factionName = faction.getName(this.getRelationParticipator());
 
-		Boolean reduced = chunk.asBukkitWorld().getGameRuleValue(GameRule.REDUCED_DEBUG_INFO);
-		boolean showCoords = !reduced;
+		boolean showCoords = showChunkCoords(chunk);
 
 		String title;
 		if (showCoords) title = String.format(TITLE_FORMAT, chunkX, chunkZ, factionName);
@@ -226,5 +226,15 @@ public class AsciiMap
 		// Return
 		return Mson.implode(ret, SPACE);
 	}
-	
+
+	public static boolean showChunkCoords(PS chunk)
+	{
+		return showChunkCoords(chunk.asBukkitWorld(true));
+	}
+
+	public static boolean showChunkCoords(World w)
+	{
+		return ! w.getGameRuleValue(GameRule.REDUCED_DEBUG_INFO);
+	}
+
 }

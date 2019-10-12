@@ -12,6 +12,7 @@ import com.massivecraft.factions.event.EventFactionsDisband;
 import com.massivecraft.factions.event.EventFactionsMembershipChange;
 import com.massivecraft.factions.event.EventFactionsMembershipChange.MembershipChangeReason;
 import com.massivecraft.factions.mixin.PowerMixin;
+import com.massivecraft.factions.util.AsciiMap;
 import com.massivecraft.factions.util.RelationUtil;
 import com.massivecraft.massivecore.mixin.MixinSenderPs;
 import com.massivecraft.massivecore.mixin.MixinTitle;
@@ -846,6 +847,12 @@ public class MPlayer extends SenderEntity<MPlayer> implements FactionsParticipat
 
 			String chunkString = oldChunk.toString(PSFormatHumanSpace.get());
 			String typeString = type.past;
+
+			if (!AsciiMap.showChunkCoords(oldChunk))
+			{
+				chunkString = "";
+				formatMany = formatMany.replace(" near ", "");
+			}
 
 			for (MPlayer informee : informees)
 			{
