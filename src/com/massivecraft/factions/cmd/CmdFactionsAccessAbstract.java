@@ -5,6 +5,7 @@ import com.massivecraft.factions.entity.BoardColl;
 import com.massivecraft.factions.entity.Faction;
 import com.massivecraft.factions.entity.MPerm;
 import com.massivecraft.factions.entity.MPerm.MPermable;
+import com.massivecraft.factions.util.AsciiMap;
 import com.massivecraft.massivecore.command.requirement.RequirementIsPlayer;
 import com.massivecraft.massivecore.ps.PS;
 import com.massivecraft.massivecore.ps.PSFormatHumanSpace;
@@ -58,7 +59,8 @@ public abstract class CmdFactionsAccessAbstract extends FactionsCommand
 
 	public void sendAccessInfo()
 	{
-		Object title = "Access at " + chunk.toString(PSFormatHumanSpace.get());
+		String chunkDesc = AsciiMap.showChunkCoords(chunk) ? " at " + chunk.toString(PSFormatHumanSpace.get()) : "";
+		Object title = "Access" + chunkDesc;
 		title = Txt.titleize(title);
 		message(title);
 		
@@ -77,26 +79,27 @@ public abstract class CmdFactionsAccessAbstract extends FactionsCommand
 		TerritoryAccess ta = BoardColl.get().getTerritoryAccessAt(chunk);
 		Faction faction = ta.getHostFaction();
 
-		String chunkDesc = chunk.toString(PSFormatHumanSpace.get());
+
+		String chunkDesc = AsciiMap.showChunkCoords(chunk) ? " at " + chunk.toString(PSFormatHumanSpace.get()) : "";
 		String grantedDenied = granted ? "granted" : "denied";
 		String mpermableDesc = mpermable.getDisplayName(msender);
 
 		if ( ! MPerm.getPermAccess().has(msender, faction, false))
 		{
-			msg("<b>You do not have permission to edit access at %s<b>.", chunkDesc);
+			msg("<b>You do not have permission to edit access%s<b>.", chunkDesc);
 			return;
 		}
 
 		if (ta.isGranted(mpermable) == granted)
 		{
-			msg("<b>Access at %s <b>is already %s to %s<b>.", chunkDesc, grantedDenied, mpermableDesc);
+			msg("<b>Access%s <b>is already %s to %s<b>.", chunkDesc, grantedDenied, mpermableDesc);
 			return;
 		}
 
 		ta = ta.withGranted(mpermable, granted);
 		BoardColl.get().setTerritoryAccessAt(chunk, ta);
 
-		msg("<i>Access at %s<i> is now %s to %s<i>.", chunkDesc, grantedDenied, mpermableDesc);
+		msg("<i>Access%s<i> is now %s to %s<i>.", chunkDesc, grantedDenied, mpermableDesc);
 	}
 
 }
