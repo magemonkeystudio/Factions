@@ -17,7 +17,9 @@ public class EnumerationUtil
 		"CAULDRON", // Minecraft 1.?
 		"FARMLAND", // Minecraft 1.?
 		"DAYLIGHT_DETECTOR", // Minecraft 1.5
-		"COMPARATOR" // Minecraft 1.?
+		"COMPARATOR", // Minecraft 1.?
+		"COMPOSTER", // Minecraft 1.14
+		"LECTERN" // Minecraft 1.14
 	);
 	
 	public static boolean isMaterialEditOnInteract(Material material)
