@@ -110,6 +110,7 @@ public class EnumerationUtil
 		"BLAST_FURNACE", // Minecraft 1.14
 		
 		// The various shulker boxes, they had to make each one a different material -.-
+		"SHULKER_BOX",
 		"BLACK_SHULKER_BOX",
 		"BLUE_SHULKER_BOX",
 		"BROWN_SHULKER_BOX",
@@ -117,13 +118,14 @@ public class EnumerationUtil
 		"GRAY_SHULKER_BOX",
 		"GREEN_SHULKER_BOX",
 		"LIGHT_BLUE_SHULKER_BOX",
+		"LIGHT_GRAY_SHULKER_BOX",
 		"LIME_SHULKER_BOX",
 		"MAGENTA_SHULKER_BOX",
 		"ORANGE_SHULKER_BOX",
 		"PINK_SHULKER_BOX",
 		"PURPLE_SHULKER_BOX",
 		"RED_SHULKER_BOX",
-		"SILVER_SHULKER_BOX",
+		"SILVER_SHULKER_BOX", // Changed name to light gray, I think. Kept for backwards compatibility
 		"WHITE_SHULKER_BOX",
 		"YELLOW_SHULKER_BOX"
 	);
