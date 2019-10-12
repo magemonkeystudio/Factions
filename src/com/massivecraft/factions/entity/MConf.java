@@ -288,6 +288,8 @@ public class MConf extends Entity<MConf>
 	public int territoryInfoTitleTicksOut = 5;
 
 	public String territoryInfoChat = "<i> ~ {relcolor}{name} <i>{desc}";
+
+	public boolean territoryAccessShowMessage = true;
 	
 	// -------------------------------------------- //
 	// ASSORTED

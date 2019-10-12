@@ -107,6 +107,8 @@ public class EngineMoveChunk extends Engine
 	
 	private static void sendTerritoryAccessMessage(MPlayer mplayer, PS psFrom, PS psTo)
 	{
+		if (!MConf.get().territoryAccessShowMessage) return;
+
 		// Get TerritoryAccess for from & to chunks
 		TerritoryAccess accessFrom = BoardColl.get().getTerritoryAccessAt(psFrom);
 		TerritoryAccess accessTo = BoardColl.get().getTerritoryAccessAt(psTo);
