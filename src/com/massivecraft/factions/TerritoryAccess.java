@@ -42,7 +42,7 @@ public class TerritoryAccess
 	// The simple ones
 	public TerritoryAccess withHostFactionId(String hostFactionId) { return valueOf(hostFactionId, hostFactionAllowed, grantedIds); }
 	public TerritoryAccess withHostFactionAllowed(Boolean hostFactionAllowed) { return valueOf(hostFactionId, hostFactionAllowed, grantedIds); }
-	public TerritoryAccess withGrantedIds(Collection<String> factionIds) { return valueOf(hostFactionId, hostFactionAllowed, grantedIds); }
+	public TerritoryAccess withGrantedIds(Collection<String> grantedIds) { return valueOf(hostFactionId, hostFactionAllowed, grantedIds); }
 	
 	// The intermediate ones
 	public TerritoryAccess withGranted(MPermable mpermable, boolean with)
@@ -142,7 +142,7 @@ public class TerritoryAccess
 
 	public boolean isGranted(String permableId)
 	{
-		//if (permableId.equals(this.hostFactionId)) return this.isHostFactionAllowed();
+		if (permableId.equals(this.hostFactionId)) return this.isHostFactionAllowed();
 		return this.getGrantedIds().contains(permableId);
 	}
 	
@@ -160,11 +160,15 @@ public class TerritoryAccess
 	public AccessStatus getTerritoryAccess(MPlayer mplayer)
 	{
 		if (isGranted(mplayer.getId())) return AccessStatus.ELEVATED;
-		if (isGranted(mplayer.getFaction().getId())) return AccessStatus.ELEVATED;
 		if (isGranted(mplayer.getRank().getId())) return AccessStatus.ELEVATED;
+
+		if (this.getHostFactionId().equals(mplayer.getFaction().getId()))
+		{
+			if (this.isHostFactionAllowed()) return AccessStatus.STANDARD;
+			else return AccessStatus.DECREASED;
+		}
+		if (isGranted(mplayer.getFaction().getId())) return AccessStatus.ELEVATED;
 		if (isGranted(RelationUtil.getRelationOfThatToMe(mplayer, this.getHostFaction()).toString())) return AccessStatus.ELEVATED;
-		
-		if (this.getHostFactionId().equals(mplayer.getFaction().getId()) && !this.isHostFactionAllowed()) return AccessStatus.DECREASED;
 		
 		return AccessStatus.STANDARD;
 	}
