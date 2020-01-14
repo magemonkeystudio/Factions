@@ -38,7 +38,9 @@ public class EngineFlagSpawn extends Engine
 		"MOUNT",
 		"REINFORCEMENTS",
 		"VILLAGE_DEFENSE",
-		"VILLAGE_INVASION"
+		"VILLAGE_INVASION",
+		"RAID",
+		"PATROL"
 	);
 
 	// -------------------------------------------- //

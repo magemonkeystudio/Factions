@@ -21,7 +21,7 @@ public class EnumerationUtil
 		"COMPOSTER", // Minecraft 1.14
 		"LECTERN", // Minecraft 1.14
 		"BEEHIVE", // Minecraft 1.15
-		"BEE_NEST" // Miecraft 1.15
+		"BEE_NEST"
 	);
 	
 	public static boolean isMaterialEditOnInteract(Material material)
