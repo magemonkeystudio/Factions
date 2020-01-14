@@ -19,7 +19,9 @@ public class EnumerationUtil
 		"DAYLIGHT_DETECTOR", // Minecraft 1.5
 		"COMPARATOR", // Minecraft 1.?
 		"COMPOSTER", // Minecraft 1.14
-		"LECTERN" // Minecraft 1.14
+		"LECTERN", // Minecraft 1.14
+		"BEEHIVE", // Minecraft 1.15
+		"BEE_NEST" // Miecraft 1.15
 	);
 	
 	public static boolean isMaterialEditOnInteract(Material material)
