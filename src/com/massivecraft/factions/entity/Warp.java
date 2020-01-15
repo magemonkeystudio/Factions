@@ -73,8 +73,9 @@ public class Warp extends EntityInternal<Warp> implements Named
 	public boolean verifyIsValid()
 	{
 		if (this.isValid()) return true;
+		Faction fac = this.getFaction();
 		this.detach();
-		this.getFaction().msg("<b>Your faction warp <h>%s <b>has been un-set since it is no longer in your territory.", this.getName());
+		fac.msg("<b>Your faction warp <h>%s <b>has been un-set since it is no longer in your territory.", this.getName());
 		return false;
 	}
 
