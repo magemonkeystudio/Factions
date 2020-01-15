@@ -50,6 +50,8 @@ public class EngineEcon extends Engine
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void takeOnLeave(EventFactionsMembershipChange event)
 	{
+		if (!Econ.isEnabled()) return;
+		
 		// If a player is leaving the faction ...
 		if (event.getReason() != MembershipChangeReason.LEAVE) return;
 		
@@ -58,7 +60,7 @@ public class EngineEcon extends Engine
 		Faction oldFaction = mplayer.getFaction();
 		if (oldFaction.getMPlayers().size() > 1) return;
 		
-		// ... then transfer all money to the player. 
+		// ... then transfer all money to the player.
 		double money = Econ.getMoney(oldFaction);
 		if (money == 0) return;
 		Econ.transferMoney(mplayer, oldFaction, mplayer, money);
