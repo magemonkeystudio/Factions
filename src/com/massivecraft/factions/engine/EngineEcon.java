@@ -51,7 +51,7 @@ public class EngineEcon extends Engine
 	public void takeOnLeave(EventFactionsMembershipChange event)
 	{
 		if (!Econ.isEnabled()) return;
-		
+
 		// If a player is leaving the faction ...
 		if (event.getReason() != MembershipChangeReason.LEAVE) return;
 		
