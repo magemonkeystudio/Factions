@@ -26,6 +26,7 @@ import com.massivecraft.factions.engine.EngineChat;
 import com.massivecraft.factions.engine.EngineChunkChange;
 import com.massivecraft.factions.engine.EngineCleanInactivity;
 import com.massivecraft.factions.engine.EngineDenyCommands;
+import com.massivecraft.factions.engine.EngineDenyTeleport;
 import com.massivecraft.factions.engine.EngineEcon;
 import com.massivecraft.factions.engine.EngineExploit;
 import com.massivecraft.factions.engine.EngineFlagEndergrief;
@@ -218,6 +219,7 @@ public class Factions extends MassivePlugin
 			EngineChunkChange.class,
 			EngineCleanInactivity.class,
 			EngineDenyCommands.class,
+			EngineDenyTeleport.class,
 			EngineExploit.class,
 			EngineFlagEndergrief.class,
 			EngineFlagExplosion.class,

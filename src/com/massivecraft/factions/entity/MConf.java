@@ -477,8 +477,22 @@ public class MConf extends Entity<MConf>
 	// -------------------------------------------- //
 	
 	public int unstuckSeconds = 30;
-	public int unstuckChunkRadius = 10; 
-	
+	public int unstuckChunkRadius = 10;
+
+	// -------------------------------------------- //
+	// ENDER PEARL AND CHORUS FRUIT
+	// -------------------------------------------- //
+
+	public boolean allowEnderPearlInEnemyTerritory = true;
+	public boolean allowEnderPearlInWildernessTerritory = true;
+	public boolean allowEnderPearlInOwnTerritory = true;
+	public boolean allowEnderPearlInOtherTerritory = true;
+
+	public boolean allowChorusFruitInEnemyTerritory = true;
+	public boolean allowChorusFruitInWildernessTerritory = true;
+	public boolean allowChorusFruitInOwnTerritory = true;
+	public boolean allowChorusFruitInOtherTerritory = true;
+
 	// -------------------------------------------- //
 	// LOGGING
 	// -------------------------------------------- //
