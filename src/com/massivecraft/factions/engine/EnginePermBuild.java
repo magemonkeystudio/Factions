@@ -95,6 +95,7 @@ public class EnginePermBuild extends Engine
 	public static Boolean build(Entity entity, Block block, Event event)
 	{
 		if (!(event instanceof Cancellable)) return true;
+		if (MUtil.isntPlayer(entity)) return false;
 		boolean verboose = !isFake(event);
 		return protect(ProtectCase.BUILD, verboose, entity, PS.valueOf(block), block, (Cancellable) event);
 	}
