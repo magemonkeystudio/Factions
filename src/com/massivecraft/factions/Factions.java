@@ -3,7 +3,6 @@ package com.massivecraft.factions;
 import com.google.gson.GsonBuilder;
 import com.massivecraft.factions.adapter.BoardAdapter;
 import com.massivecraft.factions.adapter.BoardMapAdapter;
-import com.massivecraft.factions.adapter.RelAdapter;
 import com.massivecraft.factions.adapter.TerritoryAccessAdapter;
 import com.massivecraft.factions.chat.modifier.ChatModifierLc;
 import com.massivecraft.factions.chat.modifier.ChatModifierLp;
@@ -72,9 +71,9 @@ import com.massivecraft.factions.integration.placeholderapi.IntegrationPlacehold
 import com.massivecraft.factions.integration.venturechat.IntegrationVentureChat;
 import com.massivecraft.factions.integration.worldguard.IntegrationWorldGuard;
 import com.massivecraft.factions.mixin.PowerMixin;
-import com.massivecraft.factions.task.TaskTax;
 import com.massivecraft.factions.task.TaskFlagPermCreate;
 import com.massivecraft.factions.task.TaskPlayerPowerUpdate;
+import com.massivecraft.factions.task.TaskTax;
 import com.massivecraft.massivecore.MassivePlugin;
 import com.massivecraft.massivecore.command.type.RegistryType;
 import com.massivecraft.massivecore.store.migrator.MigratorUtil;
@@ -282,7 +281,6 @@ public class Factions extends MassivePlugin
 		.registerTypeAdapter(TerritoryAccess.class, TerritoryAccessAdapter.get())
 		.registerTypeAdapter(Board.class, BoardAdapter.get())
 		.registerTypeAdapter(Board.MAP_TYPE, BoardMapAdapter.get())
-		.registerTypeAdapter(Rel.class, RelAdapter.get())
 		;
 	}
 	
