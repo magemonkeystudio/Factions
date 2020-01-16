@@ -34,7 +34,7 @@ public class TaskTax extends Task
 	public TaskTax()
 	{
 		// Just check once a minute
-		this.setPeriod(10L * 20L); // 10 seconds for testing purposes
+		this.setPeriod(60L * 20L);
 
 		this.setMustBeTaskServer(true);
 		this.setLoggingTimeSpent(true);
