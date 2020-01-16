@@ -86,7 +86,21 @@ public class FactionsIndex
 	{
 		if (mplayer == null) throw new NullPointerException("mplayer");
 		if (!FactionColl.get().isActive()) throw new IllegalStateException("The FactionColl is not yet fully activated.");
-		if (!mplayer.attached()) return;
+
+		// TODO: This is not optimal but here we remove a player from the index when
+		// the mplayer object is deattached. Optimally it should be removed
+		// automatically because it is stored as a weak reference.
+		// But sometimes that doesn't happen so we do this instead.
+		// Is there a memory leak somewhere?
+		if (!mplayer.attached())
+		{
+			Faction factionIndexed = this.mplayer2faction.remove(mplayer);
+			if (factionIndexed != null)
+			{
+				faction2mplayers.get(factionIndexed).remove(mplayer);
+			}
+			return;
+		}
 		
 		Faction factionActual = mplayer.getFaction();
 		Faction factionIndexed = this.getFaction(mplayer);

@@ -33,7 +33,8 @@ import java.util.Iterator;
 import java.util.Map.Entry;
 import java.util.Set;
 
-public class MPlayer extends SenderEntity<MPlayer> implements FactionsParticipator, MPerm.MPermable {
+public class MPlayer extends SenderEntity<MPlayer> implements FactionsParticipator, MPerm.MPermable
+{
 	// -------------------------------------------- //
 	// META
 	// -------------------------------------------- //
@@ -60,7 +61,8 @@ public class MPlayer extends SenderEntity<MPlayer> implements FactionsParticipat
 	// -------------------------------------------- //
 
 	@Override
-	public MPlayer load(MPlayer that) {
+	public MPlayer load(MPlayer that)
+	{
 		this.setLastActivityMillis(that.lastActivityMillis);
 		this.setFactionId(that.factionId);
 		this.rankId = that.rankId;
@@ -79,7 +81,8 @@ public class MPlayer extends SenderEntity<MPlayer> implements FactionsParticipat
 	// -------------------------------------------- //
 
 	@Override
-	public boolean isDefault() {
+	public boolean isDefault()
+	{
 		// Last activity millis is data we use for clearing out cleanable players. So it does not in itself make the player data worth keeping.
 		if (this.hasFaction()) return false;
 		// Role means nothing without a faction.
@@ -98,18 +101,23 @@ public class MPlayer extends SenderEntity<MPlayer> implements FactionsParticipat
 	// -------------------------------------------- //
 
 	@Override
-	public void postAttach(String id) {
+	public void postAttach(String id)
+	{
 		FactionsIndex.get().update(this);
 	}
 
 	@Override
-	public void preDetach(String id) {
+	public void postDetach(String id)
+	{
+		//System.out.println("Detaching: " + id + " : " + this.getFactionId());
 		FactionsIndex.get().update(this);
 	}
 
 	@Override
-	public void preClean() {
-		if (this.getRank().isLeader()) {
+	public void preClean()
+	{
+		if (this.getRank().isLeader())
+		{
 			this.getFaction().promoteNewLeader();
 		}
 
