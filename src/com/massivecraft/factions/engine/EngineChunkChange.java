@@ -19,6 +19,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -201,6 +202,32 @@ public class EngineChunkChange extends Engine
 				}
 				event.setCancelled(true);
 				return;
+			}
+		}
+
+		// Ensure claims are properly connected when unclaiming
+		if (newFaction.isNone() && MConf.get().claimsMustBeConnected && MConf.get().claimsMustBeConnectedStrict)
+		{
+			for (Entry<Faction, Set<PS>> entry : currentFactionChunks.entrySet())
+			{
+				Faction faction = entry.getKey();
+				Set<PS> factionRemovedChunks = entry.getValue();
+
+				Set<PS> pssBefore = BoardColl.get().getChunks(faction);
+
+				// Get how many "forests" of claims there are right now
+				List<Collection<PS>> forestsBefore = BoardColl.getForests(pssBefore);
+
+				Set<PS> pssAfter = new MassiveSet<>(pssBefore);
+				pssAfter.removeAll(factionRemovedChunks);
+
+				List<Collection<PS>> forestsAfter = BoardColl.getForests(pssAfter);
+				if (forestsAfter.size() > forestsBefore.size())
+				{
+					mplayer.msg("<b>Claims must be connected. You can't make them unconnected by unclaiming.");
+					event.setCancelled(true);
+					return;
+				}
 			}
 		}
 

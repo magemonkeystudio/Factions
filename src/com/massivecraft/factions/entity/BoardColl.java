@@ -1,6 +1,7 @@
 package com.massivecraft.factions.entity;
 
 import com.massivecraft.factions.TerritoryAccess;
+import com.massivecraft.massivecore.collections.MassiveList;
 import com.massivecraft.massivecore.collections.MassiveMap;
 import com.massivecraft.massivecore.collections.MassiveSet;
 import com.massivecraft.massivecore.entity.MassiveCoreMConf;
@@ -9,9 +10,11 @@ import com.massivecraft.massivecore.store.Coll;
 import com.massivecraft.massivecore.util.MUtil;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.Stack;
 import java.util.stream.Collectors;
 
 public class BoardColl extends Coll<Board> implements BoardInterface
@@ -390,5 +393,44 @@ public class BoardColl extends Coll<Board> implements BoardInterface
 		// Return
 		return ret;
 	}
-	
+
+	public static List<Collection<PS>> getForests(Collection<PS> pss)
+	{
+		List<Collection<PS>> forests = new MassiveList<>();
+		List<PS> discovered = new MassiveList<>();
+
+		outer:
+		for (PS ps : pss)
+		{
+			if (discovered.contains(ps)) continue outer;
+
+			List<PS> forest = new MassiveList<>();
+			forests.add(forest);
+
+			Stack<PS> stack = new Stack<>();
+			stack.push(ps);
+			inner:
+			while (!stack.empty())
+			{
+				PS elm = stack.pop();
+				if (discovered.contains(elm)) continue inner;
+				System.out.println(elm);
+				discovered.add(elm);
+				forest.add(elm);
+
+				addIfInSource(elm.withChunkX(elm.getChunkX() + 1), stack, pss);
+				addIfInSource(elm.withChunkX(elm.getChunkX() - 1), stack, pss);
+				addIfInSource(elm.withChunkZ(elm.getChunkZ() + 1), stack, pss);
+				addIfInSource(elm.withChunkZ(elm.getChunkZ() - 1), stack, pss);
+			}
+		}
+
+		return forests;
+	}
+
+	private static void addIfInSource(PS ps, Stack<PS> stack, Collection<PS> source)
+	{
+		if (source.contains(ps)) stack.push(ps);
+	}
+
 }

@@ -207,6 +207,11 @@ public class MConf extends Entity<MConf>
 	// If you set this to false you will allow factions to claim more than one base per world map.
 	// That would makes outposts possible but also potentially ugly weird claims messing up your Dynmap and ingame experiance.
 	public boolean claimsMustBeConnected = true;
+
+	// Must claims be connected to each other enforced strictly?
+	// If this is enabled there is also done a check on
+	// unclaim which makes sure you can't make two different bases by unclaiming land.
+	public boolean claimsMustBeConnectedStrict = false;
 	
 	// Would you like to allow unconnected claims when conquering land from another faction?
 	// Setting this to true would allow taking over someone elses base even if claims normally have to be connected.
