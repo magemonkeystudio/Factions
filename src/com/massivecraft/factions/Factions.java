@@ -66,6 +66,7 @@ import com.massivecraft.factions.entity.migrator.MigratorMPlayer001Ranks;
 import com.massivecraft.factions.entity.migrator.MigratorMPlayer002UsingAdminMode;
 import com.massivecraft.factions.entity.migrator.MigratorTerritoryAccess001Restructure;
 import com.massivecraft.factions.event.EventFactionsChunkChangeType;
+import com.massivecraft.factions.integration.dynmap.IntegrationDynmap;
 import com.massivecraft.factions.integration.lwc.IntegrationLwc;
 import com.massivecraft.factions.integration.placeholderapi.IntegrationPlaceholderAPI;
 import com.massivecraft.factions.integration.venturechat.IntegrationVentureChat;
@@ -195,7 +196,8 @@ public class Factions extends MassivePlugin
 			IntegrationPlaceholderAPI.class,
 			IntegrationVentureChat.class,
 			IntegrationLwc.class,
-			IntegrationWorldGuard.class
+			IntegrationWorldGuard.class,
+			IntegrationDynmap.class
 		);
 	}
 

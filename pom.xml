@@ -69,6 +69,11 @@
           <groupId>mineverse.Aust1n46.chat</groupId>
           <artifactId>MineverseChat</artifactId>
         </dependency>
+        <!-- Dynmap -->
+        <dependency>
+          <groupId>us.dynmap</groupId>
+          <artifactId>dynmap</artifactId>
+        </dependency>
     </dependencies>
 
     <!-- Build -->
