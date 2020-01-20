@@ -224,7 +224,7 @@ public class EngineChunkChange extends Engine
 				List<Collection<PS>> forestsAfter = BoardColl.getForests(pssAfter);
 				if (forestsAfter.size() > forestsBefore.size())
 				{
-					mplayer.msg("<b>Claims must be connected. You can't make them unconnected by unclaiming.");
+					mplayer.msg("<b>Claims must be connected. You can't make them disconnected by unclaiming.");
 					event.setCancelled(true);
 					return;
 				}
