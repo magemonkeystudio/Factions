@@ -323,7 +323,8 @@ public class Econ
 		}
 		else if (from != null)
 		{
-			Money.despawn(from, by, amount);
+			boolean temp = Money.despawn(from, by, amount);
+			if (temp == false) return temp;
 		}
 
 		// Handle to
