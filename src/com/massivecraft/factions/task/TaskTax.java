@@ -95,10 +95,10 @@ public class TaskTax extends Task
 			.filter(e -> e.getValue() != 0D)
 			.collect(Collectors.toList());
 
-		String debug = taxes.stream()
+		/*String debug = taxes.stream()
 			.map(c -> c.getFirst().getName() + ": " + c.getSecond())
 			.reduce((s1, s2) -> s1 + "\n" + s2).orElse("No players pay tax.");
-		MixinMessage.get().messageAll(debug);
+		MixinMessage.get().messageAll(debug);*/
 
 		// Pay the highest taxes first.
 		// That way taxes are collected before wages are given.
