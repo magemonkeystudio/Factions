@@ -62,6 +62,7 @@ import com.massivecraft.factions.entity.migrator.MigratorMConf003CleanInactivity
 import com.massivecraft.factions.entity.migrator.MigratorMConf004Rank;
 import com.massivecraft.factions.entity.migrator.MigratorMConf005Warps;
 import com.massivecraft.factions.entity.migrator.MigratorMPerm001Warps;
+import com.massivecraft.factions.entity.migrator.MigratorMPerm002MoveStandard;
 import com.massivecraft.factions.entity.migrator.MigratorMPlayer001Ranks;
 import com.massivecraft.factions.entity.migrator.MigratorMPlayer002UsingAdminMode;
 import com.massivecraft.factions.entity.migrator.MigratorTerritoryAccess001Restructure;
@@ -154,6 +155,7 @@ public class Factions extends MassivePlugin
 			MigratorMConf004Rank.class,
 			MigratorMConf005Warps.class,
 			MigratorMPerm001Warps.class,
+			MigratorMPerm002MoveStandard.class,
 			MigratorMPlayer001Ranks.class,
 			MigratorMPlayer002UsingAdminMode.class,
 			MigratorTerritoryAccess001Restructure.class

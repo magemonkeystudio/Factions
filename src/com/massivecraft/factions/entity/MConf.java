@@ -543,7 +543,42 @@ public class MConf extends Entity<MConf>
 
 	// How often should the task be run?
 	public long taxTaskPeriodMillis = TimeUnit.MILLIS_PER_DAY;
+	
+	// -------------------------------------------- //
+	// PERMISSIONS
+	// -------------------------------------------- //
+	
+	public Map<String, Set<String>> perm2default = MUtil.map(
+		MPerm.ID_BUILD, MUtil.set("LEADER", "OFFICER", "MEMBER"),
+		MPerm.ID_PAINBUILD, MUtil.set(),
+		MPerm.ID_DOOR, MUtil.set("LEADER", "OFFICER", "MEMBER", "RECRUIT", "ALLY"),
+		MPerm.ID_BUTTON, MUtil.set("LEADER", "OFFICER", "MEMBER", "RECRUIT", "ALLY"),
+		MPerm.ID_LEVER, MUtil.set("LEADER", "OFFICER", "MEMBER", "RECRUIT", "ALLY"),
+		MPerm.ID_CONTAINER, MUtil.set("LEADER", "OFFICER", "MEMBER"),
 
+		MPerm.ID_NAME, MUtil.set("LEADER"),
+		MPerm.ID_DESC, MUtil.set("LEADER", "OFFICER"),
+		MPerm.ID_MOTD, MUtil.set("LEADER", "OFFICER"),
+		MPerm.ID_INVITE, MUtil.set("LEADER", "OFFICER"),
+		MPerm.ID_KICK, MUtil.set("LEADER", "OFFICER"),
+		MPerm.ID_RANK, MUtil.set("LEADER", "OFFICER"),
+		MPerm.ID_TITLE, MUtil.set("LEADER", "OFFICER"),
+		MPerm.ID_WARP, MUtil.set("LEADER", "OFFICER", "MEMBER", "RECRUIT", "ALLY"),
+		MPerm.ID_SETWARP, MUtil.set("LEADER", "OFFICER"),
+		MPerm.ID_DEPOSIT, MUtil.set("LEADER", "OFFICER", "MEMBER", "RECRUIT", "ALLY", "TRUCE", "NEUTRAL", "ENEMY"),
+		MPerm.ID_WITHDRAW, MUtil.set("LEADER"),
+		MPerm.ID_TERRITORY, MUtil.set("LEADER", "OFFICER"),
+		MPerm.ID_ACCESS, MUtil.set("LEADER", "OFFICER"),
+		MPerm.ID_VOTE, MUtil.set("LEADER", "OFFICER", "MEMBER", "RECRUIT"),
+		MPerm.ID_CREATEVOTE, MUtil.set("LEADER", "OFFICER"),
+		MPerm.ID_CLAIMNEAR, MUtil.set("LEADER", "OFFICER", "MEMBER", "RECRUIT", "ALLY"),
+		MPerm.ID_TAX, MUtil.set("LEADER"),
+		MPerm.ID_REL, MUtil.set("LEADER", "OFFICER"),
+		MPerm.ID_DISBAND, MUtil.set("LEADER"),
+		MPerm.ID_FLAGS, MUtil.set("LEADER"),
+		MPerm.ID_PERMS, MUtil.set("LEADER")
+	);
+	
 	// -------------------------------------------- //
 	// ENUMERATIONS
 	// -------------------------------------------- //

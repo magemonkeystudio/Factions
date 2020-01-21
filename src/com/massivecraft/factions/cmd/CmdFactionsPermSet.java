@@ -4,6 +4,7 @@ import com.massivecraft.factions.cmd.type.TypeFaction;
 import com.massivecraft.factions.cmd.type.TypeMPerm;
 import com.massivecraft.factions.cmd.type.TypeMPermable;
 import com.massivecraft.factions.entity.Faction;
+import com.massivecraft.factions.entity.MConf;
 import com.massivecraft.factions.entity.MPerm;
 import com.massivecraft.factions.event.EventFactionsPermChange;
 import com.massivecraft.massivecore.MassiveException;
@@ -69,7 +70,7 @@ public class CmdFactionsPermSet extends FactionsCommand
 		}
 		
 		// The following is to make sure the leader always has the right to change perms if that is our goal.
-		if (perm == MPerm.getPermPerms() && MPerm.getPermPerms().getStandard().contains("LEADER"))
+		if (perm == MPerm.getPermPerms() && MConf.get().perm2default.get(MPerm.ID_PERMS).contains("LEADER"))
 		{
 			faction.setPermitted( faction.getLeaderRank(), MPerm.getPermPerms(), true);
 		}

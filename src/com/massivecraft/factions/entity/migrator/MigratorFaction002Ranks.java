@@ -4,6 +4,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.massivecraft.factions.entity.Faction;
+import com.massivecraft.factions.entity.MConf;
 import com.massivecraft.factions.entity.MPerm;
 import com.massivecraft.factions.entity.Rank;
 import com.massivecraft.massivecore.MassiveCore;
@@ -68,7 +69,10 @@ public class MigratorFaction002Ranks extends MigratorRoot
 		Map<String, Set<String>> ret = new MassiveMap<>();
 		for (MPerm mperm : MPerm.getAll())
 		{
-			Set<String> value = new MassiveSet<>(mperm.getStandard());
+			// This should work since MConf and MPerm is loaded /before/ Factions
+			//Set<String> value = new MassiveSet<>(mperm.getStandard());
+			Set<String> value = new MassiveSet<>(MConf.get().perm2default.get(mperm.getId()));
+
 			if (value.remove("LEADER")) value.add(leaderId);
 			if (value.remove("OFFICER")) value.add(officerId);
 			if (value.remove("MEMBER")) value.add(memberId);

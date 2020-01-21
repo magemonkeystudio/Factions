@@ -803,7 +803,8 @@ public class Faction extends Entity<Faction> implements FactionsParticipator, MP
 		for (MPerm mperm : MPerm.getAll())
 		{
 			String id = mperm.getId();
-			MassiveSet<String> value = new MassiveSet<>(mperm.getStandard());
+
+			MassiveSet<String> value = new MassiveSet<>(MConf.get().perm2default.get(id));
 
 			if (value.remove("LEADER") && leaderId.isPresent()) value.add(leaderId.get());
 			if (value.remove("OFFICER") && officerId.isPresent()) value.add(officerId.get());

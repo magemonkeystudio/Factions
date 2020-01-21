@@ -11,13 +11,11 @@ import com.massivecraft.massivecore.Named;
 import com.massivecraft.massivecore.Prioritized;
 import com.massivecraft.massivecore.Registerable;
 import com.massivecraft.massivecore.collections.MassiveList;
-import com.massivecraft.massivecore.collections.MassiveSet;
 import com.massivecraft.massivecore.comparator.ComparatorSmart;
 import com.massivecraft.massivecore.predicate.PredicateIsRegistered;
 import com.massivecraft.massivecore.ps.PS;
 import com.massivecraft.massivecore.store.Entity;
 import com.massivecraft.massivecore.util.IdUtil;
-import com.massivecraft.massivecore.util.MUtil;
 import com.massivecraft.massivecore.util.Txt;
 import org.bukkit.entity.Player;
 
@@ -148,36 +146,36 @@ public class MPerm extends Entity<MPerm> implements Prioritized, Registerable, N
 		getPermPerms();
 	}
 	
-	public static MPerm getPermBuild() { return getCreative(PRIORITY_BUILD, ID_BUILD, ID_BUILD, "edit the terrain", MUtil.set("LEADER", "OFFICER", "MEMBER"), true, true, true); }
-	public static MPerm getPermPainbuild() { return getCreative(PRIORITY_PAINBUILD, ID_PAINBUILD, ID_PAINBUILD, "edit, take damage", new MassiveSet<>(), true, true, true); }
-	public static MPerm getPermDoor() { return getCreative(PRIORITY_DOOR, ID_DOOR, ID_DOOR, "use doors", MUtil.set("LEADER", "OFFICER", "MEMBER", "RECRUIT", "ALLY"), true, true, true); }
-	public static MPerm getPermButton() { return getCreative(PRIORITY_BUTTON, ID_BUTTON, ID_BUTTON, "use stone buttons", MUtil.set("LEADER", "OFFICER", "MEMBER", "RECRUIT", "ALLY"), true, true, true); }
-	public static MPerm getPermLever() { return getCreative(PRIORITY_LEVER, ID_LEVER, ID_LEVER, "use levers", MUtil.set("LEADER", "OFFICER", "MEMBER", "RECRUIT", "ALLY"), true, true, true); }
-	public static MPerm getPermContainer() { return getCreative(PRIORITY_CONTAINER, ID_CONTAINER, ID_CONTAINER, "use containers", MUtil.set("LEADER", "OFFICER", "MEMBER"), true, true, true); }
+	public static MPerm getPermBuild() { return getCreative(PRIORITY_BUILD, ID_BUILD, ID_BUILD, "edit the terrain", true, true, true); }
+	public static MPerm getPermPainbuild() { return getCreative(PRIORITY_PAINBUILD, ID_PAINBUILD, ID_PAINBUILD, "edit, take damage", true, true, true); }
+	public static MPerm getPermDoor() { return getCreative(PRIORITY_DOOR, ID_DOOR, ID_DOOR, "use doors", true, true, true); }
+	public static MPerm getPermButton() { return getCreative(PRIORITY_BUTTON, ID_BUTTON, ID_BUTTON, "use stone buttons", true, true, true); }
+	public static MPerm getPermLever() { return getCreative(PRIORITY_LEVER, ID_LEVER, ID_LEVER, "use levers", true, true, true); }
+	public static MPerm getPermContainer() { return getCreative(PRIORITY_CONTAINER, ID_CONTAINER, ID_CONTAINER, "use containers", true, true, true); }
 	
-	public static MPerm getPermName() { return getCreative(PRIORITY_NAME, ID_NAME, ID_NAME, "set name", MUtil.set("LEADER"), false, true, true); }
-	public static MPerm getPermDesc() { return getCreative(PRIORITY_DESC, ID_DESC, ID_DESC, "set description", MUtil.set("LEADER", "OFFICER"), false, true, true); }
-	public static MPerm getPermMotd() { return getCreative(PRIORITY_MOTD, ID_MOTD, ID_MOTD, "set motd", MUtil.set("LEADER", "OFFICER"), false, true, true); }
-	public static MPerm getPermInvite() { return getCreative(PRIORITY_INVITE, ID_INVITE, ID_INVITE, "invite players", MUtil.set("LEADER", "OFFICER"), false, true, true); }
-	public static MPerm getPermKick() { return getCreative(PRIORITY_KICK, ID_KICK, ID_KICK, "kick members", MUtil.set("LEADER", "OFFICER"), false, true, true); }
-	public static MPerm getPermRank() { return getCreative(PRIORITY_RANK, ID_RANK, ID_RANK, "change ranks", MUtil.set("LEADER", "OFFICER"), false, true, true); }
-	public static MPerm getPermTitle() { return getCreative(PRIORITY_TITLE, ID_TITLE, ID_TITLE, "set titles", MUtil.set("LEADER", "OFFICER"), false, true, true); }
-	public static MPerm getPermWarp() { return getCreative(PRIORITY_WARP, ID_WARP, ID_WARP, "teleport to warp", MUtil.set("LEADER", "OFFICER", "MEMBER", "RECRUIT", "ALLY"), false, true, true); }
-	public static MPerm getPermSetwarp() { return getCreative(PRIORITY_SETWARP, ID_SETWARP, ID_SETWARP, "set warps", MUtil.set("LEADER", "OFFICER"), false, true, true); }
-	public static MPerm getPermDeposit() { return getCreative(PRIORITY_DEPOSIT, ID_DEPOSIT, ID_DEPOSIT, "deposit money", MUtil.set("LEADER", "OFFICER", "MEMBER", "RECRUIT", "ALLY", "TRUCE", "NEUTRAL", "ENEMY"), false, false, false); } // non editable, non visible.
-	public static MPerm getPermWithdraw() { return getCreative(PRIORITY_WITHDRAW, ID_WITHDRAW, ID_WITHDRAW, "withdraw money", MUtil.set("LEADER"), false, true, true); }
-	public static MPerm getPermTerritory() { return getCreative(PRIORITY_TERRITORY, ID_TERRITORY, ID_TERRITORY, "claim or unclaim", MUtil.set("LEADER", "OFFICER"), false, true, true); }
-	public static MPerm getPermAccess() { return getCreative(PRIORITY_ACCESS, ID_ACCESS, ID_ACCESS, "grant territory", MUtil.set("LEADER", "OFFICER"), false, true, true); }
-	public static MPerm getPermVote() { return getCreative(PRIORITY_VOTE, ID_VOTE, ID_VOTE, "vote", MUtil.set("LEADER", "OFFICER", "MEMBER", "RECRUIT"), false, true, true); }
-	public static MPerm getPermCreateVote() { return getCreative(PRIORITY_CREATEVOTE, ID_CREATEVOTE, ID_CREATEVOTE, "manage votes", MUtil.set("LEADER", "OFFICER"), false, true, true); }
-	public static MPerm getPermClaimnear() { return getCreative(PRIORITY_CLAIMNEAR, ID_CLAIMNEAR, ID_CLAIMNEAR, "claim nearby", MUtil.set("LEADER", "OFFICER", "MEMBER", "RECRUIT", "ALLY"), false, false, false); } // non editable, non visible.
-	public static MPerm getPermTax() { return getCreative(PRIORITY_TAX, ID_TAX, ID_TAX, "set taxes", MUtil.set("LEADER"), false, true, true); }
-	public static MPerm getPermRel() { return getCreative(PRIORITY_REL, ID_REL, ID_REL, "change relations", MUtil.set("LEADER", "OFFICER"), false, true, true); }
-	public static MPerm getPermDisband() { return getCreative(PRIORITY_DISBAND, ID_DISBAND, ID_DISBAND, "disband the faction", MUtil.set("LEADER"), false, true, true); }
-	public static MPerm getPermFlags() { return getCreative(PRIORITY_FLAGS, ID_FLAGS, ID_FLAGS, "manage flags", MUtil.set("LEADER"), false, true, true); }
-	public static MPerm getPermPerms() { return getCreative(PRIORITY_PERMS, ID_PERMS, ID_PERMS, "manage permissions", MUtil.set("LEADER"), false, true, true); }
+	public static MPerm getPermName() { return getCreative(PRIORITY_NAME, ID_NAME, ID_NAME, "set name", false, true, true); }
+	public static MPerm getPermDesc() { return getCreative(PRIORITY_DESC, ID_DESC, ID_DESC, "set description", false, true, true); }
+	public static MPerm getPermMotd() { return getCreative(PRIORITY_MOTD, ID_MOTD, ID_MOTD, "set motd", false, true, true); }
+	public static MPerm getPermInvite() { return getCreative(PRIORITY_INVITE, ID_INVITE, ID_INVITE, "invite players", false, true, true); }
+	public static MPerm getPermKick() { return getCreative(PRIORITY_KICK, ID_KICK, ID_KICK, "kick members", false, true, true); }
+	public static MPerm getPermRank() { return getCreative(PRIORITY_RANK, ID_RANK, ID_RANK, "change ranks", false, true, true); }
+	public static MPerm getPermTitle() { return getCreative(PRIORITY_TITLE, ID_TITLE, ID_TITLE, "set titles", false, true, true); }
+	public static MPerm getPermWarp() { return getCreative(PRIORITY_WARP, ID_WARP, ID_WARP, "teleport to warp", false, true, true); }
+	public static MPerm getPermSetwarp() { return getCreative(PRIORITY_SETWARP, ID_SETWARP, ID_SETWARP, "set warps", false, true, true); }
+	public static MPerm getPermDeposit() { return getCreative(PRIORITY_DEPOSIT, ID_DEPOSIT, ID_DEPOSIT, "deposit money", false, false, false); } // non editable, non visible.
+	public static MPerm getPermWithdraw() { return getCreative(PRIORITY_WITHDRAW, ID_WITHDRAW, ID_WITHDRAW, "withdraw money", false, true, true); }
+	public static MPerm getPermTerritory() { return getCreative(PRIORITY_TERRITORY, ID_TERRITORY, ID_TERRITORY, "claim or unclaim", false, true, true); }
+	public static MPerm getPermAccess() { return getCreative(PRIORITY_ACCESS, ID_ACCESS, ID_ACCESS, "grant territory", false, true, true); }
+	public static MPerm getPermVote() { return getCreative(PRIORITY_VOTE, ID_VOTE, ID_VOTE, "vote", false, true, true); }
+	public static MPerm getPermCreateVote() { return getCreative(PRIORITY_CREATEVOTE, ID_CREATEVOTE, ID_CREATEVOTE, "manage votes", false, true, true); }
+	public static MPerm getPermClaimnear() { return getCreative(PRIORITY_CLAIMNEAR, ID_CLAIMNEAR, ID_CLAIMNEAR, "claim nearby", false, false, false); } // non editable, non visible.
+	public static MPerm getPermTax() { return getCreative(PRIORITY_TAX, ID_TAX, ID_TAX, "set taxes", false, true, true); }
+	public static MPerm getPermRel() { return getCreative(PRIORITY_REL, ID_REL, ID_REL, "change relations", false, true, true); }
+	public static MPerm getPermDisband() { return getCreative(PRIORITY_DISBAND, ID_DISBAND, ID_DISBAND, "disband the faction", false, true, true); }
+	public static MPerm getPermFlags() { return getCreative(PRIORITY_FLAGS, ID_FLAGS, ID_FLAGS, "manage flags", false, true, true); }
+	public static MPerm getPermPerms() { return getCreative(PRIORITY_PERMS, ID_PERMS, ID_PERMS, "manage permissions", false, true, true); }
 	
-	public static MPerm getCreative(int priority, String id, String name, String desc, Set<String> standard, boolean territory, boolean editable, boolean visible)
+	public static MPerm getCreative(int priority, String id, String name, String desc, boolean territory, boolean editable, boolean visible)
 	{
 		MPerm ret = MPermColl.get().get(id, false);
 		if (ret != null)
@@ -186,7 +184,7 @@ public class MPerm extends Entity<MPerm> implements Prioritized, Registerable, N
 			return ret;
 		}
 		
-		ret = new MPerm(priority, name, desc, standard, territory, editable, visible);
+		ret = new MPerm(priority, name, desc, territory, editable, visible);
 		MPermColl.get().attach(ret, id);
 		ret.setRegistered(true);
 		ret.sync();
@@ -201,14 +199,14 @@ public class MPerm extends Entity<MPerm> implements Prioritized, Registerable, N
 	@Override
 	public MPerm load(MPerm that)
 	{
+		//System.out.println("Loading MPerm");
 		this.priority = that.priority;
 		this.name = that.name;
 		this.desc = that.desc;
-		this.standard = that.standard;
 		this.territory = that.territory;
 		this.editable = that.editable;
 		this.visible = that.visible;
-		
+
 		return this;
 	}
 	
@@ -224,7 +222,7 @@ public class MPerm extends Entity<MPerm> implements Prioritized, Registerable, N
 	// VERSION
 	// -------------------------------------------- //
 
-	public int version = 1;
+	public int version = 2;
 
 	// -------------------------------------------- //
 	// FIELDS
@@ -258,10 +256,10 @@ public class MPerm extends Entity<MPerm> implements Prioritized, Registerable, N
 	// What is the standard (aka default) perm value?
 	// This value will be set for factions from the beginning.
 	// Example: ... set of relations ...
-	@Deprecated
-	private Set<String> standard = new MassiveSet<>();
-	@Deprecated public Set<String> getStandard() { return this.standard; }
-	@Deprecated public MPerm setStandard(Set<String> standard) { this.standard = standard; this.changed(); return this; }
+	//@Deprecated
+	//private Set<String> standard = null;
+	//@Deprecated public Set<String> getStandard() { return this.standard; }
+	//@Deprecated public MPerm setStandard(Set<String> standard) { this.standard = standard; this.changed(); return this; }
 	
 	// Is this a territory perm meaning it has to do with territory construction, modification or interaction?
 	// True Examples: build, container, door, lever etc.
@@ -299,12 +297,11 @@ public class MPerm extends Entity<MPerm> implements Prioritized, Registerable, N
 		// No argument constructor for GSON
 	}
 	
-	public MPerm(int priority, String name, String desc, Set<String> standard, boolean territory, boolean editable, boolean visible)
+	public MPerm(int priority, String name, String desc, boolean territory, boolean editable, boolean visible)
 	{
 		this.priority = priority;
 		this.name = name;
 		this.desc = desc;
-		this.standard = standard;
 		this.territory = territory;
 		this.editable = editable;
 		this.visible = visible;
