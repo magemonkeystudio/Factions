@@ -94,13 +94,6 @@ public class MConf extends Entity<MConf>
 	public Set<String> playersWhoBypassAllProtection = new MassiveSet<>();
 	
 	// -------------------------------------------- //
-	// TASKS
-	// -------------------------------------------- //
-	
-	// Define the time in minutes between certain Factions system tasks is ran.
-	public double taskEconLandRewardMinutes = 20;
-	
-	// -------------------------------------------- //
 	// REMOVE DATA
 	// -------------------------------------------- //
 	
