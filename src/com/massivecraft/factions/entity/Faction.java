@@ -540,15 +540,10 @@ public class Faction extends Entity<Faction> implements FactionsParticipator, MP
 	private EntityInternalMap<Rank> createRankMap()
 	{
 		EntityInternalMap<Rank> ret = new EntityInternalMap<>(this, Rank.class);
-		Rank leader = new Rank("Leader", 400, "**");
-		Rank officer = new Rank("Officer", 300, "*");
-		Rank member = new Rank("Member", 200, "+");
-		Rank recruit = new Rank("Recruit", 100, "-");
 
-		ret.attach(leader);
-		ret.attach(officer);
-		ret.attach(member);
-		ret.attach(recruit);
+		MConf.get().defaultRanks.stream()
+			.map(Rank::copy)
+			.forEach(ret::attach);
 
 		return ret;
 	}
@@ -794,29 +789,37 @@ public class Faction extends Entity<Faction> implements FactionsParticipator, MP
 	public Map<String, Set<String>> createNewPermMap()
 	{
 		Map<String, Set<String>> ret = new MassiveMap<>();
-
-		Optional<String> leaderId = this.getRanks().getAll().stream().filter(r -> r.getName().equalsIgnoreCase("leader")).map(Rank::getId).findFirst();
-		Optional<String> officerId = this.getRanks().getAll().stream().filter(r -> r.getName().equalsIgnoreCase("officer")).map(Rank::getId).findFirst();
-		Optional<String> memberId = this.getRanks().getAll().stream().filter(r -> r.getName().equalsIgnoreCase("member")).map(Rank::getId).findFirst();
-		Optional<String> recruitId = this.getRanks().getAll().stream().filter(r -> r.getName().equalsIgnoreCase("recruit")).map(Rank::getId).findAny();
-
 		for (MPerm mperm : MPerm.getAll())
 		{
-			String id = mperm.getId();
+			Set<String> granteds = mperm2granteds(mperm);
 
-			MassiveSet<String> value = new MassiveSet<>(MConf.get().perm2default.get(id));
-
-			if (value.remove("LEADER") && leaderId.isPresent()) value.add(leaderId.get());
-			if (value.remove("OFFICER") && officerId.isPresent()) value.add(officerId.get());
-			if (value.remove("MEMBER") && memberId.isPresent()) value.add(memberId.get());
-			if (value.remove("RECRUIT") && recruitId.isPresent()) value.add(recruitId.get());
-
-			ret.put(mperm.getId(), value);
+			ret.put(mperm.getId(), granteds);
 		}
-
 		return ret;
 	}
 
+	private Set<String> mperm2granteds(MPerm mperm)
+	{
+		String permId = mperm.getId();
+		Set<String> value = new MassiveSet<>(MConf.get().perm2default.get(permId));
+		Set<String> additions = new MassiveSet<>();
+		outer:
+		for (Iterator<String> it = value.iterator(); it.hasNext();)
+		{
+			String granted = it.next();
+			for (Rank rank : this.getRanks().getAll())
+			{
+				if (granted.equalsIgnoreCase(rank.getName()))
+				{
+					it.remove();
+					additions.add(rank.getId());
+					continue outer;
+				}
+			}
+		}
+		value.addAll(additions);
+		return value;
+	}
 
 	// IS PERMITTED
 

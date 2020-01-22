@@ -536,7 +536,19 @@ public class MConf extends Entity<MConf>
 
 	// How often should the task be run?
 	public long taxTaskPeriodMillis = TimeUnit.MILLIS_PER_DAY;
-	
+
+	// -------------------------------------------- //
+	// RANKS
+	// -------------------------------------------- //
+
+	@EditorVisible(false)
+	public List<Rank> defaultRanks = MUtil.list(
+		new Rank("Leader", 400, "**"),
+		new Rank("Officer", 300, "*"),
+		new Rank("Member", 200, "+"),
+		new Rank("Recruit", 100, "-")
+	);
+
 	// -------------------------------------------- //
 	// PERMISSIONS
 	// -------------------------------------------- //

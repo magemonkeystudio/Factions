@@ -75,6 +75,11 @@ public class Rank extends EntityInternal<Rank> implements MPerm.MPermable
 		this.prefix = prefix;
 	}
 
+	public Rank copy()
+	{
+		return new Rank(this.name, this.priority, this.prefix);
+	}
+
 	// -------------------------------------------- //
 	// VISUAL
 	// -------------------------------------------- //
