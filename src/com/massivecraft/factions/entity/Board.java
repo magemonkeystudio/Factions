@@ -170,10 +170,10 @@ public class Board extends Entity<Board> implements BoardInterface
 
 		//Filter out the Null Factions
 		return map.entrySet().stream()
-				.filter(entry->entry.getValue().getHostFaction() != null)
-				.collect(Collectors.groupingBy(
-				entry -> entry.getValue().getHostFaction(), // This specifies how to get the key
-				Collectors.mapping(mapper, Collectors.toSet()) // This maps the entries and puts them in the collection
+			.filter(entry->entry.getValue().getHostFaction() != null)
+			.collect(Collectors.groupingBy(
+			entry -> entry.getValue().getHostFaction(), // This specifies how to get the key
+			Collectors.mapping(mapper, Collectors.toSet()) // This maps the entries and puts them in the collection
 		));
 	}
 
