@@ -42,8 +42,12 @@ public class CmdFactionsMotd extends FactionsCommand
 		// Args
 		String target = this.readArg();
 
-		target = target.trim();
-		target = Txt.parse(target);
+		if(target == null){
+			target = new String();
+		}else {
+			target = target.trim();
+			target = Txt.parse(target);
+		}
 
 		// Get Old
 		String old = msenderFaction.getMotd();
