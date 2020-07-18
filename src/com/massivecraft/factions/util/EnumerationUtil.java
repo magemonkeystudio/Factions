@@ -198,12 +198,12 @@ public class EnumerationUtil
 		"ENDERMITE", // Minecraft 1.8
 		"ENDER_DRAGON", // Minecraft 1.?
 		"EVOKER",
+		"EVOKER_FANGS",
 		"GUARDIAN", // Minecraft 1.8
 		"GHAST", // Minecraft 1.?
 		"GIANT", // Minecraft 1.?
 		"HUSK",
 		"MAGMA_CUBE", // Minecraft 1.?
-		"PIG_ZOMBIE", // Minecraft 1.?
 		"POLAR_BEAR", // Minecraft 1.10
 		"SILVERFISH", // Minecraft 1.?
 		"SHULKER", // Minecraft 1.10
@@ -224,7 +224,11 @@ public class EnumerationUtil
 		"DOLPHIN", // Minecraft 1.13
 		"DROWNED", // Minecraft 1.13
 		"PILLAGER", // Minecraft 1.14
-		"RAVAGER" // Minercraft 1.14
+		"RAVAGER", // Minercraft 1.14
+		"PIG_ZOMBIE", // Minecraft 1.? . Changed name to ZOMBIFIED_PIGLIN, kept for backwards compatibility
+		"ZOMBIFIED_PIGLIN", //Minecraft 1.16
+		"HOGLIN",
+		"ZOGLIN"
 	);
 	
 	public static boolean isEntityTypeMonster(EntityType entityType)
@@ -263,7 +267,8 @@ public class EnumerationUtil
 		"FOX", // Minecraft 1.14
 		"PANDA", // Minecraft 1.14
 		"LLAMA", // Minecraft 1.14
-		"LLAMA_SPIT" // Minecraft 1.14
+		"LLAMA_SPIT", // Minecraft 1.14
+		"STRIDER"
 	);
 	
 	public static boolean isEntityTypeAnimal(EntityType entityType)
