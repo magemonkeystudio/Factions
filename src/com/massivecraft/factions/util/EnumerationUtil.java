@@ -228,7 +228,8 @@ public class EnumerationUtil
 		"PIG_ZOMBIE", // Minecraft 1.? . Changed name to ZOMBIFIED_PIGLIN, kept for backwards compatibility
 		"ZOMBIFIED_PIGLIN", //Minecraft 1.16
 		"HOGLIN",
-		"ZOGLIN"
+		"ZOGLIN",
+		"PIGLIN_BRUTE"
 	);
 	
 	public static boolean isEntityTypeMonster(EntityType entityType)
@@ -268,6 +269,7 @@ public class EnumerationUtil
 		"PANDA", // Minecraft 1.14
 		"LLAMA", // Minecraft 1.14
 		"LLAMA_SPIT", // Minecraft 1.14
+		"BEE",
 		"STRIDER"
 	);
 	
