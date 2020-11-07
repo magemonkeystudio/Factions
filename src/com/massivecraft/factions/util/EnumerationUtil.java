@@ -68,24 +68,32 @@ public class EnumerationUtil
 	
 	// Interacting with these materials placed in the terrain results in door toggling.
 	public static final BackstringSet<Material> MATERIALS_DOOR = new BackstringSet<>(Material.class,
-		"OAK_DOOR",
-		"OAK_TRAPDOOR",
-		"OAK_FENCE_GATE",
 		"ACACIA_DOOR",
-		"ACACIA_TRAPDOOR",
 		"ACACIA_FENCE_GATE",
+		"ACACIA_TRAPDOOR",
 		"BIRCH_DOOR",
-		"BIRCH_TRAPDOOR",
 		"BIRCH_FENCE_GATE",
+		"BIRCH_TRAPDOOR",
+		"CRIMSON_DOOR",
+		"CRIMSON_FENCE_GATE",
+		"CRIMSON_TRAPDOOR",
 		"DARK_OAK_DOOR",
-		"DARK_OAK_TRAPDOOR",
 		"DARK_OAK_FENCE_GATE",
+		"DARK_OAK_TRAPDOOR",
+		"IRON_DOOR",
+		"IRON_TRAPDOOR",
 		"JUNGLE_DOOR",
-		"JUNGLE_TRAPDOOR",
 		"JUNGLE_FENCE_GATE",
+		"JUNGLE_TRAPDOOR",
+		"OAK_DOOR",
+		"OAK_FENCE_GATE",
+		"OAK_TRAPDOOR",
 		"SPRUCE_DOOR",
+		"SPRUCE_FENCE_GATE",
 		"SPRUCE_TRAPDOOR",
-		"SPRUCE_FENCE_GATE"
+		"WARPED_DOOR",
+		"WARPED_FENCE_GATE",
+		"WARPED_TRAPDOOR"
 	);
 	
 	public static boolean isMaterialDoor(Material material)
