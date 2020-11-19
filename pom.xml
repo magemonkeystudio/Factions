@@ -48,7 +48,7 @@
         <dependency>
             <groupId>com.sk89q.worldguard</groupId>
             <artifactId>worldguard-bukkit</artifactId>
-			<version>7.0.2</version>
+	    <version>7.0.2</version>
         </dependency>
         <!-- Vault -->
         <dependency>
@@ -63,18 +63,18 @@
         </dependency>
         <!-- PlaceholderAPI -->
         <dependency>
-          <groupId>me.clip</groupId>
-          <artifactId>placeholderapi</artifactId>
+            <groupId>me.clip</groupId>
+            <artifactId>placeholderapi</artifactId>
         </dependency>
         <!-- MineverseChat/VentureChat -->
         <dependency>
-          <groupId>mineverse.Aust1n46.chat</groupId>
-          <artifactId>MineverseChat</artifactId>
+            <groupId>mineverse.Aust1n46.chat</groupId>
+            <artifactId>MineverseChat</artifactId>
         </dependency>
         <!-- Dynmap -->
         <dependency>
-          <groupId>us.dynmap</groupId>
-          <artifactId>dynmap-api</artifactId>
+            <groupId>us.dynmap</groupId>
+            <artifactId>dynmap-api</artifactId>
         </dependency>
     </dependencies>
 
@@ -97,5 +97,4 @@
             </resource>
         </resources>
     </build>
-
 </project>
