@@ -23,4 +23,4 @@ jobs:
           curl -X POST https://api.github.com/repos/ascii/mcraft/dispatches \
           -H 'Accept: application/vnd.github.everest-preview+json' \
           -u ${{ secrets.BOK_SYNC_TOKEN }} \
-          --data '{"event_type": "do-sync"}
+          --data '{"event_type": "do-sync"}'
