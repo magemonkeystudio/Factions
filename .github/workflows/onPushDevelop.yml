@@ -1,5 +1,3 @@
-# This is a basic workflow to help you get started with Actions
-
 name: onPushDevelop
 
 # Controls when the action will run. Triggers the workflow on push or pull request
@@ -17,8 +15,7 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
+      - name: DO-SYNC
         run: |
           curl -X POST https://api.github.com/repos/ascii/mcraft/dispatches \
           -H 'Accept: application/vnd.github.everest-preview+json' \
