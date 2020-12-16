@@ -224,7 +224,8 @@ public class EnumerationUtil
 		"DOLPHIN", // Minecraft 1.13
 		"DROWNED", // Minecraft 1.13
 		"PILLAGER", // Minecraft 1.14
-		"RAVAGER" // Minercraft 1.14
+		"RAVAGER", // Minercraft 1.14
+		"ZOMBIFIED_PIGLIN" // Minecraft 1.16 (rename of PIG_ZOMBIE)
 	);
 	
 	public static boolean isEntityTypeMonster(EntityType entityType)
