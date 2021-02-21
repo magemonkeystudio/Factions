@@ -46,6 +46,7 @@ public class CmdFactions extends FactionsCommand
 	public CmdFactionsClaim cmdFactionsClaim = new CmdFactionsClaim();
 	public CmdFactionsUnclaim cmdFactionsUnclaim = new CmdFactionsUnclaim();
 	public CmdFactionsAccess cmdFactionsAccess = new CmdFactionsAccess();
+	public CmdFactionsChunkname cmdFactionsChunkname = new CmdFactionsChunkname();
 	public CmdFactionsRelation cmdFactionsRelation = new CmdFactionsRelation();
 	public CmdFactionsRelationOld cmdFactionsRelationOldAlly = new CmdFactionsRelationOld("ally");
 	public CmdFactionsRelationOld cmdFactionsRelationOldTruce = new CmdFactionsRelationOld("truce");
