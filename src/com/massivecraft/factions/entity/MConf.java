@@ -258,7 +258,10 @@ public class MConf extends Entity<MConf>
 	// It's usually a wise idea keeping this true.
 	// Otherwise players can set their warps inside enemy territory.
 	public boolean warpsMustBeInClaimedTerritory = true;
-	
+
+	// And what faction warp should be used when a player types /f home
+	public String warpsHomeName = "home";
+
 	// These options can be used to limit rights to warp under different circumstances.
 	public boolean warpsTeleportAllowedFromEnemyTerritory = true;
 	public boolean warpsTeleportAllowedFromDifferentWorld = true;
