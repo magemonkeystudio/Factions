@@ -29,6 +29,8 @@ public class CmdFactions extends FactionsCommand
 	public CmdFactionsLeave cmdFactionsLeave = new CmdFactionsLeave();
 	public CmdFactionsWarp cmdFactionsWarp = new CmdFactionsWarp();
 	public CmdFactionsHome cmdFactionsHome = new CmdFactionsHome();
+	public CmdFactionsSethome cmdFactionsSethome = new CmdFactionsSethome();
+	public CmdFactionsUnsethome cmdFactionsUnsethome = new CmdFactionsUnsethome();
 	public CmdFactionsVote cmdFactionsVote = new CmdFactionsVote();
 	public CmdFactionsMap cmdFactionsMap = new CmdFactionsMap();
 	public CmdFactionsCreate cmdFactionsCreate = new CmdFactionsCreate();
@@ -79,8 +81,6 @@ public class CmdFactions extends FactionsCommand
 
 		// Deprecated Commands
 		this.addChild(new MassiveCommandDeprecated(this.cmdFactionsRank, "leader", "owner", "officer", "moderator", "coleader"));
-		this.addChild(new MassiveCommandDeprecated(this.cmdFactionsWarp.cmdFactionWarpAdd, "sethome"));
-		this.addChild(new MassiveCommandDeprecated(this.cmdFactionsWarp.cmdFactionWarpRemove, "unsethome"));
 	}
 	
 	// -------------------------------------------- //
