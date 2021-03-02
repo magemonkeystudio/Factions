@@ -269,7 +269,7 @@ public class MConf extends Entity<MConf>
 	// Set this to true to override the default respawn location.
 	public boolean warpsTeleportToOnDeathActive = false;
 
-	// And waht faction warp should it be? It must have a specific name.
+	// And what faction warp should it be? It must have a specific name.
 	public String warpsTeleportToOnDeathName = "home";
 	
 	// This value can be used to tweak compatibility with other plugins altering the respawn location.
@@ -686,7 +686,6 @@ public class MConf extends Entity<MConf>
 	public double econCostCreate = 100.0;
 	
 	// And so on and so forth ... you get the idea.
-	@Deprecated public double econCostSethome = 0.0;
 	public double econCostWarpAdd = 0.0;
 	public double econCostWarpRemove = 0.0;
 	public double econCostJoin = 0.0;
@@ -694,7 +693,6 @@ public class MConf extends Entity<MConf>
 	public double econCostKick = 0.0;
 	public double econCostInvite = 0.0;
 	public double econCostDeinvite = 0.0;
-	@Deprecated public double econCostHome = 0.0;
 	public double econCostWarpGo = 0.0;
 	public double econCostName = 0.0;
 	public double econCostDescription = 0.0;
