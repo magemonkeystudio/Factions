@@ -40,7 +40,7 @@ public enum Rel implements Colorized, Named, MPerm.MPermable
 			"your faction", "your faction", "your faction", "your faction",
 			"Faction"
 	) { @Override public ChatColor getColor() { return MConf.get().colorMember; } },
-	
+
 	// END OF LIST
 	;
 	
