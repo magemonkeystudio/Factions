@@ -215,6 +215,10 @@ public class MConf extends Entity<MConf>
 	// Is claiming from other factions even allowed?
 	// Set this to false to disable territorial warfare altogether.
 	public boolean claimingFromOthersAllowed = true;
+
+	// Is it required for factions to have an inflated land/power ratio in order to have their land conquered by another faction?
+ 	// Set this to false to allow factions to invade each other without requiring them to have an inflated land/power ratio..
+	public boolean claimingFromOthersMustBeInflated = true;
 	
 	// Is a minimum distance (measured in chunks) to other factions required?
 	// 0 means the feature is disabled.

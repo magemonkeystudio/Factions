@@ -262,7 +262,7 @@ public class EngineChunkChange extends Engine
 			}
 
 			// ... the old faction might not be inflated enough ...
-			if (oldFaction.getPowerRounded() > oldFaction.getLandCount() - oldChunks.size())
+			if (oldFaction.getPowerRounded() > oldFaction.getLandCount() - oldChunks.size() && MConf.get().claimingFromOthersMustBeInflated)
 			{
 				mplayer.msg("%s<i> owns this land and is strong enough to keep it.", oldFaction.getName(mplayer));
 				event.setCancelled(true);
