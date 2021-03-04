@@ -253,6 +253,14 @@ public class EngineChunkChange extends Engine
 				return;
 			}
 
+			// ... and they must actually be claiming ...
+			if (newFaction.isNone())
+			{
+				mplayer.msg("<b>You can't unclaim land belonging to others.");
+				event.setCancelled(true);
+				return;
+			}
+
 			// ... the relation may forbid ...
 			if (oldFaction.getRelationTo(newFaction).isAtLeast(Rel.TRUCE))
 			{
