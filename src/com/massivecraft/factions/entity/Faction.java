@@ -76,6 +76,7 @@ public class Faction extends Entity<Faction> implements FactionsParticipator, MP
 		this.setCreatedAtMillis(that.createdAtMillis);
 		this.warps.load(that.warps);
 		this.setPowerBoost(that.powerBoost);
+		this.money = that.money;
 		this.invitations.load(that.invitations);
 		this.ranks.load(that.ranks);
 		this.votes.load(that.votes);
@@ -450,7 +451,7 @@ public class Faction extends Entity<Faction> implements FactionsParticipator, MP
 		if (!MConf.get().econEnabled) throw new UnsupportedOperationException("econ not enabled");
 		if (!MConf.get().bankEnabled) throw new UnsupportedOperationException("bank not enabled");
 		if (!MConf.get().useNewMoneySystem) throw new UnsupportedOperationException("this server does not use the new econ system");
-
+		
 		this.money = this.convertSet(money, this.money, 0D);
 	}
 	
