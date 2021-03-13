@@ -55,9 +55,11 @@ public class CmdFactionsChunkname extends FactionsCommand
 
 		// Args
 		String target = this.readArg();
-
-		target = target.trim();
-		target = Txt.parse(target);
+		if (target != null)
+		{
+			target = target.trim();
+			target = Txt.parse(target);
+		}
 
 		String old = ta.getChunkName();
 
