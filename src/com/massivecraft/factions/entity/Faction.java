@@ -455,32 +455,6 @@ public class Faction extends Entity<Faction> implements FactionsParticipator, MP
 	}
 	
 	// -------------------------------------------- //
-	// FIELD: open
-	// -------------------------------------------- //
-	
-	// Nowadays this is a flag!
-	
-	@Deprecated
-	public boolean isDefaultOpen()
-	{
-		return MFlag.getFlagOpen().isStandard();
-	}
-	
-	@Deprecated
-	public boolean isOpen()
-	{
-		return this.getFlag(MFlag.getFlagOpen());
-	}
-	
-	@Deprecated
-	public void setOpen(Boolean open)
-	{
-		MFlag flag = MFlag.getFlagOpen();
-		if (open == null) open = flag.isStandard();
-		this.setFlag(flag, open);
-	}
-	
-	// -------------------------------------------- //
 	// FIELD: invitations
 	// -------------------------------------------- //
 	
