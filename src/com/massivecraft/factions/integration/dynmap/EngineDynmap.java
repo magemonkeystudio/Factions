@@ -30,6 +30,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -246,33 +247,101 @@ public class EngineDynmap extends Engine
 
 		while (!allChunksSource.isEmpty())
 		{
-			PS somePs = allChunksSource.iterator().next();
+			Iterator<PS> it = allChunksSource.iterator();
+			PS somePs = it.next();
 
+			List<PS> linelist = new MassiveList<>();
 			// Create the polygon
 			Set<PS> polygonChunks = new MassiveSet<>();
 			floodFillTarget(allChunksSource, polygonChunks, somePs);
-			List<PS> linelist = getLineList(polygonChunks);
 
-			// Calc the x and y arrays
-			int sz = linelist.size();
-			double[] x = new double[sz];
-			double[] z = new double[sz];
-
-			int i = 0;
-			for (PS ps : linelist)
+			List<PS> polygonCorners = new MassiveList<>();
+			for (PS chunk : polygonChunks)
 			{
-				x[i] = ps.getLocationX(true);
-				z[i] = ps.getLocationZ(true);
-				i++;
+				for (Direction d : Direction.values())
+				{
+					polygonCorners.add(d.getCorner(chunk));
+				}
+			}
+
+			Set<PS> points = new MassiveSet<>();
+			for (PS corner : polygonCorners)
+			{
+				if (points.contains(corner))
+					points.remove(corner);
+				else
+					points.add(corner);
+			}
+
+			Map<PS, PS> edges_h = new MassiveMap<>();
+			Map<PS, PS> edges_v = new MassiveMap<>();
+
+			List<PS> sorted_x = new MassiveList<>(points);
+			Collections.sort(sorted_x, this::xThenZ);
+			List<PS> sorted_z = new MassiveList<>(points);
+			Collections.sort(sorted_z, this::zThenX);
+
+			// Create horizontal edges
+			for (int i = 0; i < points.size();)
+			{
+				int curr_z = sorted_z.get(i).getChunkZ();
+				while (i < points.size() && curr_z == sorted_z.get(i+1).getChunkZ())
+				{
+					edges_h.put(sorted_z.get(i), sorted_z.get(i+1));
+					edges_h.put(sorted_z.get(i+1), sorted_z.get(i));
+					i += 2;
+				}
+			}
+
+			// Create vertical edges
+			for (int i = 0; i < points.size();)
+			{
+				int curr_x = sorted_x.get(i).getChunkX();
+				while (i < points.size() && curr_x == sorted_x.get(i+1).getChunkX())
+				{
+					edges_v.put(sorted_x.get(i), sorted_x.get(i+1));
+					edges_v.put(sorted_x.get(i+1), sorted_x.get(i));
+					i += 2;
+				}
+			}
+
+			//List<PS> linelist = getLineList(polygonChunks);
+
+
+			linelist = new MassiveList<>(new LinkedHashSet<>(linelist));
+
+			for (Direction d : Direction.values())
+			{
+				linelist.add(d.getCorner(somePs));
 			}
 
 			// Build information for specific area
 			String markerId = calcMarkerId(world, faction);
-			AreaMarkerValues values = new AreaMarkerValues(faction.getName(), world, x, z, description, style);
+			AreaMarkerValues values = new AreaMarkerValues(faction.getName(), world, linelist.toArray(new PS[]{}), description, style);
 			ret.put(markerId, values);
 		}
 		
 		return ret;
+	}
+
+	private int zThenX(PS a, PS b)
+	{
+		if (a.getChunkZ() < b.getChunkZ() || (a.getChunkZ().equals(b.getChunkZ()) && a.getChunkX() < b.getChunkX()))
+			return -1;
+		else if (a.equals(b))
+			return 0;
+		else
+			return 1;
+	}
+
+	private int xThenZ(PS a, PS b)
+	{
+		if (a.getChunkX() < b.getChunkX() || (a.getChunkX().equals(b.getChunkX()) && a.getChunkZ() < b.getChunkZ()))
+			return -1;
+		else if (a.equals(b))
+			return 0;
+		else
+			return 1;
 	}
 
 	private static PS getMinimum(Collection<PS> pss)

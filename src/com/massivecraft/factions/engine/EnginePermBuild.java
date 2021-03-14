@@ -26,12 +26,12 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.block.BlockDamageEvent;
 import org.bukkit.event.block.BlockFromToEvent;
 import org.bukkit.event.block.BlockPistonExtendEvent;
 import org.bukkit.event.block.BlockPistonRetractEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.block.SignChangeEvent;
+import org.bukkit.event.entity.EntityChangeBlockEvent;
 import org.bukkit.event.entity.EntityCombustByEntityEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.hanging.HangingBreakByEntityEvent;
@@ -140,9 +140,6 @@ public class EnginePermBuild extends Engine
 	public void build(BlockBreakEvent event) { build(event.getPlayer(), event.getBlock(), event); }
 
 	@EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
-	public void build(BlockDamageEvent event) { build(event.getPlayer(), event.getBlock(), event); }
-
-	@EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
 	public void build(SignChangeEvent event) { build(event.getPlayer(), event.getBlock(), event); }
 	
 	@EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
@@ -150,6 +147,18 @@ public class EnginePermBuild extends Engine
 	
 	@EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
 	public void build(HangingBreakByEntityEvent event) { build(event.getRemover(), event.getEntity().getLocation().getBlock(), event); }
+
+	@EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
+	public void build(EntityChangeBlockEvent event)
+	{
+		// Handling lilypads being broken by boats
+		Entity entity = event.getEntity();
+		if (entity.getType() != EntityType.BOAT || entity.getPassengers().size() <= 0) return;
+		Entity player = entity.getPassengers().stream().filter(MUtil::isPlayer).findAny().orElse(entity);
+
+		build(player, event.getBlock(), event);
+	}
+
 
 	// -------------------------------------------- //
 	// USE > ITEM

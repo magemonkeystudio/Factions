@@ -1,5 +1,6 @@
 package com.massivecraft.factions.integration.dynmap;
 
+import com.massivecraft.massivecore.ps.PS;
 import com.massivecraft.massivecore.util.MUtil;
 import org.dynmap.markers.AreaMarker;
 import org.dynmap.markers.MarkerAPI;
@@ -13,68 +14,67 @@ public class AreaMarkerValues
 
 	private final String label;
 	public String getLabel() { return label; }
-	public AreaMarkerValues withLabel(String label) { return new AreaMarkerValues(label, world, x, z, description, lineColor, lineOpacity, lineWeight, fillColor, fillOpacity, boost); }
+	public AreaMarkerValues withLabel(String label) { return new AreaMarkerValues(label, world, corners, description, lineColor, lineOpacity, lineWeight, fillColor, fillOpacity, boost); }
 
 	private final String world;
 	public String getWorld() { return world; }
-	public AreaMarkerValues withWorld(String world) { return new AreaMarkerValues(label, world, x, z, description, lineColor, lineOpacity, lineWeight, fillColor, fillOpacity, boost); }
+	public AreaMarkerValues withWorld(String world) { return new AreaMarkerValues(label, world, corners, description, lineColor, lineOpacity, lineWeight, fillColor, fillOpacity, boost); }
 
-	private final double[] x;
-	public double[] getX() { return x; }
-	public AreaMarkerValues withX(double[] x) { return new AreaMarkerValues(label, world, x, z, description, lineColor, lineOpacity, lineWeight, fillColor, fillOpacity, boost); }
-
-	private final double[] z;
-	public double[] getZ() { return z; }
-	public AreaMarkerValues withZ(double[] z) { return new AreaMarkerValues(label, world, x, z, description, lineColor, lineOpacity, lineWeight, fillColor, fillOpacity, boost); }
+	private final PS[] corners;
+	public PS[] getCorners() { return this.corners; }
+	public AreaMarkerValues withCorners() { return new AreaMarkerValues(label, world, corners, description, lineColor, lineOpacity, lineWeight, fillColor, fillOpacity, boost); }
 
 	private final String description;
 	public String getDescription() { return description; }
-	public AreaMarkerValues withDescription(String description) { return new AreaMarkerValues(label, world, x, z, description, lineColor, lineOpacity, lineWeight, fillColor, fillOpacity, boost); }
+	public AreaMarkerValues withDescription(String description) { return new AreaMarkerValues(label, world, corners, description, lineColor, lineOpacity, lineWeight, fillColor, fillOpacity, boost); }
 	
 	private final int lineColor;
 	public int getLineColor() { return lineColor; }
-	public AreaMarkerValues withLineColor(int lineColor) { return new AreaMarkerValues(label, world, x, z, description, lineColor, lineOpacity, lineWeight, fillColor, fillOpacity, boost); }
+	public AreaMarkerValues withLineColor(int lineColor) { return new AreaMarkerValues(label, world, corners, description, lineColor, lineOpacity, lineWeight, fillColor, fillOpacity, boost); }
 
 	private final double lineOpacity;
 	public double getLineOpacity() { return lineOpacity; }
-	public AreaMarkerValues withLineOpacity(double lineOpacity) { return new AreaMarkerValues(label, world, x, z, description, lineColor, lineOpacity, lineWeight, fillColor, fillOpacity, boost); }
+	public AreaMarkerValues withLineOpacity(double lineOpacity) { return new AreaMarkerValues(label, world, corners, description, lineColor, lineOpacity, lineWeight, fillColor, fillOpacity, boost); }
 
 	private final int lineWeight;
 	public int getLineWeight() { return lineWeight; }
-	public AreaMarkerValues withLineWright(int lineWeight) { return new AreaMarkerValues(label, world, x, z, description, lineColor, lineOpacity, lineWeight, fillColor, fillOpacity, boost); }
+	public AreaMarkerValues withLineWright(int lineWeight) { return new AreaMarkerValues(label, world, corners, description, lineColor, lineOpacity, lineWeight, fillColor, fillOpacity, boost); }
 
 	private final int fillColor;
 	public int getFillColor() { return fillColor; }
-	public AreaMarkerValues withFillColor(int fillColor) { return new AreaMarkerValues(label, world, x, z, description, lineColor, lineOpacity, lineWeight, fillColor, fillOpacity, boost); }
+	public AreaMarkerValues withFillColor(int fillColor) { return new AreaMarkerValues(label, world, corners, description, lineColor, lineOpacity, lineWeight, fillColor, fillOpacity, boost); }
 
 	private final double fillOpacity;
 	public double getFillOpacity() { return fillOpacity; }
-	public AreaMarkerValues withFillOpacity(double fillOpacity) { return new AreaMarkerValues(label, world, x, z, description, lineColor, lineOpacity, lineWeight, fillColor, fillOpacity, boost); }
+	public AreaMarkerValues withFillOpacity(double fillOpacity) { return new AreaMarkerValues(label, world, corners, description, lineColor, lineOpacity, lineWeight, fillColor, fillOpacity, boost); }
 	
 	private final boolean boost;
 	public boolean isBoost() { return boost; }
-	public AreaMarkerValues withBoost(boolean boost) { return new AreaMarkerValues(label, world, x, z, description, lineColor, lineOpacity, lineWeight, fillColor, fillOpacity, boost); }
+	public AreaMarkerValues withBoost(boolean boost) { return new AreaMarkerValues(label, world, corners, description, lineColor, lineOpacity, lineWeight, fillColor, fillOpacity, boost); }
 
 	public AreaMarkerValues withStyle(DynmapStyle style)
 	{
-		return new AreaMarkerValues(label, world, x, z, description, style);
+		return new AreaMarkerValues(label, world, corners, description, style);
 	}
+
+	// Caches
+	private final double[] x;
+	private final double[] z;
 
 	// -------------------------------------------- //
 	// CONSTRUCTOR
 	// -------------------------------------------- //
 
-	public AreaMarkerValues(String label, String world, double[] x, double[] z, String description, DynmapStyle style)
+	public AreaMarkerValues(String label, String world, PS[] corners, String description, DynmapStyle style)
 	{
-		this(label, world, x, z, description, style.getLineColor(), style.getLineOpacity(), style.getLineWeight(), style.getFillColor(), style.getFillOpacity(), style.getBoost());
+		this(label, world, corners, description, style.getLineColor(), style.getLineOpacity(), style.getLineWeight(), style.getFillColor(), style.getFillOpacity(), style.getBoost());
 	}
 
-	public AreaMarkerValues(String label, String world, double[] x, double[] z, String description, int lineColor, double lineOpacity, int lineWeight, int fillColor, double fillOpacity, boolean boost)
+	public AreaMarkerValues(String label, String world, PS[] corners, String description, int lineColor, double lineOpacity, int lineWeight, int fillColor, double fillOpacity, boolean boost)
 	{
 		this.label = label;
 		this.world = world;
-		this.x = x;
-		this.z = z;
+		this.corners = corners;
 		this.description = description;
 		this.lineColor = lineColor;
 		this.lineOpacity = lineOpacity;
@@ -82,6 +82,17 @@ public class AreaMarkerValues
 		this.fillColor = fillColor;
 		this.fillOpacity = fillOpacity;
 		this.boost = boost;
+
+		int sz = corners.length;
+		x = new double[sz];
+		z = new double[sz];
+
+		for (int i = 0; i < sz; i++)
+		{
+			PS ps = corners[i];
+			x[i] = ps.getLocationX(true);
+			z[i] = ps.getLocationZ(true);
+		}
 	}
 
 	// -------------------------------------------- //
@@ -120,8 +131,8 @@ public class AreaMarkerValues
 			this.getLabel(),
 			false,
 			this.getWorld(),
-			this.getX(),
-			this.getZ(),
+			this.x,
+			this.z,
 			false // not persistent
 		);
 		
