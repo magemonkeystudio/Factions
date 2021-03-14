@@ -246,12 +246,19 @@ public class EngineDynmap extends Engine
 
 		while (!allChunksSource.isEmpty())
 		{
-			PS somePs = allChunksSource.iterator().next();
+			Iterator<PS> it = allChunksSource.iterator();
+			PS somePs = it.next();
+			it.remove();
 
 			// Create the polygon
-			Set<PS> polygonChunks = new MassiveSet<>();
-			floodFillTarget(allChunksSource, polygonChunks, somePs);
-			List<PS> linelist = getLineList(polygonChunks);
+			//Set<PS> polygonChunks = new MassiveSet<>();
+			//floodFillTarget(allChunksSource, polygonChunks, somePs);
+			//List<PS> linelist = getLineList(polygonChunks);
+			List<PS> linelist = new MassiveList<>();
+			for (Direction d : Direction.values())
+			{
+				linelist.add(d.getCorner(somePs));
+			}
 
 			// Calc the x and y arrays
 			int sz = linelist.size();
