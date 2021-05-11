@@ -38,6 +38,7 @@ import com.massivecraft.factions.engine.EngineLastActivity;
 import com.massivecraft.factions.engine.EngineMotd;
 import com.massivecraft.factions.engine.EngineMoveChunk;
 import com.massivecraft.factions.engine.EnginePermBuild;
+import com.massivecraft.factions.engine.EnginePlayerDamage;
 import com.massivecraft.factions.engine.EnginePlayerData;
 import com.massivecraft.factions.engine.EnginePower;
 import com.massivecraft.factions.engine.EngineSeeChunk;
@@ -234,6 +235,7 @@ public class Factions extends MassivePlugin
 			EngineMotd.class,
 			EngineMoveChunk.class,
 			EnginePermBuild.class,
+			EnginePlayerDamage.class,
 			EnginePlayerData.class,
 			EnginePower.class,
 			EngineSeeChunk.class,
