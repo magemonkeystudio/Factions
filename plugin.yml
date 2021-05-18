@@ -24,6 +24,7 @@ permissions:
   factions.access.grant.circle: {description: grant access by circle and radius, default: false}
   factions.access.inspect: {description: inspect where someone has access, default: false}
   factions.access.view: {description: view access, default: false}
+  factions.autofly: {description: enable auto_fly mode, default: false}
   factions.override: {description: enable override mode, default: false}
   factions.basecommand: {description: use factions base command, default: false}
   factions.chunkname: {description: set chunk name, default: false}
@@ -162,6 +163,7 @@ permissions:
       factions.access.grant.circle: true
       factions.access.inspect: true
       factions.access.view: true
+      factions.autofly: true
       factions.override: true
       factions.basecommand: true
       factions.chunkname: true

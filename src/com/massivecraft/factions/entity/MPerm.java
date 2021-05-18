@@ -62,6 +62,7 @@ public class MPerm extends Entity<MPerm> implements Prioritized, Registerable, N
 	public final static transient String ID_DISBAND = "disband";
 	public final static transient String ID_FLAGS = "flags";
 	public final static transient String ID_PERMS = "perms";
+	public final static transient String ID_FLY = "fly";
 
 	public final static transient int PRIORITY_BUILD = 1000;
 	public final static transient int PRIORITY_PAINBUILD = 2000;
@@ -91,6 +92,7 @@ public class MPerm extends Entity<MPerm> implements Prioritized, Registerable, N
 	public final static transient int PRIORITY_DISBAND = 21000;
 	public final static transient int PRIORITY_FLAGS = 22000;
 	public final static transient int PRIORITY_PERMS = 23000;
+	public final static transient int PRIORITY_FLY = 24000;
 	
 	// -------------------------------------------- //
 	// META: CORE
@@ -144,6 +146,7 @@ public class MPerm extends Entity<MPerm> implements Prioritized, Registerable, N
 		getPermDisband();
 		getPermFlags();
 		getPermPerms();
+		getPermFly();
 	}
 	
 	public static MPerm getPermBuild() { return getCreative(PRIORITY_BUILD, ID_BUILD, ID_BUILD, "edit the terrain", true, true, true); }
@@ -174,6 +177,7 @@ public class MPerm extends Entity<MPerm> implements Prioritized, Registerable, N
 	public static MPerm getPermDisband() { return getCreative(PRIORITY_DISBAND, ID_DISBAND, ID_DISBAND, "disband the faction", false, true, true); }
 	public static MPerm getPermFlags() { return getCreative(PRIORITY_FLAGS, ID_FLAGS, ID_FLAGS, "manage flags", false, true, true); }
 	public static MPerm getPermPerms() { return getCreative(PRIORITY_PERMS, ID_PERMS, ID_PERMS, "manage permissions", false, true, true); }
+	public static MPerm getPermFly() { return getCreative(PRIORITY_FLY, ID_FLY, ID_FLY, "manage fly", false, true, true); }
 	
 	public static MPerm getCreative(int priority, String id, String name, String desc, boolean territory, boolean editable, boolean visible)
 	{

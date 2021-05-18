@@ -35,7 +35,8 @@ public class MConf extends Entity<MConf>
 	// -------------------------------------------- //
 
 	protected static transient MConf i;
-	public static MConf get() { return i; }
+	public static MConf get() {
+	    return i; }
 	
 	// -------------------------------------------- //
 	// OVERRIDE: ENTITY
@@ -588,7 +589,8 @@ public class MConf extends Entity<MConf>
 		MPerm.ID_REL, MUtil.set("LEADER", "OFFICER"),
 		MPerm.ID_DISBAND, MUtil.set("LEADER"),
 		MPerm.ID_FLAGS, MUtil.set("LEADER"),
-		MPerm.ID_PERMS, MUtil.set("LEADER")
+		MPerm.ID_PERMS, MUtil.set("LEADER"),
+		MPerm.ID_FLY, MUtil.set("LEADER", "OFFICER", "MEMBER", "RECRUIT", "ALLY")
 	);
 	
 	// -------------------------------------------- //

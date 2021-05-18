@@ -55,5 +55,4 @@ public class CmdFactionsFly extends MassiveCommandToggle
 		mplayer.setFlying(value);
 		EngineMassiveCorePlayerUpdate.update(player, false);
 	}
-
 }

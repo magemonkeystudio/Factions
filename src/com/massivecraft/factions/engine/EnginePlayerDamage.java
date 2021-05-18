@@ -8,7 +8,6 @@ import com.massivecraft.factions.entity.MPlayer;
 import com.massivecraft.factions.entity.MPlayerColl;
 import com.massivecraft.massivecore.Engine;
 import com.massivecraft.massivecore.ps.PS;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -29,8 +28,7 @@ public class EnginePlayerDamage extends Engine
 	// MANAGE PLAYER DAMAGE / IMMORTAL FLAG
 	// -------------------------------------------- //
 
-    //	@EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
-	@EventHandler(priority = EventPriority.HIGHEST)
+    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
 	public void onEntityDamaged(EntityDamageEvent event)
 	{
 	        if (!(event.getEntity() instanceof Player))

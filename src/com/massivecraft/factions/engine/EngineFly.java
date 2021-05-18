@@ -11,11 +11,13 @@ import com.massivecraft.factions.entity.MPerm;
 import com.massivecraft.factions.entity.MPlayer;
 import com.massivecraft.factions.event.EventFactionsFlagChange;
 import com.massivecraft.massivecore.Engine;
+import com.massivecraft.massivecore.engine.EngineMassiveCorePlayerUpdate;
 import com.massivecraft.massivecore.MassiveException;
 import com.massivecraft.massivecore.event.EventMassiveCorePlayerUpdate;
 import com.massivecraft.massivecore.ps.PS;
 import com.massivecraft.massivecore.store.DriverFlatfile;
 import com.massivecraft.massivecore.util.MUtil;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -54,16 +56,42 @@ public class EngineFly extends Engine
 		MPlayer mplayer = MPlayer.get(player);
 
 		// ... and the player enables flying ...
-		if (!mplayer.isFlying()) return;
+		if (mplayer.isFlying())
+		{
+			// ... and the player can't fly here...
+			if (!canFlyInTerritory(mplayer, PS.valueOf(player)))
+			{
+				event.setAllowed(false);
 
-		// ... and the player can fly here...
-		if (!canFlyInTerritory(mplayer, PS.valueOf(player))) return;
+				mplayer.setFlying(false);
+				deactivateForPlayer(player);
 
-		// ... set allowed ...
-		event.setAllowed(true);
-		
-		// ... set speed ...
-		event.setFlySpeed(MConf.get().flySpeed);
+				return;
+			}
+
+			// ... set allowed ...
+			event.setAllowed(true);
+		    
+			// ... set speed ...
+			event.setFlySpeed(MConf.get().flySpeed);
+		}
+		else
+		{
+			// ... and the player can fly here...
+			if (canFlyInTerritory(mplayer, PS.valueOf(player)) && Perm.AUTOFLY.has(mplayer.getSender()))
+			{
+			        // Bukkit.getServer().getLogger().info("Event : " + player.getName() + ": [AUTOFLY]");
+
+				mplayer.setFlying(true);
+				EngineMassiveCorePlayerUpdate.update(player, false);
+
+				// ... set allowed ...
+				event.setAllowed(true);
+		    
+				// ... set speed ...
+				event.setFlySpeed(MConf.get().flySpeed);
+			}
+		}
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
@@ -155,22 +183,23 @@ public class EngineFly extends Engine
 
 		Faction faction = mplayer.getFaction();
 		Faction locationFaction = BoardColl.get().getFactionAt(ps.getChunk(true));
-
-		if (faction != locationFaction)
+		
+		// If the location faction doesn't allows the player to fly...
+		if (!MPerm.getPermFly().has(mplayer, locationFaction, false))
 		{
-			throw new MassiveException().addMsg("<b>You can only fly within your own faction.");
+			throw new MassiveException().addMsg("<b>You are not allowed to fly within " + locationFaction.getName() + " faction.");
 		}
-
+		
 		// If the faction does not have the flag ...
-		if (!faction.getFlag(MFlag.getFlagFly()))
+		if (!locationFaction.getFlag(MFlag.getFlagFly()))
 		{
 			MFlag flag = MFlag.getFlagFly();
 			MassiveException ex = new MassiveException()
-				.addMsg("<b>Flying requires that the <h>%s <b>flag is enabled for your faction.", flag.getName());
+			    .addMsg("<b>Flying requires that the <h>%s <b>flag is enabled for " + locationFaction.getName() + " faction.", flag.getName());
 
 			// ... but they can change ...
 			if (flag.isEditable()) {
-				boolean canEdit = MPerm.getPermFlags().has(mplayer, faction, false);
+				boolean canEdit = MPerm.getPermFlags().has(mplayer, locationFaction, false);
 				// ... and the player can edit it themselves ...
 				if (canEdit) {
 					// ... tell them to edit.
