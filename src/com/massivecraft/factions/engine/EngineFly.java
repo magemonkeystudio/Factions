@@ -2,6 +2,7 @@ package com.massivecraft.factions.engine;
 
 import com.massivecraft.factions.Perm;
 import com.massivecraft.factions.cmd.CmdFactions;
+import com.massivecraft.factions.integration.worldguard.EngineWorldGuard;
 import com.massivecraft.factions.entity.BoardColl;
 import com.massivecraft.factions.entity.Faction;
 import com.massivecraft.factions.entity.MConf;
@@ -189,8 +190,8 @@ public class EngineFly extends Engine
 		{
 			throw new MassiveException().addMsg("<b>You are not allowed to fly within " + locationFaction.getName() + " faction.");
 		}
-		
-		// If the faction does not have the flag ...
+
+		// If the location faction does not have the flag ...
 		if (!locationFaction.getFlag(MFlag.getFlagFly()))
 		{
 			MFlag flag = MFlag.getFlagFly();
@@ -207,7 +208,8 @@ public class EngineFly extends Engine
 					ex.addMessage(CmdFactions.get().cmdFactionsFlag.cmdFactionsFlagSet.getTemplate(false, true, mplayer.getSender()));
 				}
 				// ... otherwise ...
-				else {
+				else
+				{
 					// .. tell them to have someone else edit it ...
 					ex.addMsg("<i>You can ask a faction admin to change the flag.");
 				}
@@ -244,6 +246,12 @@ public class EngineFly extends Engine
 				}
 			}
 			throw ex;
+		}
+		
+		// If the WorldGuard Region doesn't allows the player to fly...
+		if (!EngineWorldGuard.isFlyAllowed(mplayer))
+		{
+			throw new MassiveException().addMsg("<b>You are not allowed to fly within this WorldGuard region.");
 		}
 	}
 

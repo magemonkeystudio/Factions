@@ -6,15 +6,22 @@ import com.massivecraft.factions.entity.MPlayer;
 import com.massivecraft.factions.event.EventFactionsChunksChange;
 import com.massivecraft.massivecore.Engine;
 import com.massivecraft.massivecore.ps.PS;
+import com.sk89q.worldedit.bukkit.BukkitAdapter;
 import com.sk89q.worldedit.bukkit.BukkitWorld;
 import com.sk89q.worldedit.math.BlockVector3;
 import com.sk89q.worldguard.LocalPlayer;
 import com.sk89q.worldguard.WorldGuard;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
+import com.sk89q.worldguard.protection.ApplicableRegionSet;
+import com.sk89q.worldguard.protection.flags.Flags;
+import com.sk89q.worldguard.protection.flags.StateFlag;
 import com.sk89q.worldguard.protection.managers.RegionManager;
 import com.sk89q.worldguard.protection.regions.GlobalProtectedRegion;
 import com.sk89q.worldguard.protection.regions.ProtectedCuboidRegion;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
+import com.sk89q.worldguard.protection.regions.RegionContainer;
+import com.sk89q.worldguard.protection.regions.RegionQuery;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -61,7 +68,7 @@ public class EngineWorldGuard extends Engine
 		// Only do this for players 
 		if (player == null) return;
 		
-		LocalPlayer wrapperPlayer = WorldGuardPlugin.inst()	.wrapPlayer(player);
+		LocalPlayer wrapperPlayer = WorldGuardPlugin.inst().wrapPlayer(player);
 		
 		if ( ! MConf.get().worldguardCheckWorldsEnabled.contains(player)) return;
 
@@ -123,5 +130,25 @@ public class EngineWorldGuard extends Engine
 			
 		return overlapRegions;
 	}
-	
+
+
+
+        public static boolean isFlyAllowed(MPlayer mplayer)
+        {	        
+		// Skip checks if the configuration has worldguardCheckEnabled disabled
+	        if ( ! MConf.get().worldguardCheckEnabled) return(true);
+
+		LocalPlayer wrapperPlayer = WorldGuardPlugin.inst().wrapPlayer(mplayer.getPlayer());
+		RegionQuery query = WorldGuard.getInstance().getPlatform().getRegionContainer().createQuery();
+		ApplicableRegionSet set = query.getApplicableRegions(BukkitAdapter.adapt(mplayer.getPlayer().getLocation()));
+		
+		if( set.queryState( wrapperPlayer, net.goldtreeservers.worldguardextraflags.flags.Flags.FLY) == StateFlag.State.DENY)
+		{
+		        return(false);
+	        }
+		else
+		{
+		        return(true);
+		}
+	}
 }
