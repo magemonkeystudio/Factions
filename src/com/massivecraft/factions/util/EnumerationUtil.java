@@ -22,7 +22,39 @@ public class EnumerationUtil
 		"LECTERN", // Minecraft 1.14
 		"BEEHIVE", // Minecraft 1.15
 		"BEE_NEST", // Minecraft 1.5
-		"FLOWER_POT" // Minecraft 1.?
+		"FLOWER_POT", // Minecraft 1.?
+
+		// The various flower pots, they had to make each one a different material -.-
+		"POTTED_ACACIA_SAPLING", // Minecraft 1.13
+		"POTTED_ALLIUM", // Minecraft 1.13
+		"POTTED_AZURE_BLUET", // Minecraft 1.13
+		"POTTED_BAMBOO", // Minecraft 1.13
+		"POTTED_BIRCH_SAPLING", // Minecraft 1.13
+		"POTTED_BLUE_ORCHID", // Minecraft 1.13
+		"POTTED_BROWN_MUSHROOM", // Minecraft 1.13
+		"POTTED_CACTUS", // Minecraft 1.13
+		"POTTED_CACTUS", // Minecraft 1.13
+		"POTTED_CORNFLOWER", // Minecraft 1.13
+		"POTTED_DANDELION", // Minecraft 1.13
+		"POTTED_DARK_OAK_SAPLING", // Minecraft 1.13
+		"POTTED_DEAD_BUSH", // Minecraft 1.13
+		"POTTED_FERN", // Minecraft 1.13
+		"POTTED_JUNGLE_SAPLING", // Minecraft 1.13
+		"POTTED_LILY_OF_THE_VALLEY", // Minecraft 1.13
+		"POTTED_OAK_SAPLING", // Minecraft 1.13
+		"POTTED_ORANGE_TULIP", // Minecraft 1.13
+		"POTTED_OXEYE_DAISY", // Minecraft 1.13
+		"POTTED_PINK_TULIP", // Minecraft 1.13
+		"POTTED_POPPY", // Minecraft 1.13
+		"POTTED_RED_MUSHROOM", // Minecraft 1.13
+		"POTTED_RED_TULIP", // Minecraft 1.13
+		"POTTED_SPRUCE_SAPLING", // Minecraft 1.13
+		"POTTED_WHITE_TULIP", // Minecraft 1.13
+		"POTTED_WITHER_ROSE", // Minecraft 1.13
+		"POTTED_CRIMSON_FUNGUS", // Minecraft 1.16
+		"POTTED_CRIMSON_ROOTS", // Minecraft 1.16
+		"POTTED_WARPED_FUNGUS", // Minecraft 1.16
+		"POTTED_WARPED_ROOTS" // Minecraft 1.16
 	);
 	
 	public static boolean isMaterialEditOnInteract(Material material)
@@ -54,7 +86,8 @@ public class EnumerationUtil
 		"TRAPPED_CHEST", // Minecraft 1.?
 		"SIGN", // Minecraft 1.?
 		"WOOD_DOOR", // Minecraft 1.?
-		"IRON_DOOR" // Minecraft 1.?
+		"IRON_DOOR", // Minecraft 1.?
+		"BONE_MEAL" // Minecraft 1.?
 	);
 	
 	public static boolean isMaterialEditTool(Material material)
@@ -73,7 +106,7 @@ public class EnumerationUtil
 		"OAK_FENCE_GATE",
 		"ACACIA_DOOR",
 		"ACACIA_TRAPDOOR",
-		"AKACIA_FENCE_GATE",
+		"ACACIA_FENCE_GATE",
 		"BIRCH_DOOR",
 		"BIRCH_TRAPDOOR",
 		"BIRCH_FENCE_GATE",
@@ -85,7 +118,15 @@ public class EnumerationUtil
 		"JUNGLE_FENCE_GATE",
 		"SPRUCE_DOOR",
 		"SPRUCE_TRAPDOOR",
-		"SPRUCE_FENCE_GATE"
+		"SPRUCE_FENCE_GATE",
+
+		// Minecraft 1.16
+		"CRIMSON_DOOR",
+		"CRIMSON_TRAPDOOR",
+		"CRIMSON_FENCE_GATE",
+		"WARPED_DOOR",
+		"WARPED_TRAPDOOR",
+		"WARPED_FENCE_GATE"
 	);
 	
 	public static boolean isMaterialDoor(Material material)
@@ -113,6 +154,8 @@ public class EnumerationUtil
 		"DROPPER",
 		"BARREL", // Minecraft 1.14
 		"BLAST_FURNACE", // Minecraft 1.14
+		"SMOKER", // 1.14
+		"RESPAWN_ANCHOR", // 1.16
 		
 		// The various shulker boxes, they had to make each one a different material -.-
 		"SHULKER_BOX",
@@ -225,7 +268,9 @@ public class EnumerationUtil
 		"DROWNED", // Minecraft 1.13
 		"PILLAGER", // Minecraft 1.14
 		"RAVAGER", // Minercraft 1.14
-		"ZOMBIFIED_PIGLIN" // Minecraft 1.16 (rename of PIG_ZOMBIE)
+		"ZOMBIFIED_PIGLIN", // Minecraft 1.16 (rename of PIG_ZOMBIE)
+		"HOGLIN", // Minecraft 1.16
+		"ZOGLIN" // 1.16
 	);
 	
 	public static boolean isEntityTypeMonster(EntityType entityType)
@@ -264,7 +309,8 @@ public class EnumerationUtil
 		"FOX", // Minecraft 1.14
 		"PANDA", // Minecraft 1.14
 		"LLAMA", // Minecraft 1.14
-		"LLAMA_SPIT" // Minecraft 1.14
+		"LLAMA_SPIT", // Minecraft 1.14
+		"STRIDER" // Minecraft 1.16
 	);
 	
 	public static boolean isEntityTypeAnimal(EntityType entityType)
