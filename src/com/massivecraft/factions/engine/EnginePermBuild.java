@@ -26,7 +26,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.block.BlockDamageEvent;
 import org.bukkit.event.block.BlockFromToEvent;
 import org.bukkit.event.block.BlockPistonExtendEvent;
 import org.bukkit.event.block.BlockPistonRetractEvent;
@@ -138,9 +137,6 @@ public class EnginePermBuild extends Engine
 
 	@EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
 	public void build(BlockBreakEvent event) { build(event.getPlayer(), event.getBlock(), event); }
-
-	@EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
-	public void build(BlockDamageEvent event) { build(event.getPlayer(), event.getBlock(), event); }
 
 	@EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
 	public void build(SignChangeEvent event) { build(event.getPlayer(), event.getBlock(), event); }
